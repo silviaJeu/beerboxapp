@@ -75,10 +75,18 @@ beerboxApp.controller('MainCtrl', [
 		
 }]);
 
+beerboxApp.controller('RecipeCtrl', [
+	'$scope',
+	function($scope){
+		
+	}		
+]);
+
 beerboxApp.config([
 	'$stateProvider',
 	'$urlRouterProvider',
 	function($stateProvider, $urlRouterProvider) {
+		
 		$stateProvider
 			.state('fermentables', {
 				url: '/fermentables',
@@ -90,7 +98,19 @@ beerboxApp.config([
 					}]
 				}
 			});
-			
-		$urlRouterProvider.otherwise('fermentables');
+		
+		$stateProvider
+			.state('home', {
+				url: '/home',
+				templateUrl: '/home.html',
+				controller: 'MainCtrl'
+			});
+		$stateProvider
+			.state('recipe', {
+				url: '/recipe',
+				templateUrl: '/recipe.html',
+				controller: 'RecipeCtrl'
+			});					
+		$urlRouterProvider.otherwise('home');
 	}
 ]);
