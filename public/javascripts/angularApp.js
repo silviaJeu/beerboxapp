@@ -1,7 +1,11 @@
 'use strict';
 
 // Declare app level module which depends on views, and components
-var beerboxApp = angular.module('beerboxApp', ['ui.router','beerboxFilters','angularGrid','angularModalService']);
+var beerboxApp = angular.module('beerboxApp', ['ui.router','beerboxFilters','angularGrid','angularModalService','xeditable']);
+
+beerboxApp.run(function(editableOptions) {
+  editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
+});
 
 // service
 beerboxApp.factory('malts', ['$http', function($http){
@@ -28,6 +32,7 @@ beerboxApp.controller('MaltCtrl', [
 	'close',
 	function($scope, malts, $element, close){
 		$scope.itemselected = [];
+		$scope.tempselected = [];
 	  $scope.malts = malts.malts;
 		$scope.optionsType = [
 		  "Base Malt",
@@ -59,14 +64,22 @@ beerboxApp.controller('MaltCtrl', [
 			$scope.pg = '',
 			$scope.mash	= ''			
 		};
-		
+				
 		$scope.add = function(item) {
-			var i = $scope.itemselected.indexOf(item.name);
+			$scope.inserted = {
+				id: $scope.itemselected.length+1,
+				name: item.name,
+				quantity: "0",
+				percent: null 
+			};
+			$scope.itemselected.push($scope.inserted);
+				
+			var i = $scope.tempselected.indexOf(item.name);
 			if(i < 0)
-				$scope.itemselected.push(item.name);		
+				$scope.tempselected.push(item.name);		
 			else
-				$scope.itemselected.splice(i,item.name.length);		
-		}	
+				$scope.tempselected.splice(i,item.name.length);		
+		};	
 		
   //  This close function doesn't need to use jQuery or bootstrap, because
   //  the button has the 'data-dismiss' attribute.
@@ -118,7 +131,7 @@ beerboxApp.controller('RecipeCtrl', [
 		
 		$scope.showComplex = function() {
 			ModalService.showModal({
-				templateUrl: "/fermentables.html",
+				templateUrl: "/app/views/fermentables.html",
 				controller: "MaltCtrl",
 				inputs: {
 					title: "Fermentabili"
@@ -129,8 +142,45 @@ beerboxApp.controller('RecipeCtrl', [
 					$scope.fermentablesList = $scope.extendDeep($scope.fermentablesList, result.itemselected);
 				});			
 			});
-		};			
+		};	
+	
 	}		
+]);
+
+beerboxApp.controller('TestCtrl', [
+	'$scope',
+	function($scope) {
+ $scope.users = [
+    {id: 1, name: 'awesome user1', status: "2"},
+    {id: 2, name: 'awesome user2', status: "1"},
+    {id: 3, name: 'awesome user3', status: "3"}
+  ]; 
+  $scope.checkName = function(data, id) {
+    if (id === 2 && data !== 'awesome') {
+      return "Username 2 should be `awesome`";
+    }
+  };	
+ $scope.saveUser = function(data, id) {
+			console.log("data: "+data+" id: "+id);
+  };
+
+  // remove user
+  $scope.removeUser = function(index) {
+    $scope.users.splice(index, 1);
+  };
+
+  // add user
+  $scope.addUser = function() {
+    $scope.inserted = {
+      id: $scope.users.length+1,
+      name: '',
+      status: null,
+      group: null 
+    };
+    $scope.users.push($scope.inserted);
+  };	
+		
+	}
 ]);
 
 beerboxApp.controller('ModalController', [
@@ -177,7 +227,7 @@ beerboxApp.config([
 		$stateProvider
 			.state('fermentables', {
 				url: '/fermentables',
-				templateUrl: '/fermentables.html',
+				templateUrl: '/app/views/fermentables.html',
 				controller: 'MaltCtrl',
 				resolve: {
 					postPromise: ['malts', function(malts){
@@ -202,7 +252,14 @@ beerboxApp.config([
 					return malts.getAll();
 					}]
 				}				
-			});					
+			});
+		$stateProvider
+			.state('test', {
+				url: '/test',
+				templateUrl: '/app/views/test.html',
+				controller: 'TestCtrl'
+			});			
+			
 		$urlRouterProvider.otherwise('home');
 	}
 ]);

@@ -1,0 +1,73 @@
+			<div class="modal fade">
+				<div class="modal-dialog modal-lg">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" ng-click="close()" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h4 class="modal-title">{{title}}</h4>
+						</div>
+						<div class="modal-body">		
+						<div class="container-fluid fermentables-page">
+						<h4>Add fermentables</h4>			
+						<form class="form-inline" ng-submit="addMalt()" style="margin-top:30px;">
+							<div class="form-group">
+								<input type="text" class="form-control" placeholder="Name" ng-model="name"></input>
+							</div>
+							<div class="form-group">
+								<select class="form-control" ng-model="type" ng-options="obj for obj in optionsType">
+									<option value="">-- Type --</option>
+								</select>
+							</div>				
+							<div class="form-group">
+								<input type="text" class="form-control" placeholder="Color" ng-model="srm"></input>
+							</div>
+							<div class="form-group">
+								<input type="text" class="form-control" placeholder="Potential SG" ng-model="pg"></input>
+							</div>
+							<div class="form-group">
+								<select class="form-control" ng-model="mash" ng-options="obj.id as obj.name for obj in mashType">
+									<option value="">-- Must Mash --</option>
+								</select>
+							</div>								
+							<button type="submit" class="btn btn-primary">Add</button>
+						</form>
+						<div class="form-group form-group-sm col-sm-2">
+						<input class="form-control" placeholder="Filter..." type="text" ng-model="query"/>
+						</div>
+						<br></br>
+						<!--div angular-grid="gridOptions" class="ag-fresh"></div-->
+
+						<div class="table-responsive">
+							<table class="table table-hover table-bordered" cellpadding="0" cellspacing="0" id="fermentables">
+								<thead>
+									<tr>
+										<th></th>
+										<th>Name</th>
+										<th>Type Malt</th>
+										<th>Color (SRM)</th>
+										<th>Potential SG</th>
+										<th>Must Mash</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="malt in malts | orderBy:'-type' | filter:query">
+										<td><!--button type="button" ng-click="add(item)" class="btn btn-primary">Add</button-->
+										<span ng-click="add(malt)" ng-class="{'glyphicon glyphicon-check' : tempselected.indexOf(malt.name) >= 0, 'glyphicon glyphicon-unchecked' : tempselected.indexOf(malt.name) < 0}" aria-hidden="true"></span>
+										</td>	
+										<td>{{malt.name}}</td>
+										<td>{{malt.type}}</th>
+										<td>{{malt.srm}}</td>
+										<td>{{malt.pg}}</td>			
+										<td>{{malt.mash | checkmark}}</td>
+									</tr>	
+								</tbody>
+							</table>			
+						</div>
+						</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" ng-click="close()" class="btn btn-primary" data-dismiss="modal">OK</button>
+							<button type="button" ng-click="cancel()" class="btn">Cancel</button>
+						</div>
+					</div>
+				</div>
+			</div>	
