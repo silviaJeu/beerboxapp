@@ -69,11 +69,10 @@ beerboxApp.controller('MaltCtrl', [
 			$scope.inserted = {
 				id: $scope.itemselected.length+1,
 				name: item.name,
-				quantity: "0",
+				quantity: 0.500,
 				percent: null 
 			};
 			$scope.itemselected.push($scope.inserted);
-				
 			var i = $scope.tempselected.indexOf(item.name);
 			if(i < 0)
 				$scope.tempselected.push(item.name);		
@@ -110,22 +109,45 @@ beerboxApp.controller('RecipeCtrl', [
 	'$scope',
 	'ModalService',
 	function($scope,ModalService){
+		$scope.Math = window.Math;
+		$scope.Number = window.Number;
 		$scope.fermentablesList = [];		
-		//a solution that handels multiple objects merge
+    $scope.total = function() {
+        var total = 0;
+        angular.forEach($scope.fermentablesList, function(item) {
+            total += item.quantity;
+        })
+        return total;
+    };
+    
+		$scope.percent = function(qt) {
+        var total = $scope.total();
+				var val = (100 * qt) / total;
+				var percent = Number(Math.round(val+'e2')+'e-2');
+        return percent;
+    };
+
+    $scope.removeMalt = function(index) {
+        $scope.fermentablesList.splice(index, 1);
+    };		
 		
 		$scope.extendDeep = function extendDeep(dst) {
 			var l = dst.length;
 			angular.forEach(arguments, function(obj) {
 				if (obj !== dst) {
 					angular.forEach(obj, function(value, key) {
+						//console.log("value: "+value.name);
+						//console.log("key: "+key);
 						if (dst[key] && dst[key].constructor && dst[key].constructor === Object) {
-							extendDeep(dst[key], value);
+							//extendDeep(dst[key], value);
+							dst[key+l] = value
 						} else {
 							dst[key+l] = value;
 						}     
 					});   
 				}
 			});
+			//$scope.$apply();
 			return dst;
 		};
 		

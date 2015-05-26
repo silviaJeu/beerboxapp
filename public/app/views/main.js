@@ -1,3 +1,0 @@
-function ciao(){
-	alert("ciao");
-}

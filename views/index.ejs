@@ -13,7 +13,6 @@
 		<script src="/javascripts/filters.js"></script>
 		<script src="/javascripts/angularApp.js"></script>
 		<script src="/javascripts/angularGrid.min.js"></script>
-		<script src="/app/views/main.js"></script>
 		<script src="/bower_components/angular-modal-service/dst/angular-modal-service.min.js"></script>		
 		<script src="/bower_components/angular-xeditable/dist/js/xeditable.js"></script>		
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -37,7 +36,6 @@
 		</script>
 		<script type="text/ng-template" id="/recipe.html">
 			<h3>Nuova ricetta </h3>
-			<form>
 				<div class="form-group">
 					<input type="text" class="form-control" ng-model="recipeName" placeholder="Nome ricetta">
 				</div>
@@ -47,30 +45,33 @@
 						<thead>
 							<tr>
 								<th>Name</th>
-								<th>Quantity</th>
+								<th>Quantity (kg)</th>
 								<th>%</th>
 								<th>Edit</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr ng-repeat="item in fermentablesList">
-									<td>{{item.name}}
-								</td>				
+								<td>{{item.name}}</td>				
 								<td>
-										<span>
-										{{ item.quantity || 'empty' }}
-										</span>									
+									<div class="col-xs-2">
+									<input type="number" ng:model="item.quantity" ng:required class="form-control input-mini">										
+									</div>
 								</td>
-								<td></td>
+								<td>{{ percent(item.quantity) }}</td>
 								<td style="white-space: nowrap">
-									<!-- form -->
+									<a href ng-click="removeMalt($index)" class="glyphicon glyphicon-remove-circle"></a>
 								</td>							
+							</tr>	
+							<tr class="totalrow">
+								<td>Total</td>
+								<td>{{total()}}</td>
+								<td></td> 
+								<td></td> 
 							</tr>	
 						</tbody>
 					</table>
-				<button class="btn btn-default" ng-click="addIngr()">Add row</button>
 				</div>					
-			</form>
 		</script>
 	</body>
 </html>
