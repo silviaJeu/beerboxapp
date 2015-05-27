@@ -1,0 +1,70 @@
+<h3>Nuova ricetta </h3>
+<div class="form-group">
+	<input type="text" class="form-control" ng-model="recipeName" placeholder="Nome ricetta">
+</div>
+<a href="" ng-click="showComplex()">Aggiungi Fermentabili </a>
+<div class="table-responsive">
+	<table ng-show="fermentablesList" class="ng-binding ng-hide table table-hover" cellpadding="0" cellspacing="0" id="fermentables">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Quantity (kg)</th>
+				<th>%</th>
+				<th>Edit</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="item in fermentablesList">
+				<td>{{item.name}}</td>				
+				<td>
+					<div class="col-xs-4">
+					<input type="number" ng:model="item.quantity" ng:required class="form-control input-mini">										
+					</div>
+				</td>
+				<td>{{ percent(item.quantity) }}</td>
+				<td style="white-space: nowrap">
+					<a href ng-click="removeMalt($index)" class="glyphicon glyphicon-remove-circle"></a>
+				</td>							
+			</tr>	
+			<tr class="totalrow">
+				<td>Total</td>
+				<td>{{total()}}</td>
+				<td></td> 
+				<td></td> 
+			</tr>	
+		</tbody>
+	</table>
+</div>	
+<a href="" ng-click="showHopModal()">Aggiungi Luppoli </a>
+<div class="table-responsive">
+	<table ng-show="hopsList" class="ng-binding ng-hide table table-hover" cellpadding="0" cellspacing="0" id="fermentables">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Quantity (gr)</th>
+				<th>Ibu</th>
+				<th>Edit</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="item in hopsList">
+				<td>{{item.name}}</td>				
+				<td>
+					<div class="col-xs-4">
+					<input type="number" ng:model="item.quantity" ng:required class="form-control input-mini">										
+					</div>
+				</td>
+				<td></td>
+				<td style="white-space: nowrap">
+					<a href ng-click="removeHop($index)" class="glyphicon glyphicon-remove-circle"></a>
+				</td>							
+			</tr>	
+			<tr class="totalrow">
+				<td>Total</td>
+				<td>{{totalHop()}}</td>
+				<td></td> 
+				<td></td> 
+			</tr>	
+		</tbody>
+	</table>
+</div>				

@@ -22,6 +22,25 @@ beerboxApp.factory('malts', ['$http', function($http){
 			o.malts.push(data);
 		});
 	};	
+	
+	return o;	
+}]);
+
+beerboxApp.factory('hops', ['$http', function($http){
+  var o = {
+		hops: []
+	};
+	o.getAll = function() {
+		return $http.get('/hops').success(function(data){
+      angular.copy(data, o.hops);
+    });
+  };
+	o.create = function(post) {
+		return $http.post('/hops', post).success(function(data){
+			o.hops.push(data);
+		});
+	};	
+	
 	return o;	
 }]);
 
@@ -105,19 +124,100 @@ beerboxApp.controller('MaltCtrl', [
 		
 }]);
 
+beerboxApp.controller('HopCtrl', [
+	'$scope',
+	'hops',
+	'$element',
+	'close',
+	function($scope, hops, $element, close){
+		$scope.itemselected = [];
+		$scope.tempselected = [];
+	  $scope.hops = hops.hops;
+		$scope.optionsType = [
+		  "Amaro",
+      "Aroma",
+      "Entrambi"
+		];
+
+		$scope.addHop = function(){
+			if(!$scope.name || $scope.name === '') { return; }
+			hops.create({
+				name: $scope.name,
+				type: $scope.type,
+				alfa: $scope.alfa,
+				origin: $scope.origin
+			}).then(function(){
+				$scope.gridOptions.api.onNewRows();
+			});
+			$scope.name = '',
+			$scope.type = '',
+			$scope.alfa = '',
+			$scope.origin = ''
+		};
+		
+		
+		$scope.add = function(item) {
+			$scope.inserted = {
+				id: $scope.itemselected.length+1,
+				name: item.name,
+				quantity: 100,
+				ibu: null 
+			};
+			$scope.itemselected.push($scope.inserted);
+			var i = $scope.tempselected.indexOf(item.name);
+			if(i < 0)
+				$scope.tempselected.push(item.name);		
+			else
+				$scope.tempselected.splice(i,item.name.length);		
+		};	
+		
+  //  This close function doesn't need to use jQuery or bootstrap, because
+  //  the button has the 'data-dismiss' attribute.
+  $scope.close = function(result) {
+ 	  close({
+      name: $scope.name,
+      age: $scope.age,
+			itemselected: $scope.itemselected
+    }, 500); // close, but give 500ms for bootstrap to animate
+  };
+
+  //  This cancel function must use the bootstrap, 'modal' function because
+  //  the doesn't have the 'data-dismiss' attribute.
+  $scope.cancel = function() {
+    //  Manually hide the modal.
+    $element.modal('hide');
+    
+    //  Now call close, returning control to the caller.
+    close({
+      name: $scope.name,
+      age: $scope.age
+    }, 500); // close, but give 500ms for bootstrap to animate
+  };		
+		
+}]);
+
 beerboxApp.controller('RecipeCtrl', [
 	'$scope',
 	'ModalService',
 	function($scope,ModalService){
 		$scope.Math = window.Math;
 		$scope.Number = window.Number;
-		$scope.fermentablesList = [];		
+		$scope.fermentablesList = [];
+		$scope.hopsList = [];		
     $scope.total = function() {
         var total = 0;
         angular.forEach($scope.fermentablesList, function(item) {
             total += item.quantity;
         })
         return total;
+    };
+		
+		$scope.totalHop = function() {
+        var totalHop = 0;
+        angular.forEach($scope.hopsList, function(item) {
+            totalHop += item.quantity;
+        })
+        return totalHop;
     };
     
 		$scope.percent = function(qt) {
@@ -129,7 +229,11 @@ beerboxApp.controller('RecipeCtrl', [
 
     $scope.removeMalt = function(index) {
         $scope.fermentablesList.splice(index, 1);
-    };		
+    };	
+		
+    $scope.removeHop = function(index) {
+        $scope.hopsList.splice(index, 1);
+    };			
 		
 		$scope.extendDeep = function extendDeep(dst) {
 			var l = dst.length;
@@ -165,44 +269,23 @@ beerboxApp.controller('RecipeCtrl', [
 				});			
 			});
 		};	
+		
+		$scope.showHopModal = function() {
+			ModalService.showModal({
+				templateUrl: "/app/views/hops.html",
+				controller: "HopCtrl",
+				inputs: {
+					title: "Luppoli"
+				}
+			}).then(function(modal) {
+				modal.element.modal();
+				modal.close.then(function(result) {
+					$scope.hopsList = $scope.extendDeep($scope.hopsList, result.itemselected);
+				});			
+			});
+		};			
 	
 	}		
-]);
-
-beerboxApp.controller('TestCtrl', [
-	'$scope',
-	function($scope) {
- $scope.users = [
-    {id: 1, name: 'awesome user1', status: "2"},
-    {id: 2, name: 'awesome user2', status: "1"},
-    {id: 3, name: 'awesome user3', status: "3"}
-  ]; 
-  $scope.checkName = function(data, id) {
-    if (id === 2 && data !== 'awesome') {
-      return "Username 2 should be `awesome`";
-    }
-  };	
- $scope.saveUser = function(data, id) {
-			console.log("data: "+data+" id: "+id);
-  };
-
-  // remove user
-  $scope.removeUser = function(index) {
-    $scope.users.splice(index, 1);
-  };
-
-  // add user
-  $scope.addUser = function() {
-    $scope.inserted = {
-      id: $scope.users.length+1,
-      name: '',
-      status: null,
-      group: null 
-    };
-    $scope.users.push($scope.inserted);
-  };	
-		
-	}
 ]);
 
 beerboxApp.controller('ModalController', [
@@ -257,6 +340,18 @@ beerboxApp.config([
 					}]
 				}
 			});
+		$stateProvider
+			.state('hops', {
+				url: '/hops',
+				templateUrl: '/app/views/hops.html',
+				controller: 'HopCtrl'
+				,
+				resolve: {
+					postPromise: ['hops', function(hops){
+					return hops.getAll();
+					}]
+				}
+			});			
 		
 		$stateProvider
 			.state('home', {
@@ -267,20 +362,15 @@ beerboxApp.config([
 		$stateProvider
 			.state('recipe', {
 				url: '/recipe',
-				templateUrl: '/recipe.html',
+				templateUrl: '/app/views/recipe.html',
 				controller: 'RecipeCtrl',
 				resolve: {
-					postPromise: ['malts', function(malts){
-					return malts.getAll();
+					postPromise: ['malts','hops', function(malts, hops){
+						malts = malts.getAll();
+						hops = hops.getAll();
 					}]
 				}				
-			});
-		$stateProvider
-			.state('test', {
-				url: '/test',
-				templateUrl: '/app/views/test.html',
-				controller: 'TestCtrl'
-			});			
+			});		
 			
 		$urlRouterProvider.otherwise('home');
 	}

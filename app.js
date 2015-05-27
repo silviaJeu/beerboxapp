@@ -63,4 +63,5 @@ module.exports = app;
 
 var mongoose = require('mongoose');
 require('./models/Malt');
+require('./models/Hop');
 mongoose.connect('mongodb://localhost/homebrew');

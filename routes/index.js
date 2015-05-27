@@ -56,3 +56,23 @@ router.delete('/malts', function(req, res, next) {
   });
 });
 
+var Hop = require('./../models/Hop.js');
+Hop = mongoose.model('Hop');
+
+router.get('/hops', function(req, res, next) {
+  Hop.find(function(err, hops){
+    if(err){ return next(err); }
+
+    res.json(hops);
+  });
+});
+
+router.post('/hops', function(req, res, next) {
+  var hop = new Hop(req.body);
+
+  hop.save(function(err, hop){
+    if(err){ return next(err); }
+
+    res.json(hop);
+  });
+});
