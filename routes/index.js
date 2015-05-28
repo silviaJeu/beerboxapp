@@ -76,3 +76,24 @@ router.post('/hops', function(req, res, next) {
     res.json(hop);
   });
 });
+
+var Yeast = require('./../models/Yeast.js');
+Yeast = mongoose.model('Yeast');
+
+router.get('/yeasts', function(req, res, next) {
+  Yeast.find(function(err, yeasts){
+    if(err){ return next(err); }
+
+    res.json(yeasts);
+  });
+});
+
+router.post('/yeasts', function(req, res, next) {
+  var yeast = new Yeast(req.body);
+
+  yeast.save(function(err, yeast){
+    if(err){ return next(err); }
+
+    res.json(yeast);
+  });
+});

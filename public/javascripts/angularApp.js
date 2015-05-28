@@ -44,6 +44,23 @@ beerboxApp.factory('hops', ['$http', function($http){
 	return o;	
 }]);
 
+beerboxApp.factory('yeasts', ['$http', function($http){
+  var o = {
+		yeasts: []
+	};
+	o.getAll = function() {
+		return $http.get('/yeasts').success(function(data){
+      angular.copy(data, o.yeasts);
+    });
+  };
+	o.create = function(post) {
+		return $http.post('/yeasts', post).success(function(data){
+			o.yeasts.push(data);
+		});
+	};	
+	
+	return o;	
+}]);
 beerboxApp.controller('MaltCtrl', [
 	'$scope',
 	'malts',
@@ -196,6 +213,84 @@ beerboxApp.controller('HopCtrl', [
 		
 }]);
 
+beerboxApp.controller('YeastCtrl', [
+	'$scope',
+	'yeasts',
+	'$element',
+	'close',
+	function($scope, yeasts, $element, close){
+		$scope.itemselected = [];
+		$scope.tempselected = [];
+	  $scope.yeasts = yeasts.yeasts;
+		$scope.optionsType = [
+		  "Ale",
+      "Lager"
+		];
+		$scope.formatType = [
+		  "Liquido",
+      "Secco"
+		];
+		
+
+		$scope.addYeast = function(){
+			if(!$scope.name || $scope.name === '') { return; }
+			yeasts.create({
+				name: $scope.name,
+				type: $scope.type,
+				lab: $scope.lab,
+				prodId: $scope.prodId,
+				form: $scope.form
+			}).then(function(){
+				$scope.gridOptions.api.onNewRows();
+			});
+			$scope.name = '',
+			$scope.type = '',
+			$scope.lab = '',
+			$scope.prodId = '',
+			$scope.form = ''
+		};	
+		
+		$scope.add = function(item) {
+			$scope.inserted = {
+				id: $scope.itemselected.length+1,
+				name: item.name,
+				prodId: item.prodId,
+				form: item.form,
+				type: item.type 
+			};
+			$scope.itemselected.push($scope.inserted);
+			var i = $scope.tempselected.indexOf(item.name);
+			if(i < 0)
+				$scope.tempselected.push(item.name);		
+			else
+				$scope.tempselected.splice(i,item.name.length);		
+		};	
+		
+  //  This close function doesn't need to use jQuery or bootstrap, because
+  //  the button has the 'data-dismiss' attribute.
+  $scope.close = function(result) {
+ 	  close({
+      name: $scope.name,
+      age: $scope.age,
+			itemselected: $scope.itemselected
+    }, 500); // close, but give 500ms for bootstrap to animate
+  };
+
+  //  This cancel function must use the bootstrap, 'modal' function because
+  //  the doesn't have the 'data-dismiss' attribute.
+  $scope.cancel = function() {
+    //  Manually hide the modal.
+    $element.modal('hide');
+    
+    //  Now call close, returning control to the caller.
+    close({
+      name: $scope.name,
+      age: $scope.age
+    }, 500); // close, but give 500ms for bootstrap to animate
+  };		
+		
+}]);
+
 beerboxApp.controller('RecipeCtrl', [
 	'$scope',
 	'ModalService',
@@ -203,7 +298,20 @@ beerboxApp.controller('RecipeCtrl', [
 		$scope.Math = window.Math;
 		$scope.Number = window.Number;
 		$scope.fermentablesList = [];
-		$scope.hopsList = [];		
+		$scope.hopsList = [];	
+		$scope.yeastsList = [];			
+		$scope.hopFormatType = [
+		  "Pellet",
+      "Plug",
+      "Coni"
+		];		
+		$scope.hopStepType = [
+		  "Boil",
+      "Dry Hop",
+      "Mash",
+			"First Wort",
+			"Whirlpool"
+		];		
     $scope.total = function() {
         var total = 0;
         angular.forEach($scope.fermentablesList, function(item) {
@@ -284,6 +392,21 @@ beerboxApp.controller('RecipeCtrl', [
 				});			
 			});
 		};			
+
+		$scope.showYeastModal = function() {
+			ModalService.showModal({
+				templateUrl: "/app/views/yeast.html",
+				controller: "YeastCtrl",
+				inputs: {
+					title: "Lievito"
+				}
+			}).then(function(modal) {
+				modal.element.modal();
+				modal.close.then(function(result) {
+					$scope.yeastsList = $scope.extendDeep($scope.yeastsList, result.itemselected);
+				});			
+			});
+		};			
 	
 	}		
 ]);
@@ -352,6 +475,18 @@ beerboxApp.config([
 					}]
 				}
 			});			
+		$stateProvider
+			.state('yeast', {
+				url: '/yeast',
+				templateUrl: '/app/views/yeast.html',
+				controller: 'YeastCtrl'
+				,
+				resolve: {
+					postPromise: ['yeasts', function(yeasts){
+					return yeasts.getAll();
+					}]
+				}
+			});				
 		
 		$stateProvider
 			.state('home', {
@@ -365,9 +500,10 @@ beerboxApp.config([
 				templateUrl: '/app/views/recipe.html',
 				controller: 'RecipeCtrl',
 				resolve: {
-					postPromise: ['malts','hops', function(malts, hops){
+					postPromise: ['malts','hops', 'yeasts',function(malts, hops, yeasts){
 						malts = malts.getAll();
 						hops = hops.getAll();
+						yeasts = yeasts.getAll();
 					}]
 				}				
 			});		

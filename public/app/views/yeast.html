@@ -1,0 +1,71 @@
+			<div class="modal fade">
+				<div class="modal-dialog modal-lg">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" ng-click="close()" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h4 class="modal-title">{{title}}</h4>
+						</div>
+						<div class="modal-body">		
+						<div class="container-fluid fermentables-page">
+						<h4>Aggiungi lievito</h4>			
+						<form class="form-inline" ng-submit="addYeast()" style="margin-top:30px;">
+							<div class="form-group">
+								<input type="text" class="form-control" placeholder="Nome" ng-model="name"></input>
+							</div>
+							<div class="form-group">
+								<input type="text" class="form-control" placeholder="Laboratorio" ng-model="lab"></input>
+							</div>
+							<div class="form-group">
+								<input type="text" class="form-control" placeholder="Id Prodotto" ng-model="prodId"></input>
+							</div>
+							<div class="form-group">
+								<select class="form-control" ng-model="type" ng-options="obj for obj in optionsType">
+									<option value="">-- Tipo --</option>
+								</select>
+							</div>				
+							<div class="form-group">
+								<select class="form-control" ng-model="format" ng-options="obj for obj in formatType">
+									<option value="">-- Formato --</option>
+								</select>
+							</div>											
+							<button type="submit" class="btn btn-primary">Aggiungi</button>
+						</form>
+						<div class="form-group form-group-sm col-sm-2">
+						<input class="form-control" placeholder="Filtra..." type="text" ng-model="query"/>
+						</div>
+						<br></br>
+						<div class="table-responsive">
+							<table class="table table-hover table-bordered" cellpadding="0" cellspacing="0" id="yeasts">
+								<thead>
+									<tr>
+										<th></th>
+										<th>Nome</th>
+										<th>Laboratorio</th>
+										<th>Id Prodotto</th>
+										<th>Tipo</th>
+										<th>Formato</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="yeast in yeasts | orderBy:'-name' :!reverse| filter:query">
+										<td>
+											<span ng-click="add(yeast)" ng-class="{'glyphicon glyphicon-check' : tempselected.indexOf(yeast.name) >= 0, 'glyphicon glyphicon-unchecked' : tempselected.indexOf(yeast.name) < 0}" aria-hidden="true"></span>
+										</td>	
+										<td>{{yeast.name}}</td>
+										<td>{{yeast.lab}}</th>
+										<td>{{yeast.productId}}</td>
+										<td>{{yeast.type}}</td>			
+										<td>{{yeast.format}}</td>			
+									</tr>	
+								</tbody>
+							</table>			
+						</div>
+						</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" ng-click="close()" class="btn btn-primary" data-dismiss="modal">OK</button>
+							<button type="button" ng-click="cancel()" class="btn">Cancella</button>
+						</div>
+					</div>
+				</div>
+			</div>	

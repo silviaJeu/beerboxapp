@@ -8,7 +8,7 @@
 		<thead>
 			<tr>
 				<th>Name</th>
-				<th>Quantity (kg)</th>
+				<th>Quantità(kg)</th>
 				<th>%</th>
 				<th>Edit</th>
 			</tr>
@@ -41,14 +41,30 @@
 		<thead>
 			<tr>
 				<th>Name</th>
-				<th>Quantity (gr)</th>
+				<th>Formato</th>
+				<th>Min</th>
+				<th>Step</th>
+				<th>Quantità(gr)</th>
 				<th>Ibu</th>
 				<th>Edit</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr ng-repeat="item in hopsList">
-				<td>{{item.name}}</td>				
+				<td>{{item.name}}</td>
+				<td>
+					<select class="form-control" ng-model="item.formatType" ng-options="obj for obj in hopFormatType">
+						<option value="">Formato</option>
+					</select>
+				</td>
+				<td>
+					<input type="number" ng:model="item.minutes" ng:required class="form-control input-mini">
+				</td>
+				<td>
+					<select class="form-control" ng-model="item.step" ng-options="o for o in hopStepType">
+						<option value="">Step</option>
+					</select>				
+				</td>
 				<td>
 					<div class="col-xs-4">
 					<input type="number" ng:model="item.quantity" ng:required class="form-control input-mini">										
@@ -61,10 +77,14 @@
 			</tr>	
 			<tr class="totalrow">
 				<td>Total</td>
+				<td></td>
+				<td></td>
+				<td></td>
 				<td>{{totalHop()}}</td>
 				<td></td> 
 				<td></td> 
 			</tr>	
 		</tbody>
 	</table>
+	<a href="" ng-click="showYeastModal()">Aggiungi Lievito </a>	
 </div>				
