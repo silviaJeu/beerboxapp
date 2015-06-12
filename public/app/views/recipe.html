@@ -1,7 +1,56 @@
 <h3>Nuova ricetta </h3>
-<div class="form-group">
-	<input type="text" class="form-control" ng-model="recipeName" placeholder="Nome ricetta">
+<div class="recipe-header">
+<div class="box-form info">
+	<form class="form-horizontal">
+		<div class="form-group">
+			<label for="recipeName" class="col-sm-2 control-label">Nome</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control" ng:model="recipe.name" id="recipename" placeholder="Nome">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="recipeType" class="col-sm-2 control-label">Tipo</label>
+			<div class="col-sm-10">
+				<select class="form-control" ng:model="recipe.type" ng-options="obj for obj in recipeType">
+					<option value="">Tipo ricetta</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="recipeStyle" class="col-sm-2 control-label">Stile</label>
+			<div class="col-sm-10">
+				<select class="form-control" ng:model="recipe.style" ng-options="obj for obj in recipeStyle">
+					<option value="">Stile</option>
+				</select>
+			</div>
+		</div>		
+	</form>	
 </div>
+<div class="box-form batch">
+	<form class="form-horizontal">
+		<div class="form-group">
+			<label for="recipeName" class="col-sm-3 control-label">Litri finali</label>
+			<div class="col-sm-9">
+				<input type="number" class="form-control" ng:model="recipe.size" id="recipesize" placeholder="Litri">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="recipeName" class="col-sm-3 control-label">Litri pre-boil</label>
+			<div class="col-sm-9">
+				<input type="number" class="form-control" ng:model="recipe.preboilsize" id="recipepbsize" placeholder="Litri Pre-boil">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="recipeName" class="col-sm-3 control-label">Efficienza</label>
+			<div class="input-group col-sm-9">
+				<input type="text" class="form-control" ng:model="recipe.size" id="recipesize" placeholder="Efficienza">
+				<div class="input-group-addon">%</div>
+			</div>
+		</div>
+	</form>	
+</div>
+</div>
+<div class="ingredients-list">
 <a href="" ng-click="showComplex()">Aggiungi Fermentabili </a>
 <div class="table-responsive">
 	<table ng-show="fermentablesList" class="ng-binding ng-hide table table-hover" cellpadding="0" cellspacing="0" id="fermentables">
@@ -45,12 +94,13 @@
 				<th>Min</th>
 				<th>Step</th>
 				<th>Quantità(gr)</th>
+				<th>AA</th>
 				<th>Ibu</th>
 				<th>Edit</th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr ng-repeat="item in hopsList">
+			<tr ng-repeat="item in hopsList | orderBy:'-minutes'">
 				<td>{{item.name}}</td>
 				<td>
 					<select class="form-control" ng-model="item.formatType" ng-options="obj for obj in hopFormatType">
@@ -70,6 +120,11 @@
 					<input type="number" ng:model="item.quantity" ng:required class="form-control input-mini">										
 					</div>
 				</td>
+				<td>
+					<div class="col-xs-4">
+					<input type="number" ng:model="item.alfa" ng:required class="form-control input-mini">										
+					</div>
+				</td>
 				<td></td>
 				<td style="white-space: nowrap">
 					<a href ng-click="removeHop($index)" class="glyphicon glyphicon-remove-circle"></a>
@@ -86,5 +141,36 @@
 			</tr>	
 		</tbody>
 	</table>
+	</div>	
 	<a href="" ng-click="showYeastModal()">Aggiungi Lievito </a>	
-</div>				
+	<div class="table-responsive">
+	<table ng-show="yeastsList" class="ng-binding ng-hide table table-hover" cellpadding="0" cellspacing="0" id="yeast">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Quantità(gr)</th>
+				<th>Edit</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="item in yeastsList">
+				<td>{{item.name}} {{item.prodId}} {{item.form}}</td>
+				<td>
+					<div class="col-xs-4">
+					<input type="number" ng:model="item.quantity" ng:required class="form-control input-mini">										
+					</div>
+				</td>
+				<td style="white-space: nowrap">
+					<a href ng-click="removeYeast($index)" class="glyphicon glyphicon-remove-circle"></a>
+				</td>							
+			</tr>	
+			<tr class="totalrow">
+				<td>Total</td>
+				<td>{{totalYeast()}}</td>
+				<td></td> 
+			</tr>	
+		</tbody>
+	</table>
+	</div>	
+</div>		
+				

@@ -18,3 +18,60 @@ a {
 .table .totalrow {
 	font-size: 16px;
 }
+
+.recipe-header {
+	display: table;
+	margin-bottom: 30px;
+	margin-top: 30px;
+}
+.box-form  {
+	margin-right: 0;
+	margin-left: 0;
+	background-color: #fff;
+	border-color: #ddd;
+	border-width: 1px;
+	border-radius: 4px 4px 0 0;
+	position: relative;
+	padding: 45px 15px 15px;
+	margin: 0 -15px 15px;
+	border-style: solid;
+	width: 45%;
+	float: left;
+}
+
+.box-form.batch {
+	float: right;
+}
+
+.box-form.batch .form-horizontal .form-group .input-group {
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+.box-form.info:after {
+	position: absolute;
+	top: 15px;
+	left: 15px;
+	font-size: 12px;
+	font-weight: 700;
+	color: #959595;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	content: "Informazioni generali";
+}
+
+.box-form.batch:after {
+	position: absolute;
+	top: 15px;
+	left: 15px;
+	font-size: 12px;
+	font-weight: 700;
+	color: #959595;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	content: "Informazioni batch";
+}
+
+.box-form .form-horizontal .control-label {
+	text-align: left;
+}

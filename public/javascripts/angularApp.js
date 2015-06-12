@@ -108,12 +108,16 @@ beerboxApp.controller('MaltCtrl', [
 				quantity: 0.500,
 				percent: null 
 			};
-			$scope.itemselected.push($scope.inserted);
+			//$scope.itemselected.push($scope.inserted);
 			var i = $scope.tempselected.indexOf(item.name);
-			if(i < 0)
+			if(i < 0){
 				$scope.tempselected.push(item.name);		
-			else
+				$scope.itemselected.push($scope.inserted);
+			}
+			else {
 				$scope.tempselected.splice(i,item.name.length);		
+				$scope.itemselected.splice(i,item.name.length);	
+			}	
 		};	
 		
   //  This close function doesn't need to use jQuery or bootstrap, because
@@ -178,14 +182,19 @@ beerboxApp.controller('HopCtrl', [
 				id: $scope.itemselected.length+1,
 				name: item.name,
 				quantity: 100,
-				ibu: null 
+				alfa: item.alfa,
+				ibu: null,
+				minutes: 60				
 			};
-			$scope.itemselected.push($scope.inserted);
 			var i = $scope.tempselected.indexOf(item.name);
-			if(i < 0)
+			if(i < 0) {
 				$scope.tempselected.push(item.name);		
-			else
+				$scope.itemselected.push($scope.inserted);
+			}
+			else {
 				$scope.tempselected.splice(i,item.name.length);		
+				$scope.itemselected.splice(i,item.name.length);
+			}
 		};	
 		
   //  This close function doesn't need to use jQuery or bootstrap, because
@@ -239,7 +248,9 @@ beerboxApp.controller('YeastCtrl', [
 				type: $scope.type,
 				lab: $scope.lab,
 				prodId: $scope.prodId,
-				form: $scope.form
+				form: $scope.form,
+				tempRange: $scope.tempRange,
+				attenuation: $scope.attenuation
 			}).then(function(){
 				$scope.gridOptions.api.onNewRows();
 			});
@@ -247,7 +258,9 @@ beerboxApp.controller('YeastCtrl', [
 			$scope.type = '',
 			$scope.lab = '',
 			$scope.prodId = '',
-			$scope.form = ''
+			$scope.form = '',
+			$scope.tempRange = '',
+			$scope.attenuation = ''
 		};	
 		
 		$scope.add = function(item) {
@@ -256,14 +269,20 @@ beerboxApp.controller('YeastCtrl', [
 				name: item.name,
 				prodId: item.prodId,
 				form: item.form,
-				type: item.type 
+				type: item.type,
+				lab: item.lab,	
+				tempRange: item.tempRange, 
+				attenuation: item.attenuation 
 			};
-			$scope.itemselected.push($scope.inserted);
 			var i = $scope.tempselected.indexOf(item.name);
-			if(i < 0)
+			if(i < 0) {
 				$scope.tempselected.push(item.name);		
-			else
+				$scope.itemselected.push($scope.inserted);
+			}
+			else {
 				$scope.tempselected.splice(i,item.name.length);		
+				$scope.itemselected.splice(i,item.name.length);		
+			}
 		};	
 		
   //  This close function doesn't need to use jQuery or bootstrap, because
@@ -297,6 +316,18 @@ beerboxApp.controller('RecipeCtrl', [
 	function($scope,ModalService){
 		$scope.Math = window.Math;
 		$scope.Number = window.Number;
+		$scope.recipeType = [
+			"All grain",
+			"Estratto +  grani",
+			"Partial Mash"
+		];
+		$scope.recipeStyle = [
+			"American Pale Ale",
+			"American IPA",
+			"German Pils",
+			"Robust Porter",
+			"Dry Stout"
+		];		
 		$scope.fermentablesList = [];
 		$scope.hopsList = [];	
 		$scope.yeastsList = [];			
@@ -327,6 +358,14 @@ beerboxApp.controller('RecipeCtrl', [
         })
         return totalHop;
     };
+		
+		$scope.totalYeast = function() {
+        var totalYeast = 0;
+        angular.forEach($scope.yeastsList, function(item) {
+            totalYeast += item.quantity;
+        })
+        return totalYeast;
+    };
     
 		$scope.percent = function(qt) {
         var total = $scope.total();
@@ -341,6 +380,10 @@ beerboxApp.controller('RecipeCtrl', [
 		
     $scope.removeHop = function(index) {
         $scope.hopsList.splice(index, 1);
+    };
+		
+    $scope.removeYeast = function(index) {
+        $scope.yeastsList.splice(index, 1);
     };			
 		
 		$scope.extendDeep = function extendDeep(dst) {
