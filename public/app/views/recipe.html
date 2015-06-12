@@ -43,7 +43,7 @@
 		<div class="form-group">
 			<label for="recipeName" class="col-sm-3 control-label">Efficienza</label>
 			<div class="input-group col-sm-9">
-				<input type="text" class="form-control" ng:model="recipe.size" id="recipesize" placeholder="Efficienza">
+				<input type="text" class="form-control" ng:model="recipe.eff" id="recipeeff" placeholder="Efficienza">
 				<div class="input-group-addon">%</div>
 			</div>
 		</div>
@@ -63,7 +63,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr ng-repeat="item in fermentablesList">
+			<tr ng-repeat="item in fermentablesList | orderBy:'-quantity'">
 				<td>{{item.name}}</td>				
 				<td>
 					<div class="col-xs-4">
@@ -94,7 +94,7 @@
 				<th>Min</th>
 				<th>Step</th>
 				<th>Quantità(gr)</th>
-				<th>AA</th>
+				<th>AA%</th>
 				<th>Ibu</th>
 				<th>Edit</th>
 			</tr>
@@ -116,18 +116,18 @@
 					</select>				
 				</td>
 				<td>
-					<div class="col-xs-4">
 					<input type="number" ng:model="item.quantity" ng:required class="form-control input-mini">										
-					</div>
 				</td>
 				<td>
-					<div class="col-xs-4">
 					<input type="number" ng:model="item.alfa" ng:required class="form-control input-mini">										
-					</div>
 				</td>
-				<td></td>
+				<td>
+					<input type="number" ng:model="item.ibu" ng:required class="form-control input-mini">										
+				</td>
 				<td style="white-space: nowrap">
 					<a href ng-click="removeHop($index)" class="glyphicon glyphicon-remove-circle"></a>
+					<a href ng-click="copy($index,'hop')" class="glyphicon glyphicon-plus-sign"></a>
+
 				</td>							
 			</tr>	
 			<tr class="totalrow">
@@ -136,6 +136,7 @@
 				<td></td>
 				<td></td>
 				<td>{{totalHop()}}</td>
+				<td></td> 
 				<td></td> 
 				<td></td> 
 			</tr>	

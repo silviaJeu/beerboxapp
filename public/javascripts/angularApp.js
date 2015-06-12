@@ -382,6 +382,26 @@ beerboxApp.controller('RecipeCtrl', [
         $scope.hopsList.splice(index, 1);
     };
 		
+		$scope.copy = function(index,type) {
+				console.log(index+" : "+type.indexOf("hop"));
+				if(type.indexOf("hop") == 0) {
+					console.log("index: "+$scope.hopsList[index]);
+					var item = $scope.hopsList[index];
+					var copy = {
+						id: $scope.hopsList.length+1,
+						name: item.name,
+						formatType: item.formatType,
+						step: item.step,
+						quantity: item.quantity,
+						alfa: item.alfa,
+						ibu: item.ibu,
+						minutes: item.minutes				
+					};					
+					$scope.hopsList.push(copy);
+				}
+					
+    };
+		
     $scope.removeYeast = function(index) {
         $scope.yeastsList.splice(index, 1);
     };			
