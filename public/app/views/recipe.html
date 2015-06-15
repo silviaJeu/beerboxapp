@@ -31,7 +31,7 @@
 		<div class="form-group">
 			<label for="recipeName" class="col-sm-3 control-label">Litri finali</label>
 			<div class="col-sm-9">
-				<input type="number" class="form-control" ng:model="recipe.size" id="recipesize" placeholder="Litri">
+				<input type="number" class="form-control" ng:model="recipeSize" id="recipesize" placeholder="Litri">
 			</div>
 		</div>
 		<div class="form-group">
@@ -43,7 +43,7 @@
 		<div class="form-group">
 			<label for="recipeName" class="col-sm-3 control-label">Efficienza</label>
 			<div class="input-group col-sm-9">
-				<input type="text" class="form-control" ng:model="recipe.eff" id="recipeeff" placeholder="Efficienza">
+				<input type="text" class="form-control" ng:model="recipeEff" id="recipeeff" placeholder="Efficienza">
 				<div class="input-group-addon">%</div>
 			</div>
 		</div>
@@ -59,6 +59,7 @@
 				<th>Name</th>
 				<th>Quantità(kg)</th>
 				<th>%</th>
+				<th>Og</th>
 				<th>Edit</th>
 			</tr>
 		</thead>
@@ -66,11 +67,10 @@
 			<tr ng-repeat="item in fermentablesList | orderBy:'-quantity'">
 				<td>{{item.name}}</td>				
 				<td>
-					<div class="col-xs-4">
 					<input type="number" ng:model="item.quantity" ng:required class="form-control input-mini">										
-					</div>
 				</td>
 				<td>{{ percent(item.quantity) }}</td>
+				<td>{{ calculateOg(item) }}</td>
 				<td style="white-space: nowrap">
 					<a href ng-click="removeMalt($index)" class="glyphicon glyphicon-remove-circle"></a>
 				</td>							
@@ -89,42 +89,46 @@
 	<table ng-show="hopsList" class="ng-binding ng-hide table table-hover" cellpadding="0" cellspacing="0" id="fermentables">
 		<thead>
 			<tr>
-				<th>Name</th>
-				<th>Formato</th>
-				<th>Min</th>
-				<th>Step</th>
-				<th>Quantità(gr)</th>
-				<th>AA%</th>
-				<th>Ibu</th>
-				<th>Edit</th>
+				<th class="col-sm-2">Name</th>
+				<th class="col-sm-2">Formato</th>
+				<th class="col-sm-1">Min</th>
+				<th class="col-sm-2">Step</th>
+				<th class="col-sm-2">Quantità(gr)</th>
+				<th class="col-sm-1">AA%</th>
+				<th class="col-sm-1">Ibu</th>
+				<th class="col-sm-1">Edit</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr ng-repeat="item in hopsList | orderBy:'-minutes'">
-				<td>{{item.name}}</td>
-				<td>
+				<td class="col-sm-2">{{item.name}}</td>
+				<td class="col-sm-2">
 					<select class="form-control" ng-model="item.formatType" ng-options="obj for obj in hopFormatType">
 						<option value="">Formato</option>
 					</select>
 				</td>
-				<td>
+				<td class="col-sm-1">
 					<input type="number" ng:model="item.minutes" ng:required class="form-control input-mini">
 				</td>
-				<td>
+				<td class="col-sm-2">
 					<select class="form-control" ng-model="item.step" ng-options="o for o in hopStepType">
 						<option value="">Step</option>
 					</select>				
 				</td>
-				<td>
+				<td class="col-sm-2">
 					<input type="number" ng:model="item.quantity" ng:required class="form-control input-mini">										
 				</td>
-				<td>
+				<td class="col-sm-1">
 					<input type="number" ng:model="item.alfa" ng:required class="form-control input-mini">										
 				</td>
-				<td>
-					<input type="number" ng:model="item.ibu" ng:required class="form-control input-mini">										
+				<!--td>
+					<!--input type="number" ng:model="item.ibu" value="{{calculateIbu(item)}}" readonly="" class="form-control input-mini">										
+					{{calculateIbu(item)}}
+				</td-->
+				<td class="col-sm-1" ng:model="item.ibu">
+					{{calculateIbu(item)}}
 				</td>
-				<td style="white-space: nowrap">
+				<td class="col-sm-1" style="white-space: nowrap">
 					<a href ng-click="removeHop($index)" class="glyphicon glyphicon-remove-circle"></a>
 					<a href ng-click="copy($index,'hop')" class="glyphicon glyphicon-plus-sign"></a>
 
@@ -137,7 +141,7 @@
 				<td></td>
 				<td>{{totalHop()}}</td>
 				<td></td> 
-				<td></td> 
+				<td>{{totalIbu()}}</td> 
 				<td></td> 
 			</tr>	
 		</tbody>

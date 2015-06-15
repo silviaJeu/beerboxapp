@@ -106,7 +106,8 @@ beerboxApp.controller('MaltCtrl', [
 				id: $scope.itemselected.length+1,
 				name: item.name,
 				quantity: 0.500,
-				percent: null 
+				percent: null,
+				pg: item.pg
 			};
 			//$scope.itemselected.push($scope.inserted);
 			var i = $scope.tempselected.indexOf(item.name);
@@ -183,7 +184,7 @@ beerboxApp.controller('HopCtrl', [
 				name: item.name,
 				quantity: 100,
 				alfa: item.alfa,
-				ibu: null,
+				ibu: 0,
 				minutes: 60				
 			};
 			var i = $scope.tempselected.indexOf(item.name);
@@ -314,6 +315,8 @@ beerboxApp.controller('RecipeCtrl', [
 	'$scope',
 	'ModalService',
 	function($scope,ModalService){
+		$scope.recipeSize = 25;
+		$scope.recipeEff = 75;
 		$scope.Math = window.Math;
 		$scope.Number = window.Number;
 		$scope.recipeType = [
@@ -358,6 +361,14 @@ beerboxApp.controller('RecipeCtrl', [
         })
         return totalHop;
     };
+		$scope.totalIbu = function() {
+        var totalIbu = 0;
+        angular.forEach($scope.hopsList, function(item) {
+						var u = getUtil(item.minutes);
+            totalIbu += calculateIbu(item.quantity,item.alfa,$scope.recipeSize,u);
+        })
+        return Number(Math.round(totalIbu+'e2')+'e-2');
+    };		
 		
 		$scope.totalYeast = function() {
         var totalYeast = 0;
@@ -373,7 +384,7 @@ beerboxApp.controller('RecipeCtrl', [
 				var percent = Number(Math.round(val+'e2')+'e-2');
         return percent;
     };
-
+		
     $scope.removeMalt = function(index) {
         $scope.fermentablesList.splice(index, 1);
     };	
@@ -405,6 +416,22 @@ beerboxApp.controller('RecipeCtrl', [
     $scope.removeYeast = function(index) {
         $scope.yeastsList.splice(index, 1);
     };			
+		
+		$scope.calculateIbu = function(item) {
+			var ibu = 0;
+			if(item.minutes != 0 && item.quantity != 0 && item.alfa != 0 && $scope.recipeSize != 0) {
+				var u = getUtil(item.minutes);
+				ibu = calculateIbu(item.quantity,item.alfa,$scope.recipeSize,u);
+			}
+			return ibu;
+		}
+		
+		$scope.calculateOg = function(item) {
+			var og = 0;
+			var pg = item.pg.substring(item.pg.length-2);
+			og = calculateOg($scope.recipeEff, item.quantity, pg);
+			return og;
+		}
 		
 		$scope.extendDeep = function extendDeep(dst) {
 			var l = dst.length;
