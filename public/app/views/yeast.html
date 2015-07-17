@@ -28,10 +28,16 @@
 									<option value="">-- Formato --</option>
 								</select>
 							</div>											
+							<div class="form-group">
+								<input type="text" class="form-control" placeholder="Range T°" ng-model="rangeId"></input>
+							</div>
+							<div class="form-group">
+								<input type="text" class="form-control" placeholder="Attenuazione" ng-model="attId"></input>
+							</div>
 							<button type="submit" class="btn btn-primary">Aggiungi</button>
 						</form>
-						<div class="form-group form-group-sm col-sm-2">
-						<input class="form-control" placeholder="Filtra..." type="text" ng-model="query"/>
+						<div class="form-group form-group-sm col-sm-2 filter">
+							<input class="form-control" placeholder="Filtra..." type="text" ng-model="query"/>
 						</div>
 						<br></br>
 						<div class="table-responsive">

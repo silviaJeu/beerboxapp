@@ -22,6 +22,7 @@ a {
 
 .recipe-header {
 	display: table;
+	width: 100%;
 	margin-bottom: 30px;
 	margin-top: 30px;
 }
@@ -38,6 +39,45 @@ a {
 	border-style: solid;
 	width: 45%;
 	float: left;
+}
+
+.box-results {
+	clear: both;
+}
+
+.tip-title {
+	cursor: help;
+	font-weight: bold;
+	color: #428bca;
+}
+
+.bb-bar {
+	height: 8px;
+	width: 100%;
+	margin-top: 8px;
+	border: 1px solid #ccc;
+	border-color: #fff #ccc #ccc #fff;
+	position: relative;
+	background-color: #f1f1f1;
+}
+
+.bb-bar-range {
+	background-color: #5E7D9C;
+	height: 100%;
+	position: absolute;
+}
+
+i.bb-bar-this {
+	color: #428bca;
+	display: block;
+	position: absolute;
+	top: -11px;
+	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9);
+	font-size: 24px;
+	margin-left: -8px;
+	padding-left: 1px;
+	padding-right: 1px;
+	transform: scale(0.7, 1.0);
 }
 
 .box-form.batch {
@@ -75,4 +115,8 @@ a {
 
 .box-form .form-horizontal .control-label {
 	text-align: left;
+}
+
+.modal-content .filter {
+	padding-left: 0;
 }
