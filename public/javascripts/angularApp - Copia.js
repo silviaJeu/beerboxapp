@@ -61,7 +61,257 @@ beerboxApp.factory('yeasts', ['$http', function($http){
 	
 	return o;	
 }]);
+beerboxApp.controller('MaltCtrl', [
+	'$scope',
+	'malts',
+	'$element',
+	'close',
+	function($scope, malts, $element, close){
+		$scope.itemselected = [];
+		$scope.tempselected = [];
+	  $scope.malts = malts.malts;
+		$scope.optionsType = [
+		  "Base Malt",
+      "Special Malt",
+      "Sugar",
+      "Dry Extract",
+			"Liquid Extract",
+			"Other Adjunct" 
+		];
+		$scope.mashType = [
+			{id : "true", name : "True"},
+			{id : "false", name : "False"}
+		];
 
+		$scope.addMalt = function(){
+			if(!$scope.name || $scope.name === '') { return; }
+			malts.create({
+				name: $scope.name,
+				type: $scope.type,
+				srm: $scope.srm,
+				pg: $scope.pg,
+				mash: $scope.mash				
+			}).then(function(){
+				$scope.gridOptions.api.onNewRows();
+			});
+			$scope.name = '',
+			$scope.type = '',
+			$scope.srm = '',
+			$scope.pg = '',
+			$scope.mash	= ''			
+		};
+				
+		$scope.add = function(item) {
+			$scope.inserted = {
+				id: $scope.itemselected.length+1,
+				name: item.name,
+				quantity: 0.500,
+				percent: null,
+				pg: item.pg,
+				og: null,
+				srm: item.srm
+			};
+			//$scope.itemselected.push($scope.inserted);
+			var i = $scope.tempselected.indexOf(item.name);
+			if(i < 0){
+				$scope.tempselected.push(item.name);		
+				$scope.itemselected.push($scope.inserted);
+			}
+			else {
+				$scope.tempselected.splice(i,item.name.length);		
+				$scope.itemselected.splice(i,item.name.length);	
+			}	
+		};	
+		
+  //  This close function doesn't need to use jQuery or bootstrap, because
+  //  the button has the 'data-dismiss' attribute.
+  $scope.close = function(result) {
+ 	  close({
+      name: $scope.name,
+      age: $scope.age,
+			itemselected: $scope.itemselected
+    }, 500); // close, but give 500ms for bootstrap to animate
+  };
+
+  //  This cancel function must use the bootstrap, 'modal' function because
+  //  the doesn't have the 'data-dismiss' attribute.
+  $scope.cancel = function() {
+    //  Manually hide the modal.
+    $element.modal('hide');
+    
+    //  Now call close, returning control to the caller.
+    close({
+      name: $scope.name,
+      age: $scope.age
+    }, 500); // close, but give 500ms for bootstrap to animate
+  };		
+		
+}]);
+
+beerboxApp.controller('HopCtrl', [
+	'$scope',
+	'hops',
+	'$element',
+	'close',
+	function($scope, hops, $element, close){
+		$scope.itemselected = [];
+		$scope.tempselected = [];
+	  $scope.hops = hops.hops;
+		$scope.optionsType = [
+		  "Amaro",
+      "Aroma",
+      "Entrambi"
+		];
+
+		$scope.addHop = function(){
+			if(!$scope.name || $scope.name === '') { return; }
+			hops.create({
+				name: $scope.name,
+				type: $scope.type,
+				alfa: $scope.alfa,
+				origin: $scope.origin
+			}).then(function(){
+				$scope.gridOptions.api.onNewRows();
+			});
+			$scope.name = '',
+			$scope.type = '',
+			$scope.alfa = '',
+			$scope.origin = ''
+		};
+		
+		
+		$scope.add = function(item) {
+			$scope.inserted = {
+				id: $scope.itemselected.length+1,
+				name: item.name,
+				quantity: 10,
+				alfa: item.alfa,
+				ibu: 0,
+				minutes: 60				
+			};
+			var i = $scope.tempselected.indexOf(item.name);
+			if(i < 0) {
+				$scope.tempselected.push(item.name);		
+				$scope.itemselected.push($scope.inserted);
+			}
+			else {
+				$scope.tempselected.splice(i,item.name.length);		
+				$scope.itemselected.splice(i,item.name.length);
+			}
+		};	
+		
+  //  This close function doesn't need to use jQuery or bootstrap, because
+  //  the button has the 'data-dismiss' attribute.
+  $scope.close = function(result) {
+ 	  close({
+      name: $scope.name,
+      age: $scope.age,
+			itemselected: $scope.itemselected
+    }, 500); // close, but give 500ms for bootstrap to animate
+  };
+
+  //  This cancel function must use the bootstrap, 'modal' function because
+  //  the doesn't have the 'data-dismiss' attribute.
+  $scope.cancel = function() {
+    //  Manually hide the modal.
+    $element.modal('hide');
+    
+    //  Now call close, returning control to the caller.
+    close({
+      name: $scope.name,
+      age: $scope.age
+    }, 500); // close, but give 500ms for bootstrap to animate
+  };		
+		
+}]);
+
+beerboxApp.controller('YeastCtrl', [
+	'$scope',
+	'yeasts',
+	'$element',
+	'close',
+	function($scope, yeasts, $element, close){
+		$scope.itemselected = [];
+		$scope.tempselected = [];
+	  $scope.yeasts = yeasts.yeasts;
+		$scope.optionsType = [
+		  "Ale",
+      "Lager"
+		];
+		$scope.formatType = [
+		  "Liquido",
+      "Secco"
+		];
+		
+
+		$scope.addYeast = function(){
+			if(!$scope.name || $scope.name === '') { return; }
+			yeasts.create({
+				name: $scope.name,
+				type: $scope.type,
+				lab: $scope.lab,
+				prodId: $scope.prodId,
+				form: $scope.form,
+				tempRange: $scope.tempRange,
+				attenuation: $scope.attenuation
+			}).then(function(){
+				$scope.gridOptions.api.onNewRows();
+			});
+			$scope.name = '',
+			$scope.type = '',
+			$scope.lab = '',
+			$scope.prodId = '',
+			$scope.form = '',
+			$scope.tempRange = '',
+			$scope.attenuation = ''
+		};	
+		
+		$scope.add = function(item) {
+			$scope.inserted = {
+				id: $scope.itemselected.length+1,
+				name: item.name,
+				prodId: item.prodId,
+				form: item.form,
+				type: item.type,
+				lab: item.lab,	
+				tempRange: item.tempRange, 
+				attenuation: item.attenuation 
+			};
+			var i = $scope.tempselected.indexOf(item.name);
+			if(i < 0) {
+				$scope.tempselected.push(item.name);		
+				$scope.itemselected.push($scope.inserted);
+			}
+			else {
+				$scope.tempselected.splice(i,item.name.length);		
+				$scope.itemselected.splice(i,item.name.length);		
+			}
+		};	
+		
+  //  This close function doesn't need to use jQuery or bootstrap, because
+  //  the button has the 'data-dismiss' attribute.
+  $scope.close = function(result) {
+ 	  close({
+      name: $scope.name,
+      age: $scope.age,
+			itemselected: $scope.itemselected
+    }, 500); // close, but give 500ms for bootstrap to animate
+  };
+
+  //  This cancel function must use the bootstrap, 'modal' function because
+  //  the doesn't have the 'data-dismiss' attribute.
+  $scope.cancel = function() {
+    //  Manually hide the modal.
+    $element.modal('hide');
+    
+    //  Now call close, returning control to the caller.
+    close({
+      name: $scope.name,
+      age: $scope.age
+    }, 500); // close, but give 500ms for bootstrap to animate
+  };		
+		
+}]);
 
 beerboxApp.controller('RecipeCtrl', [
 	'$scope',
@@ -119,10 +369,15 @@ beerboxApp.controller('RecipeCtrl', [
 				var tsrm = 0;
         angular.forEach($scope.fermentablesList, function(item) {
             total += item.og;
+						tsrm += item.srm;
+						console.log("item.srm: "+item.srm);
         })			
 				var pg = total * ($scope.recipeEff / 100);
 				var og = pg/ltToGal($scope.recipeSize);
 				$scope.og = Math.round(og) + 1000;
+				$scope.srm = tsrm;
+				console.log("srm: "+tsrm);
+				//console.log("og: "+og+"-"+Number(Math.round(og+'e2')+'e-2')+"-"+Math.round(og+'e2')+"-"+Math.round(og));
 				return $scope.og;
 		}
 				
@@ -178,6 +433,7 @@ beerboxApp.controller('RecipeCtrl', [
 			}
 			return rangeW;
 		}		
+
 		
 		$scope.totalHop = function() {
         var totalHop = 0;
@@ -187,11 +443,8 @@ beerboxApp.controller('RecipeCtrl', [
         return totalHop;
     };
 		$scope.totalSrm = function() {
-				var s = calculateSrm($scope.fermentablesList, $scope.recipeSize); 
-				$scope.srm = Number(Math.round(s+'e2')+'e-2');
-				return $scope.srm;
+        return $scope.srm;
     };		
-		
 		
 		$scope.totalIbu = function() {
         var totalIbu = 0;
@@ -205,28 +458,9 @@ beerboxApp.controller('RecipeCtrl', [
     };		
 		
 		$scope.srmPercent = function()	{
-			return Math.min(($scope.srm) * 2,50);
+			return Math.min(($scope.srm) * 2,120);
 		}
 		
-		$scope.srmRangeL = function()	{
-			var rangeL = "";
-			if($scope.style != undefined) {
-				var a = $scope.style.srm.split("–");
-				rangeL = Math.min(a[0] * 2,50);
-			}
-			return rangeL;
-		}
-		
-		$scope.srmRangeW = function()	{
-			var rangeW = "";
-			if($scope.style != undefined) {
-				var a = $scope.style.srm.split("–");
-				var l = a[0] * 2;
-				var r = a[1] * 2;
-				rangeW = r -l; 
-			}
-			return rangeW;
-		}		
 		$scope.totalYeast = function() {
         var totalYeast = 0;
         angular.forEach($scope.yeastsList, function(item) {
@@ -296,7 +530,10 @@ beerboxApp.controller('RecipeCtrl', [
 			angular.forEach(arguments, function(obj) {
 				if (obj !== dst) {
 					angular.forEach(obj, function(value, key) {
+						//console.log("value: "+value.name);
+						//console.log("key: "+key);
 						if (dst[key] && dst[key].constructor && dst[key].constructor === Object) {
+							//extendDeep(dst[key], value);
 							dst[key+l] = value
 						} else {
 							dst[key+l] = value;
@@ -355,6 +592,42 @@ beerboxApp.controller('RecipeCtrl', [
 	
 	}		
 ]);
+
+beerboxApp.controller('ModalController', [
+  '$scope', '$element', 'title', 'close',
+  function($scope, $element, title, close) {
+
+  $scope.name = null;
+  $scope.age = null;
+  $scope.title = title;
+  //$scope.maltlist = Ingredient.query({ingrId: 'fermentables'});
+	$scope.itemselected = [];
+	$scope.activeValue = null;
+  //  This close function doesn't need to use jQuery or bootstrap, because
+  //  the button has the 'data-dismiss' attribute.
+  $scope.close = function(result) {
+ 	  close({
+      name: $scope.name,
+      age: $scope.age,
+			itemselected: $scope.itemselected
+    }, 500); // close, but give 500ms for bootstrap to animate
+  };
+
+  //  This cancel function must use the bootstrap, 'modal' function because
+  //  the doesn't have the 'data-dismiss' attribute.
+  $scope.cancel = function() {
+    //  Manually hide the modal.
+    $element.modal('hide');
+    
+    //  Now call close, returning control to the caller.
+    close({
+      name: $scope.name,
+      age: $scope.age
+    }, 500); // close, but give 500ms for bootstrap to animate
+  };
+
+}]);
+
 
 beerboxApp.config([
 	'$stateProvider',

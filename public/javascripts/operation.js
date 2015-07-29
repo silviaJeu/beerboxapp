@@ -55,3 +55,25 @@ function ltToGal(lt) {
 	return lt * 0.26;
 }
 
+function calculateSrm(grains, lt) {
+	var gal = ltToGal(lt);
+	var mcutot = 0, mcu = 0, srm = 0;
+	angular.forEach(grains, function(item) {
+		//totalYeast += item.quantity;
+		var lb = kgToLbs(item.quantity);
+		mcu += item.srm * lb;
+	})	
+	mcutot = mcu / gal;
+	var p = Math.pow(mcutot, 0.6859) ;
+	srm = 1.4922 * p;
+	console.log("srm: "+srm);
+	return srm;
+}
+
+/*
+Est FG = (Gravity-1000)-((Gravity-1000)*Attenuation rate%)+1000
+*/
+
+function calculateFg(og, att) {
+	
+}

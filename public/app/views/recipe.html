@@ -69,11 +69,35 @@
 			<div class="col-md-2">{{ totalIbu() }}</div>		
 				<div class="col-md-8">
 					<div class="bb-bar" title="Style range: {{style.ibu}}">
-						<div class="bb-bar-range" style="width: 10%; left: 21.3%; transition: width 1s ease, left 1s ease; -webkit-transition: width 1s ease, left 1s ease;"></div>
-							<i class="bb-bar-this fa fa-caret-down" style="left: 0%; transition: width 1s ease, left 1s ease; -webkit-transition: width 1s ease, left 1s ease;"></i>
+						<div class="bb-bar-range" style="width: {{ibuRangeW() }}%; left: {{ibuRangeL() }}%; transition: width 1s ease, left 1s ease; -webkit-transition: width 1s ease, left 1s ease;"></div>
+							<i class="bb-bar-this fa fa-caret-down" style="left: {{ibupercent() }}%; transition: width 1s ease, left 1s ease; -webkit-transition: width 1s ease, left 1s ease;"></i>
 					</div>
 				</div>
 			</div>			
+		<div class="row">
+			<div class="col-md-1">
+				<span class="tip-title" tooltip="Standard Reference Method">SRM</span>
+			</div>
+			<div class="col-md-2">{{ totalSrm() }}</div>		
+				<div class="col-md-8">
+					<div class="bb-bar" title="Style range: {{style.srm}}">
+						<div class="bb-bar-range" style="width: {{srmRangeW() }}%; left: {{srmRangeL() }}%; transition: width 1s ease, left 1s ease; -webkit-transition: width 1s ease, left 1s ease;"></div>
+							<i class="bb-bar-this fa fa-caret-down" style="left: {{srmPercent() }}%; transition: width 1s ease, left 1s ease; -webkit-transition: width 1s ease, left 1s ease;"></i>
+					</div>
+				</div>
+			</div>			
+		<div class="row">
+			<div class="col-md-1">
+				<span class="tip-title" tooltip="Standard Reference Method">ABV</span>
+			</div>
+			<div class="col-md-2">{{ totalAbv() }}%</div>		
+				<div class="col-md-8">
+					<div class="bb-bar" title="Style range: {{style.abv}}">
+						<div class="bb-bar-range" style="width: {{abvRangeW() }}%; left: {{abvRangeL() }}%; transition: width 1s ease, left 1s ease; -webkit-transition: width 1s ease, left 1s ease;"></div>
+							<i class="bb-bar-this fa fa-caret-down" style="left: {{abvPercent() }}%; transition: width 1s ease, left 1s ease; -webkit-transition: width 1s ease, left 1s ease;"></i>
+					</div>
+				</div>
+			</div>						
 	</div>
 </div>
 <div class="ingredients-list">
@@ -158,7 +182,6 @@
 				<td class="col-sm-1" style="white-space: nowrap">
 					<a href ng-click="removeHop($index)" class="glyphicon glyphicon-remove-circle"></a>
 					<a href ng-click="copy($index,'hop')" class="glyphicon glyphicon-plus-sign"></a>
-
 				</td>							
 			</tr>	
 			<tr class="totalrow">
