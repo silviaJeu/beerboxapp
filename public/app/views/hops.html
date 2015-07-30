@@ -43,7 +43,8 @@
 								<tbody>
 									<tr ng-repeat="hop in hops | orderBy:'-name' :!reverse| filter:query">
 										<td>
-											<span ng-click="add(hop)" ng-class="{'glyphicon glyphicon-check' : tempselected.indexOf(hop.name) >= 0, 'glyphicon glyphicon-unchecked' : tempselected.indexOf(hop.name) < 0}" aria-hidden="true"></span>
+											<!--span ng-click="add(hop)" ng-class="{'glyphicon glyphicon-check' : tempselected.indexOf(hop.name) >= 0, 'glyphicon glyphicon-unchecked' : tempselected.indexOf(hop.name) < 0}" aria-hidden="true"></span-->
+											<md-checkbox class="hops-check" ng-checked="tempselected.indexOf(hop.name) >= 0" ng-click="add(hop)" aria-label="Hop"></md-checkbox>
 										</td>	
 										<td>{{hop.name}}</td>
 										<td>{{hop.origin}}</th>

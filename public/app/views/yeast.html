@@ -57,7 +57,8 @@
 								<tbody>
 									<tr ng-repeat="yeast in yeasts | orderBy:'-name' :!reverse| filter:query">
 										<td>
-											<span ng-click="add(yeast)" ng-class="{'glyphicon glyphicon-check' : tempselected.indexOf(yeast.name) >= 0, 'glyphicon glyphicon-unchecked' : tempselected.indexOf(yeast.name) < 0}" aria-hidden="true"></span>
+											<!--span ng-click="add(yeast)" ng-class="{'glyphicon glyphicon-check' : tempselected.indexOf(yeast.name) >= 0, 'glyphicon glyphicon-unchecked' : tempselected.indexOf(yeast.name) < 0}" aria-hidden="true"></span-->
+											<md-checkbox class="yeasts-check" ng-checked="tempselected.indexOf(yeast.name) >= 0" ng-click="add(yeast)" aria-label="Hop"></md-checkbox>
 										</td>	
 										<td>{{yeast.name}}</td>
 										<td>{{yeast.lab}}</th>

@@ -8,7 +8,6 @@
 -15% ->no schiuma in boil
 */
 function calculateIbu(gr, aa, lt,util) {
-	console.log("calculateIbu");
 	var ibu = (gr * aa * util)/ (10 * lt);
 	return ibu;
 }
@@ -66,7 +65,6 @@ function calculateSrm(grains, lt) {
 	mcutot = mcu / gal;
 	var p = Math.pow(mcutot, 0.6859) ;
 	srm = 1.4922 * p;
-	console.log("srm: "+srm);
 	return srm;
 }
 

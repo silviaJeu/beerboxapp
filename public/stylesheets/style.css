@@ -120,3 +120,15 @@ i.bb-bar-this {
 .modal-content .filter {
 	padding-left: 0;
 }
+
+md-checkbox.fermentables-check.md-default-theme.md-checked .md-icon{
+	background-color: #FB9902;
+}
+
+md-checkbox.hops-check.md-default-theme.md-checked .md-icon{
+	background-color: #63B76C;
+}
+
+md-checkbox.yeasts-check.md-default-theme.md-checked .md-icon{
+	background-color: #F653A6;
+}

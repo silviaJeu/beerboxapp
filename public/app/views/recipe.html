@@ -101,7 +101,11 @@
 	</div>
 </div>
 <div class="ingredients-list">
-<a href="" ng-click="showComplex()">Aggiungi Fermentabili</a>
+<md-button ng-click="showComplex()">
+  <md-icon md-svg-src="images/icons/launch.svg"></md-icon>
+  Fermentabili
+</md-button>
+<!--a href="" ng-click="showComplex()">Aggiungi Fermentabili</a-->
 <div class="table-responsive">
 	<table ng-show="fermentablesList" class="ng-binding ng-hide table table-hover" cellpadding="0" cellspacing="0" id="fermentables">
 		<thead>
@@ -135,7 +139,11 @@
 		</tbody>
 	</table>
 </div>	
-<a href="" ng-click="showHopModal()">Aggiungi Luppoli </a>
+<!--a href="" ng-click="showHopModal()">Aggiungi Luppoli </a-->
+<md-button ng-click="showHopModal()">
+  <md-icon md-svg-src="images/icons/launch.svg"></md-icon>
+  Luppoli
+</md-button>
 <div class="table-responsive">
 	<table ng-show="hopsList" class="ng-binding ng-hide table table-hover" cellpadding="0" cellspacing="0" id="fermentables">
 		<thead>
@@ -197,7 +205,11 @@
 		</tbody>
 	</table>
 	</div>	
-	<a href="" ng-click="showYeastModal()">Aggiungi Lievito </a>	
+	<!--a href="" ng-click="showYeastModal()">Aggiungi Lievito </a-->	
+	<md-button ng-click="showYeastModal()">
+		<md-icon md-svg-src="images/icons/launch.svg"></md-icon>
+		Lievito
+	</md-button>	
 	<div class="table-responsive">
 	<table ng-show="yeastsList" class="ng-binding ng-hide table table-hover" cellpadding="0" cellspacing="0" id="yeast">
 		<thead>
