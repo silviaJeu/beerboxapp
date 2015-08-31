@@ -24,17 +24,20 @@
 								</select>
 							</div>				
 							<div class="form-group">
-								<select class="form-control" ng-model="format" ng-options="obj for obj in formatType">
+								<select class="form-control" ng-model="form" ng-options="obj for obj in formatType">
 									<option value="">-- Formato --</option>
 								</select>
 							</div>											
 							<div class="form-group">
-								<input type="text" class="form-control" placeholder="Range T°" ng-model="rangeId"></input>
+								<input type="text" class="form-control" placeholder="Range T°" ng-model="rangeT"></input>
 							</div>
 							<div class="form-group">
-								<input type="text" class="form-control" placeholder="Attenuazione" ng-model="attId"></input>
+								<input type="text" class="form-control" placeholder="Attenuazione" ng-model="attenuation"></input>
 							</div>
-							<button type="submit" class="btn btn-primary">Aggiungi</button>
+							<div class="form-group">
+								<input type="number" class="form-control" placeholder="Quantità" ng-model="weight"></input>
+							</div>							
+							<md-button class="md-raised md-primary">Aggiungi</md-button>
 						</form>
 						<div class="form-group form-group-sm col-sm-2 filter">
 							<input class="form-control" placeholder="Filtra..." type="text" ng-model="query"/>
@@ -65,8 +68,8 @@
 										<td>{{yeast.prodId}}</td>
 										<td>{{yeast.type}}</td>			
 										<td>{{yeast.form}}</td>			
-										<td>{{yeast.tempRange}}</td>			
-										<td>{{yeast.attenuation}}</td>			
+										<td>{{yeast.rangeT}} °C</td>			
+										<td>{{yeast.attenuation}} %</td>			
 									</tr>	
 								</tbody>
 							</table>			
@@ -74,8 +77,8 @@
 						</div>
 						</div>
 						<div class="modal-footer">
-							<button type="button" ng-click="close()" class="btn btn-primary" data-dismiss="modal">OK</button>
-							<button type="button" ng-click="cancel()" class="btn">Cancella</button>
+							<md-button class="md-raised md-primary" ng-click="close()" data-dismiss="modal">OK</md-button>
+							<md-button class="md-raised" ng-click="cancel()">Cancella</md-button>
 						</div>
 					</div>
 				</div>

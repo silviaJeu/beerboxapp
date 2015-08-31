@@ -5,13 +5,13 @@
 			<div class="form-group">
 				<label for="recipeName" class="col-sm-2 control-label">Nome</label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control" ng:model="recipe.name" id="recipename" placeholder="Nome">
+					<input type="text" class="form-control" ng:model="name" id="recipename" placeholder="Nome">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="recipeType" class="col-sm-2 control-label">Tipo</label>
 				<div class="col-sm-10">
-					<select class="form-control" ng:model="recipe.type" ng-options="obj for obj in recipeType">
+					<select class="form-control" ng:model="type" ng-options="obj for obj in recipeType">
 						<option value="">Tipo ricetta</option>
 					</select>
 				</div>
@@ -24,6 +24,23 @@
 					</select>
 				</div>
 			</div>		
+			<!--div layout layout-sm="column">
+				<md-input-container flex>
+					<label>Nome Ricetta</label>
+					<input ng-model="recipe.name">
+				</md-input-container>
+			</div>
+			<div layout layout-sm="column">
+				<md-select class="box-form-select" placeholder="Tipo ricetta" ng-model="recipe.type">
+					<md-option ng-repeat="obj in recipeType" value="{{obj}}">{{obj}}</md-option>
+				</md-select>
+				<!--md-select class="box-form-select" placeholder="Stile" ng-model="style">
+					<md-option ng-repeat="obj in recipeStyle" value="obj">{{obj.name}}</md-option>
+				</md-select-->			
+					<!--select class="form-control" ng:model="style" ng-options="c.name for c in recipeStyle">
+						<option value="">Stile</option>
+					</select-->				
+			<!--/div-->
 		</form>	
 	</div>
 	<div class="box-form batch">
@@ -51,10 +68,10 @@
 	</div>
 	<div class="box-results col-md-5">
 		<div class="row">
-			<div class="col-md-1">
+			<div class="col-md-2">
 				<span class="tip-title" tooltip="Gravità iniziale">OG</span>
 			</div>
-			<div class="col-md-2">{{ showtotalOg() }}</div>		
+			<div class="col-md-2 data-results">{{ showtotalOg() }}</div>		
 				<div class="col-md-8">
 					<div class="bb-bar" title="Style range: {{style.og}}">
 						<div class="bb-bar-range" style="width: {{rangeW() }}%; left: {{rangeL() }}%; transition: width 1s ease, left 1s ease; -webkit-transition: width 1s ease, left 1s ease;"></div>
@@ -63,10 +80,10 @@
 				</div>
 		</div>
 		<div class="row">
-			<div class="col-md-1">
+			<div class="col-md-2">
 				<span class="tip-title" tooltip="International Bittering Units">IBU</span>
 			</div>
-			<div class="col-md-2">{{ totalIbu() }}</div>		
+			<div class="col-md-2 data-results">{{ totalIbu() }}</div>		
 				<div class="col-md-8">
 					<div class="bb-bar" title="Style range: {{style.ibu}}">
 						<div class="bb-bar-range" style="width: {{ibuRangeW() }}%; left: {{ibuRangeL() }}%; transition: width 1s ease, left 1s ease; -webkit-transition: width 1s ease, left 1s ease;"></div>
@@ -75,10 +92,10 @@
 				</div>
 			</div>			
 		<div class="row">
-			<div class="col-md-1">
+			<div class="col-md-2">
 				<span class="tip-title" tooltip="Standard Reference Method">SRM</span>
 			</div>
-			<div class="col-md-2">{{ totalSrm() }}</div>		
+			<div class="col-md-2 data-results">{{ totalSrm() }}</div>		
 				<div class="col-md-8">
 					<div class="bb-bar" title="Style range: {{style.srm}}">
 						<div class="bb-bar-range" style="width: {{srmRangeW() }}%; left: {{srmRangeL() }}%; transition: width 1s ease, left 1s ease; -webkit-transition: width 1s ease, left 1s ease;"></div>
@@ -87,21 +104,33 @@
 				</div>
 			</div>			
 		<div class="row">
-			<div class="col-md-1">
+			<div class="col-md-2">
 				<span class="tip-title" tooltip="Standard Reference Method">ABV</span>
 			</div>
-			<div class="col-md-2">{{ totalAbv() }}%</div>		
-				<div class="col-md-8">
-					<div class="bb-bar" title="Style range: {{style.abv}}">
-						<div class="bb-bar-range" style="width: {{abvRangeW() }}%; left: {{abvRangeL() }}%; transition: width 1s ease, left 1s ease; -webkit-transition: width 1s ease, left 1s ease;"></div>
-							<i class="bb-bar-this fa fa-caret-down" style="left: {{abvPercent() }}%; transition: width 1s ease, left 1s ease; -webkit-transition: width 1s ease, left 1s ease;"></i>
-					</div>
+			<div class="col-md-2 data-results">{{ totalAbv() }}%</div>		
+			<div class="col-md-8">
+				<div class="bb-bar" title="Style range: {{style.abv}}">
+					<div class="bb-bar-range" style="width: {{abvRangeW() }}%; left: {{abvRangeL() }}%; transition: width 1s ease, left 1s ease; -webkit-transition: width 1s ease, left 1s ease;"></div>
+						<i class="bb-bar-this fa fa-caret-down" style="left: {{abvPercent() }}%; transition: width 1s ease, left 1s ease; -webkit-transition: width 1s ease, left 1s ease;"></i>
 				</div>
-			</div>						
+			</div>
+		</div>						
+		<div class="row">
+			<div class="col-md-2">
+				<span class="tip-title" tooltip="Estimated Final Gravity">Est.FG</span>
+			</div>
+			<div class="col-md-2 data-results">{{ showEstFg() }}</div>		
+			<div class="col-md-8">
+				<div class="bb-bar" title="Style range: {{style.fg}}">
+					<div class="bb-bar-range" style="width: {{fgRangeW() }}%; left: {{fgRangeL() }}%; transition: width 1s ease, left 1s ease; -webkit-transition: width 1s ease, left 1s ease;"></div>
+						<i class="bb-bar-this fa fa-caret-down" style="left: {{fgPercent() }}%; transition: width 1s ease, left 1s ease; -webkit-transition: width 1s ease, left 1s ease;"></i>
+				</div>
+			</div>
+		</div>									
 	</div>
 </div>
 <div class="ingredients-list">
-<md-button ng-click="showComplex()">
+<md-button class="md-primary" ng-click="showComplex()">
   <md-icon md-svg-src="images/icons/launch.svg"></md-icon>
   Fermentabili
 </md-button>
@@ -110,22 +139,22 @@
 	<table ng-show="fermentablesList" class="ng-binding ng-hide table table-hover" cellpadding="0" cellspacing="0" id="fermentables">
 		<thead>
 			<tr>
-				<th>Name</th>
-				<th>Quantità(kg)</th>
-				<th>%</th>
-				<th>Og</th>
-				<th>Edit</th>
+				<th class="col-sm-3">Name</th>
+				<th class="col-sm-2">Quantità(kg)</th>
+				<th class="col-sm-2">%</th>
+				<th class="col-sm-3">Og</th>
+				<th class="col-sm-2">Edit</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr ng-repeat="item in fermentablesList | orderBy:'-quantity'">
-				<td>{{item.name}}</td>				
-				<td>
+				<td  class="col-sm-3">{{item.name}}</td>				
+				<td  class="col-sm-2">
 					<input type="number" ng:model="item.quantity" ng:required class="form-control input-mini">										
 				</td>
-				<td>{{ percent(item.quantity) }}</td>
-				<td ng:model="item.og">{{ calculateOg(item) }}</td>
-				<td style="white-space: nowrap">
+				<td  class="col-sm-2">{{ percent(item.quantity) }}</td>
+				<td  class="col-sm-3" ng:model="item.og">{{ calculateOg(item) }}</td>
+				<td  class="col-sm-2" style="white-space: nowrap">
 					<a href ng-click="removeMalt($index)" class="glyphicon glyphicon-remove-circle"></a>
 				</td>							
 			</tr>	
@@ -140,7 +169,7 @@
 	</table>
 </div>	
 <!--a href="" ng-click="showHopModal()">Aggiungi Luppoli </a-->
-<md-button ng-click="showHopModal()">
+<md-button class="md-primary" ng-click="showHopModal()">
   <md-icon md-svg-src="images/icons/launch.svg"></md-icon>
   Luppoli
 </md-button>
@@ -206,7 +235,7 @@
 	</table>
 	</div>	
 	<!--a href="" ng-click="showYeastModal()">Aggiungi Lievito </a-->	
-	<md-button ng-click="showYeastModal()">
+	<md-button class="md-primary" ng-click="showYeastModal()">
 		<md-icon md-svg-src="images/icons/launch.svg"></md-icon>
 		Lievito
 	</md-button>	
@@ -215,7 +244,7 @@
 		<thead>
 			<tr>
 				<th>Name</th>
-				<th>Quantità(gr)</th>
+				<th>Quantità</th>
 				<th>Edit</th>
 			</tr>
 		</thead>
@@ -224,7 +253,7 @@
 				<td>{{item.name}} {{item.prodId}} {{item.form}}</td>
 				<td>
 					<div class="col-xs-4">
-					<input type="number" ng:model="item.quantity" ng:required class="form-control input-mini">										
+					<input type="number" ng:model="item.weight" ng:required class="form-control input-mini">										
 					</div>
 				</td>
 				<td style="white-space: nowrap">
@@ -239,5 +268,6 @@
 		</tbody>
 	</table>
 	</div>	
+	<md-button ng-disabled="{{checkDisabled()}}" class="md-raised md-primary">Salva ricetta</md-button>
 </div>		
 				

@@ -182,8 +182,8 @@ beerboxApp.controller('YeastCtrl', [
       "Secco"
 		];
 		
-
 		$scope.addYeast = function(){
+			alert($scope.rangeT);
 			if(!$scope.name || $scope.name === '') { return; }
 			yeasts.create({
 				name: $scope.name,
@@ -191,18 +191,20 @@ beerboxApp.controller('YeastCtrl', [
 				lab: $scope.lab,
 				prodId: $scope.prodId,
 				form: $scope.form,
-				tempRange: $scope.tempRange,
-				attenuation: $scope.attenuation
+				rangeT: $scope.rangeT,
+				attenuation: $scope.attenuation,
+				weight: $scope.weight
 			}).then(function(){
-				$scope.gridOptions.api.onNewRows();
+				//$scope.gridOptions.api.onNewRows();
 			});
 			$scope.name = '',
 			$scope.type = '',
 			$scope.lab = '',
 			$scope.prodId = '',
 			$scope.form = '',
-			$scope.tempRange = '',
-			$scope.attenuation = ''
+			$scope.rangeT = '',
+			$scope.attenuation = '',
+			$scope.weight = ''
 		};	
 		
 		$scope.add = function(item) {
@@ -213,8 +215,9 @@ beerboxApp.controller('YeastCtrl', [
 				form: item.form,
 				type: item.type,
 				lab: item.lab,	
-				tempRange: item.tempRange, 
-				attenuation: item.attenuation 
+				rangeT: item.rangeT, 
+				attenuation: item.attenuation,
+				weight: item.weight
 			};
 			var i = $scope.tempselected.indexOf(item.name);
 			if(i < 0) {

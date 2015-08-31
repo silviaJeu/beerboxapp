@@ -3,6 +3,12 @@
 // Declare app level module which depends on views, and components
 var beerboxApp = angular.module('beerboxApp', ['ui.router','beerboxFilters','angularGrid','angularModalService','xeditable','ui.bootstrap','ngMaterial']);
 
+beerboxApp.config(function($mdThemingProvider) {
+	$mdThemingProvider.theme('default')
+		.primaryPalette('teal');
+		//.accentPalette('orange');
+});
+
 beerboxApp.run(function(editableOptions) {
   editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
 });
@@ -70,9 +76,13 @@ beerboxApp.controller('RecipeCtrl', [
 		$scope.recipeSize = 25;
 		$scope.recipeEff = 75;
 		$scope.style;
+		$scope.type;
+		$scope.name;
 		$scope.ibu;
 		$scope.og;
 		$scope.srm;
+		$scope.fg;
+		$scope.abv;
 		$scope.Math = window.Math;
 		$scope.Number = window.Number;
 		$scope.recipeType = [
@@ -86,11 +96,12 @@ beerboxApp.controller('RecipeCtrl', [
 		];
 		
 		$scope.recipeStyle = [
+			{id : "1", name : "American Light Lager", og: "1.028 – 1.040", fg: "0.998 – 1.008", ibu : "8 – 12", srm : "2 – 3", abv : "2.8 – 4.2" },
 			{id : "1", name : "American Pale Ale", og: "1.045 – 1.060", fg: "1.010 – 1.015", ibu : "30 – 50", srm : "5 – 10", abv : "4.5 – 6.2" },
 			{id : "2", name : "American IPA", og: "1.056 – 1.070", fg: "1.008 – 1.014", ibu : "40 – 70", srm : "6 – 14", abv : "5.5 – 7.5" },
 			{id : "3", name : "German Pils", og: "1.044 – 1.050", fg: "1.008 – 1.013", ibu : "22 – 40", srm : "2 – 5", abv : "4.4 – 5.2" },
-			{id : "4", name : "Robust Porter", og: "1.044 – 1.050", fg: "1.008 – 1.013", ibu : "22 – 40", srm : "2 – 5", abv : "4.4 – 5.2" },
-			{id : "5", name : "Dry Stout", og: "1.044 – 1.050", fg: "1.008 – 1.013", ibu : "22 – 40", srm : "2 – 5", abv : "4.4 – 5.2" }
+			{id : "4", name : "English Porter", og: "1.040 – 1.052", fg: "1.008 – 1.014", ibu : "18 – 35", srm : "20 – 30", abv : "4.0 – 5.4" },
+			{id : "5", name : "Irish Stout", og: "1.036 – 1.044", fg: "1.007 – 1.011", ibu : "25 – 45", srm : "25 – 40", abv : "4.0 – 4.5" }
 		];		
 		$scope.fermentablesList = [];
 		$scope.hopsList = [];	
@@ -107,6 +118,15 @@ beerboxApp.controller('RecipeCtrl', [
 			"First Wort",
 			"Whirlpool"
 		];		
+		
+		$scope.checkDisabled = function() {
+			console.log($scope.style+"-"+$scope.type+"-"+$scope.name)
+			var r = true;
+			if($scope.style != undefined && $scope.type != undefined && $scope.name != undefined)
+				r = false;
+			return r;
+		}	
+		
     $scope.total = function() {
         var total = 0;
         angular.forEach($scope.fermentablesList, function(item) {
@@ -131,15 +151,16 @@ beerboxApp.controller('RecipeCtrl', [
 			return $scope.og.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 		}
 		
+		
 		$scope.ogpercent = function()	{
-			return Math.min(($scope.og - 1000) * 0.77,100);
+			return Math.min(($scope.og - 1000) * 0.85,100);
 		}
 		
 		$scope.rangeL = function()	{
 			var rangeL = "";
 			if($scope.style != undefined) {
 				var a = $scope.style.og.replace(/\./g,"").split("–");
-				rangeL = Math.min((a[0] - 1000) * 0.77,100);
+				rangeL = Math.min((a[0] - 1000) * 0.85,100);
 			}
 			return rangeL;
 		}
@@ -148,13 +169,36 @@ beerboxApp.controller('RecipeCtrl', [
 			var rangeW = "";
 			if($scope.style != undefined) {
 				var a = $scope.style.og.replace(/\./g,"").split("–");
-				var l = (a[0] - 1000) * 0.77;
-				var r = (a[1] - 1000) * 0.77;
+				var l = (a[0] - 1000) * 0.85;
+				var r = (a[1] - 1000) * 0.85;
 				rangeW = r -l; 
 			}
 			return rangeW;
 		}
 		
+		
+		$scope.totalHop = function() {
+        var totalHop = 0;
+        angular.forEach($scope.hopsList, function(item) {
+            totalHop += item.quantity;
+        })
+        return totalHop;
+    };
+		
+		$scope.totalIbu = function() {
+        var totalIbu = 0;
+        angular.forEach($scope.hopsList, function(item) {
+						if(item.step != "Whirlpool" && item.step != "Dry Hop" && item.minutes > 0) {
+							var min = item.minutes;
+							if(item.step == "First Wort" || item.step == "Mash") min = 20;
+							var u = getUtil(min);
+							totalIbu += calculateIbu(item.quantity,item.alfa,item.formatType,$scope.recipeSize,u);
+						}
+        })
+				var ibu = Number(Math.round(totalIbu+'e2')+'e-2');
+				$scope.ibu = ibu;
+        return ibu;
+    };		
 		$scope.ibupercent = function()	{
 			return Math.min(($scope.ibu) * 0.83,120);
 		}
@@ -179,29 +223,10 @@ beerboxApp.controller('RecipeCtrl', [
 			return rangeW;
 		}		
 		
-		$scope.totalHop = function() {
-        var totalHop = 0;
-        angular.forEach($scope.hopsList, function(item) {
-            totalHop += item.quantity;
-        })
-        return totalHop;
-    };
 		$scope.totalSrm = function() {
 				var s = calculateSrm($scope.fermentablesList, $scope.recipeSize); 
 				$scope.srm = Number(Math.round(s+'e2')+'e-2');
 				return $scope.srm;
-    };		
-		
-		
-		$scope.totalIbu = function() {
-        var totalIbu = 0;
-        angular.forEach($scope.hopsList, function(item) {
-						var u = getUtil(item.minutes);
-            totalIbu += calculateIbu(item.quantity,item.alfa,$scope.recipeSize,u);
-        })
-				var ibu = Number(Math.round(totalIbu+'e2')+'e-2');
-				$scope.ibu = ibu;
-        return ibu;
     };		
 		
 		$scope.srmPercent = function()	{
@@ -226,11 +251,78 @@ beerboxApp.controller('RecipeCtrl', [
 				rangeW = r -l; 
 			}
 			return rangeW;
+		}
+		
+		$scope.totalAbv = function() {
+			$scope.abv = calculateAbv($scope.og, $scope.fg);
+			return $scope.abv;
+		}
+		
+		$scope.abvPercent = function()	{
+			return Math.min(($scope.abv) * 6.6,50);
 		}		
+		
+		$scope.abvRangeL = function()	{
+			var rangeL = "";
+			if($scope.style != undefined) {
+				var a = $scope.style.abv.split("–");
+				rangeL = Math.min(a[0] * 6.6,50);
+			}
+			return rangeL;
+		}
+		
+		$scope.abvRangeW = function()	{
+			var rangeW = "";
+			if($scope.style != undefined) {
+				var a = $scope.style.abv.split("–");
+				var l = a[0] * 6.6;
+				var r = a[1] * 6.6;
+				rangeW = r -l; 
+			}
+			return rangeW;
+		}
+		
+		$scope.estFg = function() {
+			var fg = 1000;
+			if($scope.yeastsList.length > 0) 
+				fg = calculateFg($scope.totalOg(), $scope.yeastsList);
+			$scope.fg = fg;
+			return fg;
+		}
+		
+		$scope.showEstFg = function() {
+			$scope.estFg();
+			return $scope.fg.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+		}
+		
+		$scope.fgPercent = function()	{
+			return Math.min(($scope.fg - 1000) * 0.8,100);
+		}
+		
+		$scope.fgRangeL = function()	{
+			var rangeL = "";
+			if($scope.style != undefined) {
+				var a = $scope.style.fg.replace(/\./g,"").split("–");
+				rangeL = Math.min((a[0] - 1000) * 0.8,100);
+			}
+			return rangeL;
+		}
+
+		$scope.fgRangeW = function()	{
+			var rangeW = "";
+			if($scope.style != undefined) {
+				var a = $scope.style.fg.replace(/\./g,"").split("–");
+				var l = (a[0] - 1000) * 0.8;
+				var r = (a[1] - 1000) * 0.8;
+				rangeW = r -l; 
+			}
+			return rangeW;
+		}
+		
 		$scope.totalYeast = function() {
         var totalYeast = 0;
         angular.forEach($scope.yeastsList, function(item) {
-            totalYeast += item.quantity;
+            totalYeast += item.weight;
         })
         return totalYeast;
     };
@@ -251,9 +343,7 @@ beerboxApp.controller('RecipeCtrl', [
     };
 		
 		$scope.copy = function(index,type) {
-				console.log(index+" : "+type.indexOf("hop"));
 				if(type.indexOf("hop") == 0) {
-					console.log("index: "+$scope.hopsList[index]);
 					var item = $scope.hopsList[index];
 					var copy = {
 						id: $scope.hopsList.length+1,
@@ -276,9 +366,11 @@ beerboxApp.controller('RecipeCtrl', [
 		
 		$scope.calculateIbu = function(item) {
 			var ibu = 0;
-			if(item.minutes != 0 && item.quantity != 0 && item.alfa != 0 && $scope.recipeSize != 0) {
-				var u = getUtil(item.minutes);
-				ibu = calculateIbu(item.quantity,item.alfa,$scope.recipeSize,u);
+			if(item.minutes != 0 && item.quantity != 0 && item.alfa != 0 && $scope.recipeSize != 0 && item.step != "Whirlpool" && item.step != "Dry Hop") {
+				var min = item.minutes;
+				if(item.step == "First Wort" || item.step == "Mash") min = 20;
+				var u = getUtil(min);
+				ibu = calculateIbu(item.quantity,item.alfa,item.formatType,$scope.recipeSize,u);
 			}
 			return Number(Math.round(ibu+'e2')+'e-2');
 		}
@@ -290,6 +382,7 @@ beerboxApp.controller('RecipeCtrl', [
 			item.og = og;
 			return Number(Math.round(og+'e2')+'e-2');
 		}
+		
 		
 		$scope.extendDeep = function extendDeep(dst) {
 			var l = dst.length;

@@ -6,8 +6,9 @@ var YeastSchema = new mongoose.Schema({
   lab: String,
 	prodId: String,
 	form: String,
-	tempRange: String,
-	attenuation: String
+	rangeT: String,
+	attenuation: String,
+	weight: {type: Number}
 });
 
 mongoose.model('Yeast', YeastSchema);

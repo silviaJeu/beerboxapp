@@ -7,8 +7,12 @@
 -10% -> hop bah
 -15% ->no schiuma in boil
 */
-function calculateIbu(gr, aa, lt,util) {
+function calculateIbu(gr, aa, format,lt,util) {
 	var ibu = (gr * aa * util)/ (10 * lt);
+	if(format != 'Pellet') {
+		var p = ibu / 10;
+		ibu -= p;
+	}  
 	return ibu;
 }
 
@@ -58,7 +62,6 @@ function calculateSrm(grains, lt) {
 	var gal = ltToGal(lt);
 	var mcutot = 0, mcu = 0, srm = 0;
 	angular.forEach(grains, function(item) {
-		//totalYeast += item.quantity;
 		var lb = kgToLbs(item.quantity);
 		mcu += item.srm * lb;
 	})	
@@ -72,6 +75,19 @@ function calculateSrm(grains, lt) {
 Est FG = (Gravity-1000)-((Gravity-1000)*Attenuation rate%)+1000
 */
 
-function calculateFg(og, att) {
-	
+function calculateFg(og, yeastsList) {
+	var max_att = 0;
+	max_att = Math.max.apply(Math,yeastsList.map(function(o){return o.attenuation;})) / 100;
+	fg = (og - 1000) - ((og - 1000) * max_att);
+	fg = Math.round(fg) + 1000;
+	return fg;
+}
+
+function calculateAbv(og, fg) {
+	var abv = 0;
+	if(og > 1000 && fg > 1000) {
+		abv = ((og - 1000) - (fg - 1000)) / 7.5;
+		abv = Number(Math.round(abv+'e1')+'e-1');
+	}
+	return abv;
 }

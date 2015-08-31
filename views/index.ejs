@@ -26,6 +26,26 @@
     <script src="/bower_components/angular-material/angular-material.min.js"></script>		
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 	</head>
+	<style>
+.buttondemoBasicUsage section {
+  background: #f7f7f7;
+  border-radius: 3px;
+  text-align: center;
+  margin: 1em;
+  position: relative !important;
+  padding-bottom: 10px; }
+.buttondemoBasicUsage md-content {
+  margin-right: 7px; }
+.buttondemoBasicUsage section .md-button {
+  margin-top: 16px;
+  margin-bottom: 16px; }
+.buttondemoBasicUsage .label {
+  position: absolute;
+  bottom: 5px;
+  left: 7px;
+  font-size: 14px;
+  opacity: 0.54; }	
+	</style>
 	<body ng-app="beerboxApp">
 		<div>
 			<div class="col-md-1">
@@ -43,5 +63,10 @@
 			<a href="#/recipe" class="btn btn-primary">Inserisci ricetta</a>
 			<h3>Le tue ricette</h3>
 		</script>
+			<md-button class="md-primary">Inserisci ricetta</md-button>
+			<md-button class="md-primary md-hue-1">Inserisci ricetta</md-button>
+			<md-button class="md-primary md-hue-2">Inserisci ricetta</md-button>
+			<md-button md-no-ink class="md-primary">Primary (md-noink)</md-button>
+
 	</body>
 </html>

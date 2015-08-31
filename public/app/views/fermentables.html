@@ -7,7 +7,7 @@
 						</div>
 						<div class="modal-body">		
 						<div class="container-fluid fermentables-page">
-						<h4>Add fermentables</h4>			
+						<h4>Aggiungi fermentabili</h4>			
 						<form class="form-inline" ng-submit="addMalt()" style="margin-top:30px;">
 							<div class="form-group">
 								<input type="text" class="form-control" placeholder="Name" ng-model="name"></input>
@@ -28,7 +28,8 @@
 									<option value="">-- Must Mash --</option>
 								</select>
 							</div>								
-							<button type="submit" class="btn btn-primary">Aggiungi</button>
+							<!--button type="submit" class="btn btn-primary">Aggiungi</button-->
+							<md-button class="md-raised md-primary">Aggiungi</md-button>								
 						</form>
 						<div class="form-group form-group-sm col-sm-2 filter">
 							<input class="form-control" placeholder="Filtra..." type="text" ng-model="query"/>
@@ -66,8 +67,8 @@
 						</div>
 						</div>
 						<div class="modal-footer">
-							<button type="button" ng-click="close()" class="btn btn-primary" data-dismiss="modal">OK</button>
-							<button type="button" ng-click="cancel()" class="btn">Cancel</button>
+							<md-button class="md-raised md-primary" ng-click="close()" data-dismiss="modal">OK</md-button>
+							<md-button class="md-raised" ng-click="cancel()">Cancella</md-button>
 						</div>
 					</div>
 				</div>

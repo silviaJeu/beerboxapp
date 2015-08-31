@@ -7,6 +7,10 @@ a {
   color: #00B7FF;
 }
 
+.ingredients-list .table {
+	margin: 6px 8px;
+}
+
 .table {
 	font-size: 14px;
 }
@@ -45,10 +49,19 @@ a {
 	clear: both;
 }
 
+.box-results  .row{
+	margin-bottom: 4px;
+}
+
+.box-results .data-results {
+	font-weight: bold;
+	color : #FB9902;
+}
+
 .tip-title {
 	cursor: help;
 	font-weight: bold;
-	color: #428bca;
+	color: rgb(0,150,136);
 }
 
 .bb-bar {
@@ -62,16 +75,17 @@ a {
 }
 
 .bb-bar-range {
-	background-color: #5E7D9C;
+	background-color: rgb(0,150,136);
 	height: 100%;
 	position: absolute;
 }
 
 i.bb-bar-this {
-	color: #428bca;
+	color: #FB9902;
+	/*color: #428bca;*/
 	display: block;
 	position: absolute;
-	top: -11px;
+	top: -17px;
 	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9);
 	font-size: 24px;
 	margin-left: -8px;
@@ -132,3 +146,13 @@ md-checkbox.hops-check.md-default-theme.md-checked .md-icon{
 md-checkbox.yeasts-check.md-default-theme.md-checked .md-icon{
 	background-color: #F653A6;
 }
+
+.box-form-select {
+	width: 50%;
+}
+
+/* bootstrap ovveride */
+.form-control:focus {
+	border-color: rgb(0,150,136);
+}
+  
