@@ -20,19 +20,15 @@ beerboxApp.factory('malts', ['$http', function($http){
 	};
 	o.getAll = function() {
 		return $http.get('/malts').success(function(data){
-			angular.copy(data, o.malts);
-		});
-	};
+      angular.copy(data, o.malts);
+    });
+  };
 	o.create = function(post) {
 		return $http.post('/malts', post).success(function(data){
 			o.malts.push(data);
 		});
 	};	
-	o.get = function(id) {
-		return	$http.get('/malts/' + id).then(function(res){
-			return res;
-		});
-	};	
+	
 	return o;	
 }]);
 
@@ -42,20 +38,14 @@ beerboxApp.factory('hops', ['$http', function($http){
 	};
 	o.getAll = function() {
 		return $http.get('/hops').success(function(data){
-			angular.copy(data, o.hops);
-		});
-	};
+      angular.copy(data, o.hops);
+    });
+  };
 	o.create = function(post) {
 		return $http.post('/hops', post).success(function(data){
 			o.hops.push(data);
 		});
-	};
-	o.get = function(id) {
-		return	$http.get('/hops/' + id).then(function(res){
-			return res;
-		});
 	};	
-	return o;		
 	
 	return o;	
 }]);
@@ -66,23 +56,19 @@ beerboxApp.factory('yeasts', ['$http', function($http){
 	};
 	o.getAll = function() {
 		return $http.get('/yeasts').success(function(data){
-			angular.copy(data, o.yeasts);
-		});
-	};
+      angular.copy(data, o.yeasts);
+    });
+  };
 	o.create = function(post) {
 		return $http.post('/yeasts', post).success(function(data){
 			o.yeasts.push(data);
 		});
 	};	
-	o.get = function(id) {
-		return	$http.get('/yeasts/' + id).then(function(res){
-			return res;
-		});
-	};		
+	
 	return o;	
 }]);
 
-beerboxApp.factory('recipes', ['$http','malts', function($http,malts){
+beerboxApp.factory('recipes', ['$http', function($http){
   var o = {
 		  recipes: []
 	};
@@ -95,32 +81,7 @@ beerboxApp.factory('recipes', ['$http','malts', function($http,malts){
   
   o.get = function(id) {
 	return	$http.get('/recipes/' + id).then(function(res){
-		var maltList = malts.malts;
-		var fermentablesList = [];
-		var hopsList = [];
-		var yeastsList = [];
-		
-		angular.forEach(res.data.malts, function(item) {
-			malts.get(item.id).then(function(m) {
-				console.log(m.data);
-				var mdata = m.data;
-				var malt = {
-						id: mdata._id,
-						name: mdata.name,
-						quantity: item.qty,
-						percent: null,
-						pg: mdata.pg,
-						og: null,
-						srm: mdata.srm
-					};
-				fermentablesList.push(malt);
-			});
-		});
-		var result = {
-						recipeInfo : res.data,
-						fermentablesList : fermentablesList
-					}
-		return result;
+		return res.data;
 	});
   }
   
@@ -138,10 +99,9 @@ beerboxApp.controller('RecipeCtrl', [
 	'$scope',
 	'ModalService',
 	'recipes',
-	'result',
-	function($scope,ModalService,recipes,result){
-		$scope.recipe = result.recipeInfo;
-		$scope.fermentablesList = result.fermentablesList;
+	'recipe',
+	function($scope,ModalService,recipes,recipe){
+		$scope.recipe = recipe;
 		$scope.user = "Silvia Jeu";
 		$scope.recipeSize = 25;
 		$scope.preboilSize;
@@ -176,7 +136,7 @@ beerboxApp.controller('RecipeCtrl', [
 			{id : "4", name : "English Porter", og: "1.040 - 1.052", fg: "1.008 - 1.014", ibu : "18 - 35", srm : "20 - 30", abv : "4.0 - 5.4" },
 			{id : "5", name : "Irish Stout", og: "1.036 - 1.044", fg: "1.007 - 1.011", ibu : "25 - 45", srm : "25 - 40", abv : "4.0 - 4.5" }
 		];		
-		
+		$scope.fermentablesList = [];
 		$scope.hopsList = [];	
 		$scope.yeastsList = [];			
 		$scope.hopFormatType = [
@@ -227,7 +187,6 @@ beerboxApp.controller('RecipeCtrl', [
 				yeastList.push(y);
 			})
 			
-			//TODO MODIFICARE NOME CAMPI SCOPE
 			recipes.create({
 				user: $scope.user,
 				name: $scope.name,
@@ -281,8 +240,8 @@ beerboxApp.controller('RecipeCtrl', [
 		
 		$scope.rangeL = function()	{
 			var rangeL = "";
-			if($scope.recipe.style != undefined) {
-				var a = $scope.recipe.style.og.replace(/\./g,"").split("-");
+			if($scope.style != undefined) {
+				var a = $scope.style.og.replace(/\./g,"").split("-");
 				rangeL = Math.min((a[0] - 1000) * 0.85,100);
 			}
 			return rangeL;
@@ -290,8 +249,8 @@ beerboxApp.controller('RecipeCtrl', [
 
 		$scope.rangeW = function()	{
 			var rangeW = "";
-			if($scope.recipe.style != undefined) {
-				var a = $scope.recipe.style.og.replace(/\./g,"").split("-");
+			if($scope.style != undefined) {
+				var a = $scope.style.og.replace(/\./g,"").split("-");
 				var l = (a[0] - 1000) * 0.85;
 				var r = (a[1] - 1000) * 0.85;
 				rangeW = r -l; 
@@ -329,8 +288,8 @@ beerboxApp.controller('RecipeCtrl', [
 		
 		$scope.ibuRangeL = function()	{
 			var rangeL = "";
-			if($scope.recipe.style != undefined) {
-				var a = $scope.recipe.style.ibu.split("-");
+			if($scope.style != undefined) {
+				var a = $scope.style.ibu.split("-");
 				rangeL = Math.min(a[0] * 0.83,120);
 			}
 			return rangeL;
@@ -338,8 +297,8 @@ beerboxApp.controller('RecipeCtrl', [
 		
 		$scope.ibuRangeW = function()	{
 			var rangeW = "";
-			if($scope.recipe.style != undefined) {
-				var a = $scope.recipe.style.ibu.split("-");
+			if($scope.style != undefined) {
+				var a = $scope.style.ibu.split("-");
 				var l = a[0] * 0.83;
 				var r = a[1] * 0.83;
 				rangeW = r -l; 
@@ -359,8 +318,8 @@ beerboxApp.controller('RecipeCtrl', [
 		
 		$scope.srmRangeL = function()	{
 			var rangeL = "";
-			if($scope.recipe.style != undefined) {
-				var a = $scope.recipe.style.srm.split("-");
+			if($scope.style != undefined) {
+				var a = $scope.style.srm.split("-");
 				rangeL = Math.min(a[0] * 2,50);
 			}
 			return rangeL;
@@ -368,8 +327,8 @@ beerboxApp.controller('RecipeCtrl', [
 		
 		$scope.srmRangeW = function()	{
 			var rangeW = "";
-			if($scope.recipe.style != undefined) {
-				var a = $scope.recipe.style.srm.split("-");
+			if($scope.style != undefined) {
+				var a = $scope.style.srm.split("-");
 				var l = a[0] * 2;
 				var r = a[1] * 2;
 				rangeW = r -l; 
@@ -388,8 +347,8 @@ beerboxApp.controller('RecipeCtrl', [
 		
 		$scope.abvRangeL = function()	{
 			var rangeL = "";
-			if($scope.recipe.style != undefined) {
-				var a = $scope.recipe.style.abv.split("-");
+			if($scope.style != undefined) {
+				var a = $scope.style.abv.split("-");
 				rangeL = Math.min(a[0] * 6.6,50);
 			}
 			return rangeL;
@@ -397,8 +356,8 @@ beerboxApp.controller('RecipeCtrl', [
 		
 		$scope.abvRangeW = function()	{
 			var rangeW = "";
-			if($scope.recipe.style != undefined) {
-				var a = $scope.recipe.style.abv.split("-");
+			if($scope.style != undefined) {
+				var a = $scope.style.abv.split("-");
 				var l = a[0] * 6.6;
 				var r = a[1] * 6.6;
 				rangeW = r -l; 
@@ -425,8 +384,8 @@ beerboxApp.controller('RecipeCtrl', [
 		
 		$scope.fgRangeL = function()	{
 			var rangeL = "";
-			if($scope.recipe.style != undefined) {
-				var a = $scope.recipe.style.fg.replace(/\./g,"").split("-");
+			if($scope.style != undefined) {
+				var a = $scope.style.fg.replace(/\./g,"").split("-");
 				rangeL = Math.min((a[0] - 1000) * 0.8,100);
 			}
 			return rangeL;
@@ -434,8 +393,8 @@ beerboxApp.controller('RecipeCtrl', [
 
 		$scope.fgRangeW = function()	{
 			var rangeW = "";
-			if($scope.recipe.style != undefined) {
-				var a = $scope.recipe.style.fg.replace(/\./g,"").split("-");
+			if($scope.style != undefined) {
+				var a = $scope.style.fg.replace(/\./g,"").split("-");
 				var l = (a[0] - 1000) * 0.8;
 				var r = (a[1] - 1000) * 0.8;
 				rangeW = r -l; 
@@ -633,21 +592,23 @@ beerboxApp.config([
 				templateUrl: '/app/views/recipe.html',
 				controller: 'RecipeCtrl',
 				resolve: {			
-					malts: function(malts) {
+					malts: ['malts', function(malts) {
 						malts = malts.getAll();
-					},
-					hops: function(hops) {
+					}],
+					hops: ['hops', function(hops) {
 						hops = hops.getAll();
-					},
-					yeasts: function(yeasts) {
+					}],
+					yeasts: ['yeasts', function(yeasts) {
 						yeasts = yeasts.getAll();
-					},
-					result: function() {
-						return {
-							recipeInfo : {efficiency: "75",size: 25},
-							fermentablesList : []
-						}
-					}
+					}],
+					recipe: [function() {
+						return {efficiency: "75",
+								size: 25,
+								malts: [],
+								hops: [],
+								yeasts: []
+								};
+					}]
 				}
 			});		
 
@@ -657,18 +618,18 @@ beerboxApp.config([
 			templateUrl: '/app/views/recipe.html',
 			controller: 'RecipeCtrl',
 			resolve: {			
-				malts:  function(malts) {
+				malts: ['malts', function(malts) {
 					malts = malts.getAll();
-				},
-				hops: function(hops) {
+				}],
+				hops: ['hops', function(hops) {
 					hops = hops.getAll();
-				},
-				yeasts: function(yeasts) {
+				}],
+				yeasts: ['yeasts', function(yeasts) {
 					yeasts = yeasts.getAll();
-				},
-				result: function($stateParams, recipes) {
+				}],
+				recipe: ['$stateParams', 'recipes', function($stateParams, recipes) {
 					return recipes.get($stateParams.id);
-				}
+				}]
 			}			
 		});		
 			

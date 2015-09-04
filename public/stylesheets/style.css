@@ -1,10 +1,34 @@
 body {
   padding: 25px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  line-height: 1.5;
 }
 
 a {
-  color: #00B7FF;
+  color: rgb(0,150,136);
+}
+
+a:hover {
+	color: #FB9902;
+	text-decoration: none;
+}	
+
+.home-content {
+	max-width: 	864px;
+	margin: 16px;
+	box-sizing: border-box;
+}
+
+.home-content .home-column {
+	margin-top: 20px;
+}
+
+.home-content .panel-heading .info-title {
+	font-size: 	24px;
+}
+
+.home-content .panel-heading .sub-title {
+	font-size: 	24px;
 }
 
 .ingredients-list .table {
@@ -31,15 +55,13 @@ a {
 	margin-top: 30px;
 }
 .box-form  {
-	margin-right: 0;
-	margin-left: 0;
 	background-color: #fff;
 	border-color: #ddd;
 	border-width: 1px;
 	border-radius: 4px 4px 0 0;
 	position: relative;
 	padding: 45px 15px 15px;
-	margin: 0 -15px 15px;
+	margin: 15px 0;
 	border-style: solid;
 	width: 45%;
 	float: left;
@@ -154,5 +176,33 @@ md-checkbox.yeasts-check.md-default-theme.md-checked .md-icon{
 /* bootstrap ovveride */
 .form-control:focus {
 	border-color: rgb(0,150,136);
+}
+
+.btn-primary {
+	background-color: #FB9902;
+	border: none;
+	/*border: none;
+	border-radius: 0;*/
+}
+
+
+.home-content .btn-primary:hover, .home-content .btn:hover {
+	background-color: #996515;
+}
+
+.home-content .panel-primary {
+	border: none;
+}
+
+.home-content .panel-primary>.panel-heading {
+	color: rgb(0,150,136);
+	border-color: rgb(0,150,136);
+}
+
+.home-content .panel-primary>.panel-heading {
+	border: 1px solid rgb(0,150,136);
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+	background-color: #FFFFFF;
 }
   

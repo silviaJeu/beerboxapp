@@ -49,8 +49,8 @@ router.get('/malts/:malt', function(req, res) {
 router.delete('/malts', function(req, res, next) {
 	var malt = new Malt(req.body);
 	
-  malt.remove(function(err, malt){
-    if(err){ return next(err); }
+malt.remove(function(err, malt){
+	if(err){ return next(err); }
 
     res.json(malt);
   });
@@ -77,6 +77,23 @@ router.post('/hops', function(req, res, next) {
   });
 });
 
+router.param('hop', function(req, res, next, id) {
+  var query = Hop.findById(id);
+
+  query.exec(function (err, hop){
+    if (err) { return next(err); }
+    if (!hop) { return next(new Error('can\'t find hop')); }
+
+    req.hop = hop;
+    return next();
+  });
+});
+
+router.get('/hops/:hop', function(req, res) {
+  res.json(req.hop);
+});
+
+
 var Yeast = require('./../models/Yeast.js');
 Yeast = mongoose.model('Yeast');
 
@@ -95,5 +112,68 @@ router.post('/yeasts', function(req, res, next) {
     if(err){ return next(err); }
 
     res.json(yeast);
+  });
+});
+
+router.param('yeast', function(req, res, next, id) {
+	  var query = Yeast.findById(id);
+
+	  query.exec(function (err, yeast){
+	    if (err) { return next(err); }
+	    if (!yeast) { return next(new Error('can\'t find yeast')); }
+
+	    req.yeast = yeast;
+	    return next();
+	  });
+	});
+
+	router.get('/yeasts/:yeast', function(req, res) {
+	  res.json(req.yeast);
+	});
+
+var Recipe = require('./../models/Recipe.js');
+Recipe = mongoose.model('Recipe');
+
+router.get('/recipes', function(req, res, next) {
+  Recipe.find(function(err, recipes){
+    if(err){ return next(err); }
+
+    res.json(recipes);
+  });
+});
+
+router.post('/recipes', function(req, res, next) {
+  var recipe = new Recipe(req.body);
+
+  recipe.save(function(err, recipe){
+    if(err){ return next(err); }
+
+    res.json(recipe);
+  });
+});
+
+router.param('recipe', function(req, res, next, id) {
+  var query = Recipe.findById(id);
+
+  query.exec(function (err, recipe){
+    if (err) { return next(err); }
+    if (!recipe) { return next(new Error('can\'t find recipe')); }
+
+    req.recipe = recipe;
+    return next();
+  });
+});
+
+router.get('/recipes/:recipe', function(req, res) {
+  res.json(req.recipe);
+});
+
+router.delete('/recipes', function(req, res, next) {
+	var recipe = new Recipe(req.body);
+	
+	recipe.remove(function(err, recipe){
+    if(err){ return next(err); }
+
+    res.json(recipe);
   });
 });

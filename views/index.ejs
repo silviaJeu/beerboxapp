@@ -6,6 +6,7 @@
 		<!--link href="/stylesheets/theme-fresh.min.css" rel="stylesheet"-->
 		<link href="/stylesheets/style.css" rel="stylesheet">
 		<link href="/stylesheets/font-awesome-4.3.0/css/font-awesome.min.css" rel="stylesheet">
+		<link href="/stylesheets/font-flaticon/flaticon.css" rel="stylesheet">
 		<link href="/bower_components/angular-xeditable/dist/css/xeditable.css" rel="stylesheet">
 		<link href="/bower_components/angular-material/angular-material.css" rel="stylesheet">
 		<script src="/bower_components/jquery/dist/jquery.min.js"></script>
@@ -15,6 +16,7 @@
 		<script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
 		<script src="/javascripts/filters.js"></script>
 		<script src="/javascripts/angularApp.js"></script>
+		<script src="/javascripts/recipeListCtrl.js"></script>
 		<script src="/javascripts/ingredientsCtrl.js"></script>
 		<script src="/javascripts/operation.js"></script>
 		<script src="/javascripts/angularGrid.min.js"></script>
@@ -26,33 +28,13 @@
     <script src="/bower_components/angular-material/angular-material.min.js"></script>		
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 	</head>
-	<style>
-.buttondemoBasicUsage section {
-  background: #f7f7f7;
-  border-radius: 3px;
-  text-align: center;
-  margin: 1em;
-  position: relative !important;
-  padding-bottom: 10px; }
-.buttondemoBasicUsage md-content {
-  margin-right: 7px; }
-.buttondemoBasicUsage section .md-button {
-  margin-top: 16px;
-  margin-bottom: 16px; }
-.buttondemoBasicUsage .label {
-  position: absolute;
-  bottom: 5px;
-  left: 7px;
-  font-size: 14px;
-  opacity: 0.54; }	
-	</style>
 	<body ng-app="beerboxApp">
 		<div>
 			<div class="col-md-1">
 			</div>
 			<div class="col-md-10">
 				<div class="page-header">
-					<h2>Beer Box App</h2>
+					<a href="#/home"><h2>Beer Box App</h2></a>
 				</div>
 					<ui-view></ui-view>				
 				</div>
@@ -60,13 +42,65 @@
 			</div>
 		</div>
 		<script type="text/ng-template" id="/home.html">
-			<a href="#/recipe" class="btn btn-primary">Inserisci ricetta</a>
-			<h3>Le tue ricette</h3>
-		</script>
-			<md-button class="md-primary">Inserisci ricetta</md-button>
-			<md-button class="md-primary md-hue-1">Inserisci ricetta</md-button>
-			<md-button class="md-primary md-hue-2">Inserisci ricetta</md-button>
-			<md-button md-no-ink class="md-primary">Primary (md-noink)</md-button>
+			<div class="home-content">
+				<a href="#/addrecipe" class="btn btn-primary">{{user}} Inserisci ricetta</a>
+			<div layout="column" class="home-column">
+			<md-toolbar md-scroll-shrink>
+    		<div class="md-toolbar-tools">
+      		<h3>
+        		<span>Le tue ricette</span>
+      		</h3>
+    		</div>
+  		</md-toolbar>
+			<div layout="row" layout-margin ng-repeat="recipe in recipes">
+				<div class="col-lg-4 col-md-6">
+        	<div class="panel panel-primary">
+          	<div class="panel-heading">
+            	<div class="row">
+              	<div class="col-xs-3">
+                	<i class="glyph-icon flaticon-beer33"></i>
+                 </div>
+                 <div class="col-xs-9 text-right">
+                 	<div class="info-title">{{recipe.name}}</div>
+                  <div class="info-subtitle">American Pale Ale</div>
+                 </div>
+                </div>
+              </div>
+            <a href="#/recipe/{{recipe._id}}">
+            	<div class="panel-footer">
+              	<span class="pull-left">Apri ricetta</span>
+                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                <div class="clearfix"></div>
+              </div>
+          	</a>
+        </div>
+  			<!--div flex flex-order="1">
+					<div class="panel panel-primary">
+				<ul ng-repeat="recipe in recipes">
+					<li class="flaticon-beer33">
+						<p>{{recipe._id}}</p>
+						<p>{{recipe.name}}</p>
+						<p>{{recipe.type}}</p>
+						<p>{{recipe.og}}</p>
+						<p>{{recipe.ibu}}</p>
+						<p>{{recipe.srm}}</p>
+					</li>
+				</ul-->					
+				</div>
+  			</div>
+  			<!--div flex flex-order="2">
+					<div class="panel panel-primary">
+    			[flex-order="2"]
+					</div>
+  			</div>
+  			<div flex flex-order="3">
+					<div class="panel panel-primary">
+    			[flex-order="3"]
+  			</div>
+			</div-->
+			<div>
 
+			</div>
+		</script>
 	</body>
 </html>

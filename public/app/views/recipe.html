@@ -1,17 +1,17 @@
-<h3>Nuova ricetta </h3>
+<!-- <h3>Nuova ricetta </h3> -->
 <div class="recipe-header">
 	<div class="box-form info">
 		<form class="form-horizontal">
 			<div class="form-group">
 				<label for="recipeName" class="col-sm-2 control-label">Nome</label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control" ng:model="name" id="recipename" placeholder="Nome">
+					<input type="text" class="form-control" ng:model="recipe.name" id="recipename" placeholder="Nome">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="recipeType" class="col-sm-2 control-label">Tipo</label>
 				<div class="col-sm-10">
-					<select class="form-control" ng:model="type" ng-options="obj for obj in recipeType">
+					<select class="form-control" ng:model="recipe.type" ng-options="obj for obj in recipeType">
 						<option value="">Tipo ricetta</option>
 					</select>
 				</div>
@@ -19,7 +19,7 @@
 			<div class="form-group">
 				<label for="recipeStyle" class="col-sm-2 control-label">Stile</label>
 				<div class="col-sm-10">
-					<select class="form-control" ng:model="style" ng-options="c.name for c in recipeStyle">
+					<select class="form-control" ng:model="recipe.style" ng-options="c.name for c in recipeStyle">
 						<option value="">Stile</option>
 					</select>
 				</div>
@@ -48,19 +48,19 @@
 			<div class="form-group">
 				<label for="recipeName" class="col-sm-3 control-label">Litri finali</label>
 				<div class="col-sm-9">
-					<input type="number" class="form-control" ng:model="recipeSize" id="recipesize" placeholder="Litri">
+					<input type="number" class="form-control" ng:model="recipe.size" id="recipesize" placeholder="Litri">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="recipeName" class="col-sm-3 control-label">Litri pre-boil</label>
 				<div class="col-sm-9">
-					<input type="number" class="form-control" ng:model="recipe.preboilsize" id="recipepbsize" placeholder="Litri Pre-boil">
+					<input type="number" class="form-control" ng:model="recipe.sizePb" id="recipepbsize" placeholder="Litri Pre-boil">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="recipeName" class="col-sm-3 control-label">Efficienza</label>
 				<div class="input-group col-sm-9">
-					<input type="text" class="form-control" ng:model="recipeEff" id="recipeeff" placeholder="Efficienza">
+					<input type="text" class="form-control" ng:model="recipe.efficiency" id="recipeeff" placeholder="Efficienza">
 					<div class="input-group-addon">%</div>
 				</div>
 			</div>
@@ -261,13 +261,14 @@
 				</td>							
 			</tr>	
 			<tr class="totalrow">
-				<td>Total</td>
+				<td>Total {{style.length}}</td>
 				<td>{{totalYeast()}}</td>
 				<td></td> 
 			</tr>	
 		</tbody>
 	</table>
 	</div>	
-	<md-button ng-disabled="{{checkDisabled()}}" class="md-raised md-primary">Salva ricetta</md-button>
+	<md-button ng-click="saveRecipe()" ng-disabled="name == undefined || type == undefined || style == undefined || name.length <= 1" class="md-raised md-primary">Salva ricetta</md-button>
+<!-- 	<div ng-include="'/app/views/test.html'"></div> -->
 </div>		
 				

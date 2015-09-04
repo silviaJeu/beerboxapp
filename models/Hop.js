@@ -4,7 +4,7 @@ var HopSchema = new mongoose.Schema({
   name: String,
   type: String,
   alfa: {type: Number},
-	origin: String
+  origin: String
 });
 
 mongoose.model('Hop', HopSchema);

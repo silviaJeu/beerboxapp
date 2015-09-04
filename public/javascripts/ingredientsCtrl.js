@@ -8,19 +8,19 @@ beerboxApp.controller('MaltCtrl', [
 	function($scope, malts, $element, close){
 		$scope.itemselected = [];
 		$scope.tempselected = [];
-	  $scope.malts = malts.malts;
+		$scope.malts = malts.malts;
 		$scope.optionsType = [
-		  "Base Malt",
-      "Special Malt",
-      "Sugar",
-      "Dry Extract",
-			"Liquid Extract",
-			"Other Adjunct" 
-		];
+		                      "Base Malt",
+		                      "Special Malt",
+		                      "Sugar",
+		                      "Dry Extract",
+		                      "Liquid Extract",
+		                      "Other Adjunct" 
+		                      ];
 		$scope.mashType = [
-			{id : "true", name : "True"},
-			{id : "false", name : "False"}
-		];
+							{id : "true", name : "True"},
+							{id : "false", name : "False"}
+						  ];
 
 		$scope.addMalt = function(){
 			if(!$scope.name || $scope.name === '') { return; }
@@ -42,7 +42,8 @@ beerboxApp.controller('MaltCtrl', [
 				
 		$scope.add = function(item) {
 			$scope.inserted = {
-				id: $scope.itemselected.length+1,
+//				id: $scope.itemselected.length+1,
+				id: item._id,
 				name: item.name,
 				quantity: 0.500,
 				percent: null,
@@ -95,12 +96,12 @@ beerboxApp.controller('HopCtrl', [
 	function($scope, hops, $element, close){
 		$scope.itemselected = [];
 		$scope.tempselected = [];
-	  $scope.hops = hops.hops;
+		$scope.hops = hops.hops;
 		$scope.optionsType = [
-		  "Amaro",
-      "Aroma",
-      "Entrambi"
-		];
+		                      "Amaro",
+		                      "Aroma",
+		                      "Entrambi"
+		                     ];
 
 		$scope.addHop = function(){
 			if(!$scope.name || $scope.name === '') { return; }
@@ -121,7 +122,8 @@ beerboxApp.controller('HopCtrl', [
 		
 		$scope.add = function(item) {
 			$scope.inserted = {
-				id: $scope.itemselected.length+1,
+//				id: $scope.itemselected.length+1,
+				id: item._id,
 				name: item.name,
 				quantity: 10,
 				alfa: item.alfa,
@@ -174,16 +176,15 @@ beerboxApp.controller('YeastCtrl', [
 		$scope.tempselected = [];
 	  $scope.yeasts = yeasts.yeasts;
 		$scope.optionsType = [
-		  "Ale",
-      "Lager"
-		];
+		                      "Ale",
+		                      "Lager"
+		                     ];
 		$scope.formatType = [
-		  "Liquido",
-      "Secco"
-		];
+		                     "Liquido",
+		                     "Secco"
+		                    ];
 		
 		$scope.addYeast = function(){
-			alert($scope.rangeT);
 			if(!$scope.name || $scope.name === '') { return; }
 			yeasts.create({
 				name: $scope.name,
@@ -209,7 +210,8 @@ beerboxApp.controller('YeastCtrl', [
 		
 		$scope.add = function(item) {
 			$scope.inserted = {
-				id: $scope.itemselected.length+1,
+//				id: $scope.itemselected.length+1,
+				id: item._id,
 				name: item.name,
 				prodId: item.prodId,
 				form: item.form,
