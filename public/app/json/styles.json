@@ -1,0 +1,7 @@
+{styles: [{id : "1A", name : "American Light Lager", og: "1.028 - 1.040", fg: "0.998 - 1.008", ibu : "8 - 12", srm : "2 - 3", abv : "2.8 - 4.2" },
+{id : "1D", name : "American Wheat Beer", og: "1.040 - 1.055", fg: "1.008 - 1.013", ibu : "15 - 30", srm : "3 - 6", abv : "4.0 - 5.5" },
+{id : "18B", name : "American Pale Ale", og: "1.045 - 1.060", fg: "1.010 - 1.015", ibu : "30 - 50", srm : "5 - 10", abv : "4.5 - 6.2" },
+{id : "21A", name : "American IPA", og: "1.056 - 1.070", fg: "1.008 - 1.014", ibu : "40 - 70", srm : "6 - 14", abv : "5.5 - 7.5" },
+{id : "3", name : "German Pils", og: "1.044 - 1.050", fg: "1.008 - 1.013", ibu : "22 - 40", srm : "2 - 5", abv : "4.4 - 5.2" },
+{id : "4", name : "English Porter", og: "1.040 - 1.052", fg: "1.008 - 1.014", ibu : "18 - 35", srm : "20 - 30", abv : "4.0 - 5.4" },
+{id : "5", name : "Irish Stout", og: "1.036 - 1.044", fg: "1.007 - 1.011", ibu : "25 - 45", srm : "25 - 40", abv : "4.0 - 4.5" }]}
