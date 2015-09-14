@@ -9,6 +9,8 @@ router.get('/', function(req, res, next) {
 module.exports = router;
 
 var mongoose = require('mongoose');
+
+// malts routing
 var Malt = require('./../models/Malt.js');
 Malt = mongoose.model('Malt');
 
@@ -56,6 +58,7 @@ malt.remove(function(err, malt){
   });
 });
 
+// hops routing
 var Hop = require('./../models/Hop.js');
 Hop = mongoose.model('Hop');
 
@@ -66,6 +69,7 @@ router.get('/hops', function(req, res, next) {
     res.json(hops);
   });
 });
+
 
 router.post('/hops', function(req, res, next) {
   var hop = new Hop(req.body);
@@ -93,7 +97,7 @@ router.get('/hops/:hop', function(req, res) {
   res.json(req.hop);
 });
 
-
+//yeasts routing
 var Yeast = require('./../models/Yeast.js');
 Yeast = mongoose.model('Yeast');
 
@@ -131,6 +135,7 @@ router.param('yeast', function(req, res, next, id) {
 	  res.json(req.yeast);
 	});
 
+//recipes routing	
 var Recipe = require('./../models/Recipe.js');
 Recipe = mongoose.model('Recipe');
 
@@ -175,5 +180,46 @@ router.delete('/recipes', function(req, res, next) {
     if(err){ return next(err); }
 
     res.json(recipe);
+  });
+});
+
+// beerStyle routing
+var Style = require('./../models/Style.js');
+Style = mongoose.model('Style');
+
+router.get('/styles', function(req, res, next) {
+	Style.find(function(err, styles){
+    if(err){ return next(err); }
+
+    res.json(styles);
+  });
+});
+
+//Person.findOne({ 'name.last': 'Ghost' });
+router.param('style', function(req, res, next, id) {
+  var query = Style.findOne({ 'id': id });
+
+  query.exec(function (err, style){
+    if (err) { return next(err); }
+    if (!style) { return next(new Error('can\'t find style')); }
+
+    req.style = style;
+    return next();
+  });
+});
+
+router.get('/styles/:style', function(req, res) {
+  res.json(req.style);
+});
+	
+// misc routing
+var Misc = require('./../models/Misc.js');
+Misc = mongoose.model('Misc');
+
+router.get('/miscs', function(req, res, next) {
+	Misc.find(function(err, miscs){
+    if(err){ return next(err); }
+
+    res.json(miscs);
   });
 });

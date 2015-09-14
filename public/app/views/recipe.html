@@ -17,30 +17,13 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="recipeStyle" class="col-sm-2 control-label">Stile</label>
+				<label for="recipeStyle" class="col-sm-2 control-label">Stile {{style.name}}</label>
 				<div class="col-sm-10">
-					<select class="form-control" ng:model="recipe.style" ng-options="c.name for c in recipeStyle">
+					<select class="form-control" ng:model="style" ng-options="c.name for c in recipeStyle">
 						<option value="">Stile</option>
 					</select>
 				</div>
 			</div>		
-			<!--div layout layout-sm="column">
-				<md-input-container flex>
-					<label>Nome Ricetta</label>
-					<input ng-model="recipe.name">
-				</md-input-container>
-			</div>
-			<div layout layout-sm="column">
-				<md-select class="box-form-select" placeholder="Tipo ricetta" ng-model="recipe.type">
-					<md-option ng-repeat="obj in recipeType" value="{{obj}}">{{obj}}</md-option>
-				</md-select>
-				<!--md-select class="box-form-select" placeholder="Stile" ng-model="style">
-					<md-option ng-repeat="obj in recipeStyle" value="obj">{{obj.name}}</md-option>
-				</md-select-->			
-					<!--select class="form-control" ng:model="style" ng-options="c.name for c in recipeStyle">
-						<option value="">Stile</option>
-					</select-->				
-			<!--/div-->
 		</form>	
 	</div>
 	<div class="box-form batch">
@@ -129,146 +112,152 @@
 		</div>									
 	</div>
 </div>
-<div class="ingredients-list">
-<md-button class="md-primary" ng-click="showComplex()">
-  <md-icon md-svg-src="images/icons/launch.svg"></md-icon>
-  Fermentabili
-</md-button>
-<!--a href="" ng-click="showComplex()">Aggiungi Fermentabili</a-->
-<div class="table-responsive">
-	<table ng-show="fermentablesList" class="ng-binding ng-hide table table-hover" cellpadding="0" cellspacing="0" id="fermentables">
-		<thead>
-			<tr>
-				<th class="col-sm-3">Name</th>
-				<th class="col-sm-2">Quantità(kg)</th>
-				<th class="col-sm-2">%</th>
-				<th class="col-sm-3">Og</th>
-				<th class="col-sm-2">Edit</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr ng-repeat="item in fermentablesList | orderBy:'-quantity'">
-				<td  class="col-sm-3">{{item.name}}</td>				
-				<td  class="col-sm-2">
-					<input type="number" ng:model="item.quantity" ng:required class="form-control input-mini">										
-				</td>
-				<td  class="col-sm-2">{{ percent(item.quantity) }}</td>
-				<td  class="col-sm-3" ng:model="item.og">{{ calculateOg(item) }}</td>
-				<td  class="col-sm-2" style="white-space: nowrap">
-					<a href ng-click="removeMalt($index)" class="glyphicon glyphicon-remove-circle"></a>
-				</td>							
-			</tr>	
-			<tr class="totalrow">
-				<td>Total</td>
-				<td>{{ total() }}</td>
-				<td></td> 
-				<td>{{ showtotalOg() }}</td> 
-				<td></td> 
-			</tr>	
-		</tbody>
-	</table>
-</div>	
-<!--a href="" ng-click="showHopModal()">Aggiungi Luppoli </a-->
-<md-button class="md-primary" ng-click="showHopModal()">
-  <md-icon md-svg-src="images/icons/launch.svg"></md-icon>
-  Luppoli
-</md-button>
-<div class="table-responsive">
-	<table ng-show="hopsList" class="ng-binding ng-hide table table-hover" cellpadding="0" cellspacing="0" id="fermentables">
-		<thead>
-			<tr>
-				<th class="col-sm-1">Name</th>
-				<th class="col-sm-2">Formato</th>
-				<th class="col-sm-2">Min</th>
-				<th class="col-sm-2">Step</th>
-				<th class="col-sm-1">Quantità(gr)</th>
-				<th class="col-sm-2">AA%</th>
-				<th class="col-sm-1">Ibu</th>
-				<th class="col-sm-1">Edit</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr ng-repeat="item in hopsList | orderBy:'-minutes'">
-				<td class="col-sm-2">{{item.name}}</td>
-				<td class="col-sm-2">
-					<select class="form-control" ng-model="item.formatType" ng-options="obj for obj in hopFormatType">
-						<option value="">Formato</option>
-					</select>
-				</td>
-				<td class="col-sm-1">
-					<input type="number" ng:model="item.minutes" ng:required class="form-control input-mini">
-				</td>
-				<td class="col-sm-2">
-					<select class="form-control" ng-model="item.step" ng-options="o for o in hopStepType">
-						<option value="">Step</option>
-					</select>				
-				</td>
-				<td class="col-sm-2">
-					<input type="number" ng:model="item.quantity" ng:required class="form-control input-mini">										
-				</td>
-				<td class="col-sm-1">
-					<input type="number" ng:model="item.alfa" ng:required class="form-control input-mini">										
-				</td>
-				<!--td>
-					<!--input type="number" ng:model="item.ibu" value="{{calculateIbu(item)}}" readonly="" class="form-control input-mini">										
-					{{calculateIbu(item)}}
-				</td-->
-				<td class="col-sm-1" ng:model="item.ibu">
-					{{calculateIbu(item)}}
-				</td>
-				<td class="col-sm-1" style="white-space: nowrap">
-					<a href ng-click="removeHop($index)" class="glyphicon glyphicon-remove-circle"></a>
-					<a href ng-click="copy($index,'hop')" class="glyphicon glyphicon-plus-sign"></a>
-				</td>							
-			</tr>	
-			<tr class="totalrow">
-				<td>Total</td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td>{{totalHop()}}</td>
-				<td></td> 
-				<td>{{totalIbu()}}</td> 
-				<td></td> 
-			</tr>	
-		</tbody>
-	</table>
-	</div>	
-	<!--a href="" ng-click="showYeastModal()">Aggiungi Lievito </a-->	
-	<md-button class="md-primary" ng-click="showYeastModal()">
-		<md-icon md-svg-src="images/icons/launch.svg"></md-icon>
-		Lievito
-	</md-button>	
-	<div class="table-responsive">
-	<table ng-show="yeastsList" class="ng-binding ng-hide table table-hover" cellpadding="0" cellspacing="0" id="yeast">
-		<thead>
-			<tr>
-				<th>Name</th>
-				<th>Quantità</th>
-				<th>Edit</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr ng-repeat="item in yeastsList">
-				<td>{{item.name}} {{item.prodId}} {{item.form}}</td>
-				<td>
-					<div class="col-xs-4">
-					<input type="number" ng:model="item.weight" ng:required class="form-control input-mini">										
-					</div>
-				</td>
-				<td style="white-space: nowrap">
-					<a href ng-click="removeYeast($index)" class="glyphicon glyphicon-remove-circle"></a>
-				</td>							
-			</tr>	
-			<tr class="totalrow">
-				<td>Total {{style.length}}</td>
-				<td>{{totalYeast()}}</td>
-				<td></td> 
-			</tr>	
-		</tbody>
-	</table>
-	</div>	
-	<md-button ng-click="saveRecipe()" ng-disabled="name == undefined || type == undefined || style == undefined || name.length <= 1" class="md-raised md-primary">Salva ricetta</md-button>
+<v-accordion class="vAccordion--default recipe-accordion" multiple>
+  <v-pane expanded>
+    <v-pane-header class="pane-header">
+      Ingredienti
+    </v-pane-header>
+    <v-pane-content>
+			<div class="ingredients-list">
+			<md-button class="md-primary" ng-click="showComplex()">
+			  <md-icon md-svg-src="images/icons/launch.svg"></md-icon>
+			  Fermentabili
+			</md-button>
+			<div>
+				<table ng-show="fermentablesList" class="ng-binding ng-hide table table-hover" cellpadding="0" cellspacing="0" id="fermentables">
+					<thead>
+						<tr>
+							<th class="col-sm-3">Name</th>
+							<th class="col-sm-2">Quantità(kg)</th>
+							<th class="col-sm-2">%</th>
+							<th class="col-sm-3">Og</th>
+							<th class="col-sm-2">Edit</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="item in fermentablesList | orderBy:'-quantity'">
+							<td  class="col-sm-3">{{item.name}}</td>				
+							<td  class="col-sm-2">
+								<input type="number" ng:model="item.quantity" ng:required class="form-control input-mini">										
+							</td>
+							<td  class="col-sm-2">{{ percent(item.quantity) }}</td>
+							<td  class="col-sm-3" ng:model="item.og">{{ calculateOg(item) }}</td>
+							<td  class="col-sm-2" style="white-space: nowrap">
+								<a href ng-click="removeMalt($index)" class="glyphicon glyphicon-remove-circle"></a>
+							</td>							
+						</tr>	
+						<tr class="totalrow">
+							<td>Total</td>
+							<td>{{ total() }}</td>
+							<td></td> 
+							<td>{{ showtotalOg() }}</td> 
+							<td></td> 
+						</tr>	
+					</tbody>
+				</table>
+			</div>	
+			<md-button class="md-primary" ng-click="showHopModal()">
+			  <md-icon md-svg-src="images/icons/launch.svg"></md-icon>
+			  Luppoli
+			</md-button>
+			<div>
+				<table ng-show="hopsList" class="ng-binding ng-hide table table-hover" cellpadding="0" cellspacing="0" id="fermentables">
+					<thead>
+						<tr>
+							<th class="col-sm-1">Name</th>
+							<th class="col-sm-2">Formato</th>
+							<th class="col-sm-2">Min</th>
+							<th class="col-sm-2">Step</th>
+							<th class="col-sm-1">Quantità(gr)</th>
+							<th class="col-sm-2">AA%</th>
+							<th class="col-sm-1">Ibu</th>
+							<th class="col-sm-1">Edit</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="item in hopsList | orderBy:'-minutes'">
+							<td class="col-sm-2">{{item.name}}</td>
+							<td class="col-sm-2">
+								<select class="form-control" ng-model="item.formatType" ng-options="obj for obj in hopFormatType">
+									<option value="">Formato</option>
+								</select>
+							</td>
+							<td class="col-sm-1">
+								<input type="number" ng:model="item.minutes" ng:required class="form-control input-mini">
+							</td>
+							<td class="col-sm-2">
+								<select class="form-control" ng-model="item.step" ng-options="o for o in hopStepType">
+									<option value="">Step</option>
+								</select>				
+							</td>
+							<td class="col-sm-2">
+								<input type="number" ng:model="item.quantity" ng:required class="form-control input-mini">										
+							</td>
+							<td class="col-sm-1">
+								<input type="number" ng:model="item.alfa" ng:required class="form-control input-mini">										
+							</td>
+							<!--td>
+								<!--input type="number" ng:model="item.ibu" value="{{calculateIbu(item)}}" readonly="" class="form-control input-mini">										
+								{{calculateIbu(item)}}
+							</td-->
+							<td class="col-sm-1" ng:model="item.ibu">
+								{{calculateIbu(item)}}
+							</td>
+							<td class="col-sm-1" style="white-space: nowrap">
+								<a href ng-click="removeHop($index)" class="glyphicon glyphicon-remove-circle"></a>
+								<a href ng-click="copy($index,'hop')" class="glyphicon glyphicon-plus-sign"></a>
+							</td>							
+						</tr>	
+						<tr class="totalrow">
+							<td>Total</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td>{{totalHop()}}</td>
+							<td></td> 
+							<td>{{totalIbu()}}</td> 
+							<td></td> 
+						</tr>	
+					</tbody>
+				</table>
+			</div>	
+			<md-button class="md-primary" ng-click="showYeastModal()">
+				<md-icon md-svg-src="images/icons/launch.svg"></md-icon>
+				Lievito
+			</md-button>	
+			<div>
+				<table ng-show="yeastsList" class="ng-binding ng-hide table table-hover" cellpadding="0" cellspacing="0" id="yeast">
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Quantità</th>
+							<th>Edit</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="item in yeastsList">
+							<td>{{item.name}} {{item.prodId}} {{item.form}}</td>
+							<td>
+								<div class="col-xs-4">
+								<input type="number" ng:model="item.weight" ng:required class="form-control input-mini">										
+								</div>
+							</td>
+							<td style="white-space: nowrap">
+								<a href ng-click="removeYeast($index)" class="glyphicon glyphicon-remove-circle"></a>
+							</td>							
+						</tr>	
+						<tr class="totalrow">
+							<td>Total {{style.length}}</td>
+							<td>{{totalYeast()}}</td>
+							<td></td> 
+						</tr>	
+					</tbody>
+				</table>
+			</div>
+			</div>
+		</v-pane-content>
+	</v-pane>
+</v-accordion>		
+	<md-button ng-click="saveRecipe()" ng-disabled="recipe.name == undefined || recipe.type == undefined || recipe.style == undefined || recipe.name.length <= 1" class="md-raised md-primary">Salva ricetta</md-button>
 <!-- 	<div ng-include="'/app/views/test.html'"></div> -->
-</div>		
 				

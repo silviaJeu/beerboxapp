@@ -173,6 +173,33 @@ md-checkbox.yeasts-check.md-default-theme.md-checked .md-icon{
 	width: 50%;
 }
 
+.pane-header {
+	font-family: 'Muli', sans-serif;
+	color: rgb(0,150,136);
+	font-size: 22px;
+	font-weight: 600;
+	line-height: 40px;
+	
+}
+
+
+/* v-accordion ovverride */
+.recipe-accordion.vAccordion--default v-pane.is-expanded>v-pane-header {
+	border-bottom-color: rgb(0,150,136);
+}
+
+.recipe-content .vAccordion--default v-pane-header::after, .vAccordion--default v-pane-header::before {
+	background-color: rgb(0,150,136) !important;
+}
+
+.recipe-content .vAccordion--default v-pane-header:hover, .vAccordion--default v-pane-header:focus {
+	color: rgb(0,150,136) !important;
+}
+
+.recipe-content .vAccordion--default v-pane-header {
+	border-bottom: 2px solid #FB9902;
+}
+
 /* bootstrap ovveride */
 .form-control:focus {
 	border-color: rgb(0,150,136);

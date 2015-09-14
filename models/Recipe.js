@@ -4,7 +4,6 @@ var RecipeSchema = new mongoose.Schema({
 	user: String,
 	name: String,
 	type: String,
-	style: String,
 	og: {type: Number, default: 1000},
 	fg: {type: Number, default: 1000},
 	ibu: {type: Number, default: 0},
@@ -25,10 +24,10 @@ var RecipeSchema = new mongoose.Schema({
         	 		id: String,
         	 		name: String,
         	 		formatType: String,
-        	 		minutes: String,
+        	 		minutes: {type: Number, default: 0},
         	 		step: String,
         	 		qty: {type: Number, default: 0}, 
-        	 		alfa: {type: Number}
+        	 		alfa: {type: Number, default: 0}
         	 	}
         	 ],
    yeasts:	[
@@ -38,6 +37,16 @@ var RecipeSchema = new mongoose.Schema({
           	 		qty: {type: Number, default: 0}
           	 	}
           	],
+   style: 	{
+				id: String,
+				name: String,
+				og: String,
+				fg: String,
+				ibu: String,
+				srm: String,
+				abv: String
+   			}
+          	 
   
 });
 	

@@ -35,7 +35,7 @@
 								<input type="text" class="form-control" placeholder="Attenuazione" ng-model="attenuation"></input>
 							</div>
 							<div class="form-group">
-								<input type="number" class="form-control" placeholder="Quantità" ng-model="weight"></input>
+								<input type="number" step="any" class="form-control input-mini" placeholder="Quantità" ng-model="weight"></input>
 							</div>							
 							<md-button class="md-raised md-primary">Aggiungi</md-button>
 						</form>
@@ -43,7 +43,7 @@
 							<input class="form-control" placeholder="Filtra..." type="text" ng-model="query"/>
 						</div>
 						<br></br>
-						<div class="table-responsive">
+						<div>
 							<table class="table table-hover table-bordered" cellpadding="0" cellspacing="0" id="yeasts">
 								<thead>
 									<tr>
@@ -61,7 +61,7 @@
 									<tr ng-repeat="yeast in yeasts | orderBy:'-name' :!reverse| filter:query">
 										<td>
 											<!--span ng-click="add(yeast)" ng-class="{'glyphicon glyphicon-check' : tempselected.indexOf(yeast.name) >= 0, 'glyphicon glyphicon-unchecked' : tempselected.indexOf(yeast.name) < 0}" aria-hidden="true"></span-->
-											<md-checkbox class="yeasts-check" ng-checked="tempselected.indexOf(yeast.name) >= 0" ng-click="add(yeast)" aria-label="Hop"></md-checkbox>
+											<md-checkbox class="yeasts-check" ng-checked="tempselected.indexOf(yeast.name) >= 0" ng-click="add(yeast)" aria-label="Yeast"></md-checkbox>
 										</td>	
 										<td>{{yeast.name}}</td>
 										<td>{{yeast.lab}}</th>
