@@ -305,6 +305,7 @@ beerboxApp.controller('RecipeCtrl', [
 	        angular.forEach($scope.fermentablesList, function(item) {
 	            total += item.quantity;
 	        })
+	        total = parseFloat(total.toPrecision(12));
 	        return total;
 	    };
 	    

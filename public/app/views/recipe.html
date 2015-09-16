@@ -19,7 +19,7 @@
 			<div class="form-group">
 				<label for="recipeStyle" class="col-sm-2 control-label">Stile</label>
 				<div class="col-sm-10">
-					<select class="form-control" ng:model="style" ng-options="c.name for c in recipeStyle">
+					<select class="form-control" ng:model="style" ng-options="c.name for c in recipeStyle track by c.id">
 						<option value="">Stile</option>
 					</select>
 				</div>
@@ -247,7 +247,7 @@
 							</td>							
 						</tr>	
 						<tr class="totalrow">
-							<td>Total {{style.length}}</td>
+							<td>Total</td>
 							<td>{{totalYeast()}}</td>
 							<td></td> 
 						</tr>	
