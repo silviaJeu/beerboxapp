@@ -37,6 +37,13 @@ var RecipeSchema = new mongoose.Schema({
           	 		qty: {type: Number, default: 0}
           	 	}
           	],
+   miscs:	[
+	       	 	{
+	       	 		id: String,
+	       	 		name: String,
+	       	 		qty: {type: Number, default: 0}
+	       	 	}
+	       	],
    style: 	{
 				id: String,
 				name: String,

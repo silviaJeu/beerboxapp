@@ -169,6 +169,10 @@ md-checkbox.yeasts-check.md-default-theme.md-checked .md-icon{
 	background-color: #F653A6;
 }
 
+md-checkbox.miscs-check.md-default-theme.md-checked .md-icon{
+	background-color: #F4D81C;
+}
+
 .box-form-select {
 	width: 50%;
 }
@@ -176,12 +180,16 @@ md-checkbox.yeasts-check.md-default-theme.md-checked .md-icon{
 .pane-header {
 	font-family: 'Muli', sans-serif;
 	color: rgb(0,150,136);
-	font-size: 22px;
+	font-size: 20px;
 	font-weight: 600;
 	line-height: 40px;
 	
 }
 
+.mash-pane .fa-times {
+	font-size: 1.5em;
+	margin-top: 7px;
+}
 
 /* v-accordion ovverride */
 .recipe-accordion.vAccordion--default v-pane.is-expanded>v-pane-header {
@@ -197,7 +205,8 @@ md-checkbox.yeasts-check.md-default-theme.md-checked .md-icon{
 }
 
 .recipe-content .vAccordion--default v-pane-header {
-	border-bottom: 2px solid #FB9902;
+/*	border-bottom: 2px solid #FB9902;*/
+	border-bottom: 2px solid #D8D8D8;
 }
 
 /* bootstrap ovveride */
@@ -232,4 +241,16 @@ md-checkbox.yeasts-check.md-default-theme.md-checked .md-icon{
 	border-top-right-radius: 0;
 	background-color: #FFFFFF;
 }
+
+.modal-content .table>tbody>tr>td, .modal-content .table>tbody>tr>th, .modal-content .table>tfoot>tr>td, .modal-content .table>tfoot>tr>th, .modal-content .table>thead>tr>td, .modal-content .table>thead>tr>th {
+	vertical-align: middle;
+}
+
+/* angular material override*/
+md-toolbar.md-small {
+	height: 48px;
+	min-height: 48px;
+	max-height: 48px;
+}
+
   

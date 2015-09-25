@@ -1,7 +1,7 @@
 'use strict';
 
 // Declare app level module which depends on views, and components
-var beerboxApp = angular.module('beerboxApp', ['ui.router','beerboxFilters','angularGrid','angularModalService','xeditable','ui.bootstrap','ngMaterial','vAccordion']);
+var beerboxApp = angular.module('beerboxApp', ['ui.router','beerboxFilters','angularGrid','angularModalService','xeditable','ui.bootstrap','ngMaterial','vAccordion','ng-fusioncharts']);
 
 beerboxApp.config(function($mdThemingProvider) {
 	$mdThemingProvider.theme('default')
@@ -102,7 +102,29 @@ beerboxApp.factory('styles', ['$http', function($http){
 		return o;	
 }]);
 
-beerboxApp.factory('recipes', ['$http','malts','hops','yeasts','styles', function($http,malts,hops,yeasts,styles){
+beerboxApp.factory('miscs', ['$http', function($http){
+	  var o = {
+			  miscs: []
+		};
+		o.getAll = function() {
+			return $http.get('/miscs').success(function(data){
+				angular.copy(data, o.miscs);
+			});
+		};
+		o.create = function(misc) {
+			return $http.post('/miscs', misc).success(function(data){
+				o.miscs.push(data);
+			});
+		};	
+		o.get = function(id) {
+			return	$http.get('/miscs/' + id).then(function(res){
+				return res;
+			});
+		};	
+		return o;	
+}]);
+
+beerboxApp.factory('recipes', ['$http','malts','hops','yeasts','miscs','styles', function($http,malts,hops,yeasts,miscs,styles){
   var o = {
 		  recipes: []
 	};
@@ -119,6 +141,7 @@ beerboxApp.factory('recipes', ['$http','malts','hops','yeasts','styles', functio
 		var hopsList = [];
 		var yeastsList = [];
 		var styleList = [];
+		var miscsList = [];
 		
 		angular.forEach(res.data.malts, function(item) {
 			malts.get(item.id).then(function(m) {
@@ -162,7 +185,21 @@ beerboxApp.factory('recipes', ['$http','malts','hops','yeasts','styles', functio
 						weight: item.qty,
 						attenuation: ydata.attenuation 
 				};
-				yeastsList.push(yeast);
+				miscsList.push(yeast);
+			});
+		});
+
+		angular.forEach(res.data.miscs, function(item) {
+			miscs.get(item.id).then(function(m) {
+				var mdata = m.data;
+				var misc = {
+						id: mdata._id,
+						name: item.name,
+						quantity: item.qty,
+						type: mdata.type,
+						use: mdata.use
+				};
+				miscsList.push(misc);
 			});
 		});
 		
@@ -171,7 +208,8 @@ beerboxApp.factory('recipes', ['$http','malts','hops','yeasts','styles', functio
 						//recipeStyle: styleList,
 						fermentablesList : fermentablesList,
 						hopsList : hopsList,
-						yeastsList : yeastsList
+						yeastsList : yeastsList,
+						miscsList : miscsList
 					}
 
 		return result;
@@ -195,13 +233,196 @@ beerboxApp.controller('RecipeCtrl', [
 	'result',
 	'$stateParams',
 	function($scope,ModalService,recipes,styles,result,$stateParams){
+        $scope.mashStepChart = {
+        	    "chart": {
+        	        "caption": "Actual Revenues, Targeted Revenues & Profits",
+        	        "subcaption": "Last year",
+        	        "xaxisname": "Month",
+        	        "yaxisname": "Amount (In USD)",
+        	        "numberprefix": "$",
+        	        "theme": "fint"
+        	    },
+        	    "categories": [
+        	        {
+        	            "category": [
+        	                {
+        	                    "label": "Jan"
+        	                },
+        	                {
+        	                    "label": "Feb"
+        	                },
+        	                {
+        	                    "label": "Mar"
+        	                },
+        	                {
+        	                    "label": "Apr"
+        	                },
+        	                {
+        	                    "label": "May"
+        	                },
+        	                {
+        	                    "label": "Jun"
+        	                },
+        	                {
+        	                    "label": "Jul"
+        	                },
+        	                {
+        	                    "label": "Aug"
+        	                },
+        	                {
+        	                    "label": "Sep"
+        	                },
+        	                {
+        	                    "label": "Oct"
+        	                },
+        	                {
+        	                    "label": "Nov"
+        	                },
+        	                {
+        	                    "label": "Dec"
+        	                }
+        	            ]
+        	        }
+        	    ],
+        	    "dataset": [
+        	        {
+        	            "seriesname": "Actual Revenue",
+        	            "data": [
+        	                {
+        	                    "value": "16000"
+        	                },
+        	                {
+        	                    "value": "20000"
+        	                },
+        	                {
+        	                    "value": "18000"
+        	                },
+        	                {
+        	                    "value": "19000"
+        	                },
+        	                {
+        	                    "value": "15000"
+        	                },
+        	                {
+        	                    "value": "21000"
+        	                },
+        	                {
+        	                    "value": "16000"
+        	                },
+        	                {
+        	                    "value": "20000"
+        	                },
+        	                {
+        	                    "value": "17000"
+        	                },
+        	                {
+        	                    "value": "25000"
+        	                },
+        	                {
+        	                    "value": "19000"
+        	                },
+        	                {
+        	                    "value": "23000"
+        	                }
+        	            ]
+        	        },
+        	        {
+        	            "seriesname": "Projected Revenue",
+        	            "renderas": "line",
+        	            "showvalues": "0",
+        	            "data": [
+        	                {
+        	                    "value": "15000"
+        	                },
+        	                {
+        	                    "value": "16000"
+        	                },
+        	                {
+        	                    "value": "17000"
+        	                },
+        	                {
+        	                    "value": "18000"
+        	                },
+        	                {
+        	                    "value": "19000"
+        	                },
+        	                {
+        	                    "value": "19000"
+        	                },
+        	                {
+        	                    "value": "19000"
+        	                },
+        	                {
+        	                    "value": "19000"
+        	                },
+        	                {
+        	                    "value": "20000"
+        	                },
+        	                {
+        	                    "value": "21000"
+        	                },
+        	                {
+        	                    "value": "22000"
+        	                },
+        	                {
+        	                    "value": "23000"
+        	                }
+        	            ]
+        	        },
+        	        {
+        	            "seriesname": "Profit",
+        	            "renderas": "area",
+        	            "showvalues": "0",
+        	            "data": [
+        	                {
+        	                    "value": "4000"
+        	                },
+        	                {
+        	                    "value": "5000"
+        	                },
+        	                {
+        	                    "value": "3000"
+        	                },
+        	                {
+        	                    "value": "4000"
+        	                },
+        	                {
+        	                    "value": "1000"
+        	                },
+        	                {
+        	                    "value": "7000"
+        	                },
+        	                {
+        	                    "value": "1000"
+        	                },
+        	                {
+        	                    "value": "4000"
+        	                },
+        	                {
+        	                    "value": "1000"
+        	                },
+        	                {
+        	                    "value": "8000"
+        	                },
+        	                {
+        	                    "value": "2000"
+        	                },
+        	                {
+        	                    "value": "7000"
+        	                }
+        	            ]
+        	        }
+        	    ]
+        	}
 		$scope.recipeId = $stateParams.id;
 		$scope.recipe = result.recipeInfo;
 		$scope.fermentablesList = result.fermentablesList;
 		$scope.hopsList = result.hopsList;	
 		$scope.yeastsList = result.yeastsList;
+		$scope.miscsList = result.miscsList;
 		$scope.style = result.recipeInfo.style;
 		$scope.recipeStyle = styles.data;
+		$scope.stepList = [];
 		$scope.user = "Silvia Jeu";
 		$scope.type;
 		$scope.name;
@@ -228,18 +449,36 @@ beerboxApp.controller('RecipeCtrl', [
 		  "Plug",
 		  "Coni"
 		];		
+
 		$scope.hopStepType = [
-		  "Boil",
-		  "Dry Hop",
-		  "Mash",
-		  "First Wort",
-		  "Whirlpool"
+			"Boil",
+			"Dry Hop",
+			"Mash",
+			"First Wort",
+			"Whirlpool"
+		];		
+
+		$scope.stepType = [
+			"Acid Rest",
+			"Beta-Glucanase Rest",
+			"Protein Rest",
+			"Saccarification Rest",
+			"B-amilasi Rest",
+			"A-amilasi Rest",
+			"Mash-out"
+		];		
+
+		$scope.mashType = [
+			"Decozione",
+			"Infusione",
+			"Infusione Inglese",
 		];		
 		
 		$scope.saveRecipe = function () {
 			var maltList = [];
 			var hopList = [];
 			var yeastList = [];
+			var miscList = [];
 			angular.forEach($scope.fermentablesList, function(item) {
 				var m = {
 							id: item.id,
@@ -270,6 +509,15 @@ beerboxApp.controller('RecipeCtrl', [
 						};					
 				yeastList.push(y);
 			})
+
+			angular.forEach($scope.miscsList, function(item) {
+				var m = {
+						id: item.id,
+						name: item.name,
+						qty: item.quantity
+				};					
+				miscList.push(m);
+			})
 			
 			if($scope.recipeId == undefined) {
 				//TODO MODIFICARE NOME CAMPI SCOPE	
@@ -288,7 +536,8 @@ beerboxApp.controller('RecipeCtrl', [
 					sizePb: $scope.recipe.sizePb,
 					malts: maltList,
 					hops: hopList,
-					yeasts: yeastList
+					yeasts: yeastList,
+					miscs: miscList
 				}).then(function(){
 					//$mdToast.show($mdToast.simple().content('La ricetta è stata salvata!'));
 					alert("La ricetta è stata salvata!");
@@ -397,17 +646,17 @@ beerboxApp.controller('RecipeCtrl', [
 				rangeW = r -l; 
 			}
 			return rangeW;
-		}		
+		};		
 		
 		$scope.totalSrm = function() {
 				var s = calculateSrm($scope.fermentablesList, $scope.recipe.size); 
 				$scope.srm = Number(Math.round(s+'e2')+'e-2');
 				return $scope.srm;
-    };		
+		};		
 		
 		$scope.srmPercent = function()	{
 			return Math.min(($scope.srm) * 2,50);
-		}
+		};
 		
 		$scope.srmRangeL = function()	{
 			var rangeL = "";
@@ -416,7 +665,7 @@ beerboxApp.controller('RecipeCtrl', [
 				rangeL = Math.min(a[0] * 2,50);
 			}
 			return rangeL;
-		}
+		};
 		
 		$scope.srmRangeW = function()	{
 			var rangeW = "";
@@ -427,16 +676,16 @@ beerboxApp.controller('RecipeCtrl', [
 				rangeW = r -l; 
 			}
 			return rangeW;
-		}
+		};
 		
 		$scope.totalAbv = function() {
 			$scope.abv = calculateAbv($scope.og, $scope.fg);
 			return $scope.abv;
-		}
+		};
 		
 		$scope.abvPercent = function()	{
 			return Math.min(($scope.abv) * 6.6,50);
-		}		
+		};		
 		
 		$scope.abvRangeL = function()	{
 			var rangeL = "";
@@ -445,7 +694,7 @@ beerboxApp.controller('RecipeCtrl', [
 				rangeL = Math.min(a[0] * 6.6,50);
 			}
 			return rangeL;
-		}
+		};
 		
 		$scope.abvRangeW = function()	{
 			var rangeW = "";
@@ -456,7 +705,7 @@ beerboxApp.controller('RecipeCtrl', [
 				rangeW = r -l; 
 			}
 			return rangeW;
-		}
+		};
 		
 		$scope.estFg = function() {
 			var fg = 1000;
@@ -464,16 +713,16 @@ beerboxApp.controller('RecipeCtrl', [
 				fg = calculateFg($scope.totalOg(), $scope.yeastsList);
 			$scope.fg = fg;
 			return fg;
-		}
+		};
 		
 		$scope.showEstFg = function() {
 			$scope.estFg();
 			return $scope.fg.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-		}
+		};
 		
 		$scope.fgPercent = function()	{
 			return Math.min(($scope.fg - 1000) * 0.8,100);
-		}
+		};
 		
 		$scope.fgRangeL = function()	{
 			var rangeL = "";
@@ -482,7 +731,7 @@ beerboxApp.controller('RecipeCtrl', [
 				rangeL = Math.min((a[0] - 1000) * 0.8,100);
 			}
 			return rangeL;
-		}
+		};
 
 		$scope.fgRangeW = function()	{
 			var rangeW = "";
@@ -496,33 +745,33 @@ beerboxApp.controller('RecipeCtrl', [
 		}
 		
 		$scope.totalYeast = function() {
-        var totalYeast = 0;
-        angular.forEach($scope.yeastsList, function(item) {
-            totalYeast += item.weight;
-        })
-        return totalYeast;
-    };
+	        var totalYeast = 0;
+	        angular.forEach($scope.yeastsList, function(item) {
+	            totalYeast += item.weight;
+	        })
+	        return totalYeast;
+		};
     
 		$scope.percent = function(qt) {
-        var total = $scope.total();
-				var val = (100 * qt) / total;
-				var percent = Number(Math.round(val+'e2')+'e-2');
-        return percent;
-    };
+	        var total = $scope.total();
+					var val = (100 * qt) / total;
+					var percent = Number(Math.round(val+'e2')+'e-2');
+	        return percent;
+		};
 		
-    $scope.removeMalt = function(index) {
-        $scope.fermentablesList.splice(index, 1);
-    };	
-		
-    $scope.removeHop = function(index) {
-        $scope.hopsList.splice(index, 1);
-    };
+	    $scope.removeMalt = function(index) {
+	        $scope.fermentablesList.splice(index, 1);
+	    };	
+			
+	    $scope.removeHop = function(index) {
+	        $scope.hopsList.splice(index, 1);
+	    };
 		
 		$scope.copy = function(index,type) {
 			if(type.indexOf("hop") == 0) {
 				var item = $scope.hopsList[index];
 				var copy = {
-					id: $scope.hopsList.length+1,
+					id: item.id,
 					name: item.name,
 					formatType: item.formatType,
 					step: item.step,
@@ -533,12 +782,23 @@ beerboxApp.controller('RecipeCtrl', [
 				};					
 				$scope.hopsList.push(copy);
 			}
+			else if(type.indexOf("misc") == 0) {
+				var item = $scope.miscsList[index];
+				var copy = {
+						id: item.id,
+						name: item.name,
+						quantity: item.quantity,
+						type: item.type,
+						use: item.use
+				};					
+				$scope.miscsList.push(copy);
+			}
 					
-    };
-		
-    $scope.removeYeast = function(index) {
-        $scope.yeastsList.splice(index, 1);
-    };			
+		};
+			
+	    $scope.removeYeast = function(index) {
+	        $scope.yeastsList.splice(index, 1);
+	    };			
 		
 		$scope.calculateIbu = function(item) {
 			var ibu = 0;
@@ -559,7 +819,25 @@ beerboxApp.controller('RecipeCtrl', [
 			return Number(Math.round(og+'e2')+'e-2');
 		}
 		
+	    $scope.removeMisc = function(index) {
+	        $scope.miscsList.splice(index, 1);
+	    };
+
+	    $scope.removeStep = function(index) {
+	    	$scope.stepList.splice(index, 1);
+	    };
 		
+		$scope.addStep = function(index) {
+			var s = {
+				id: index
+//				stepType: "";
+//				mashType: "",
+//				minutes: "",
+//				deg:""
+			};					
+			$scope.stepList.push(s);
+		}
+					
 		$scope.extendDeep = function extendDeep(dst) {
 			var l = dst.length;
 			angular.forEach(arguments, function(obj) {
@@ -622,6 +900,21 @@ beerboxApp.controller('RecipeCtrl', [
 				});			
 			});
 		};			
+
+		$scope.showMiscModal = function() {
+			ModalService.showModal({
+				templateUrl: "/app/views/misc.html",
+				controller: "MiscCtrl",
+				inputs: {
+					title: "Extra"
+				}
+			}).then(function(modal) {
+				modal.element.modal();
+				modal.close.then(function(result) {
+					$scope.miscsList = $scope.extendDeep($scope.miscsList, result.itemselected);
+				});			
+			});
+		};			
 	
 	}		
 ]);
@@ -666,6 +959,18 @@ beerboxApp.config([
 					}]
 				}
 			});				
+		$stateProvider
+		.state('misc', {
+			url: '/misc',
+			templateUrl: '/app/views/misc.html',
+			controller: 'MiscCtrl'
+				,
+				resolve: {
+					postPromise: ['miscs', function(miscs){
+						return miscs.getAll();
+					}]
+				}
+		});				
 		
 		$stateProvider
 			.state('home', {
@@ -697,12 +1002,16 @@ beerboxApp.config([
 					styles: function(styles) {
 						return styles = styles.getAll();
 					},
+					miscs: function(miscs) {
+						return miscs = miscs.getAll();
+					},
 					result: function() {
 						return {
 							recipeInfo : {efficiency: "75",size: 25},
 							fermentablesList : [],
 							hopsList : [],
-							yeastsList : []
+							yeastsList : [],
+							miscsList : []
 						}
 					}
 				}
@@ -723,9 +1032,9 @@ beerboxApp.config([
 				yeasts: function(yeasts) {
 					yeasts = yeasts.getAll();
 				},
-//				miscs : function (miscs) {
-//					miscs = miscs.getAll();
-//				},
+				miscs: function(miscs) {
+					return miscs = miscs.getAll();
+				},
 				styles: function(styles) {
 					return styles = styles.getAll();
 				},				
