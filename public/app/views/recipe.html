@@ -230,13 +230,13 @@
 					<thead>
 						<tr>
 							<th>Name</th>
-							<th>Quantità</th>
+							<th>Quantità(gr/ml)</th>
 							<th>Edit</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr ng-repeat="item in yeastsList">
-							<td>{{item.name}} {{item.prodId}} {{item.form}}</td>
+							<td>{{item.name}} {{item.prodId}} - {{item.form}}</td>
 							<td>
 								<div class="col-xs-4">
 								<input type="number" ng:model="item.weight" ng:required class="form-control input-mini">										
@@ -259,7 +259,7 @@
 				Extra
 			</md-button>	
 			<div>
-				<table ng-show="miscsList.length > 0" class="ng-binding ng-hide table table-hover" cellpadding="0" cellspacing="0" id="yeast">
+				<table ng-show="miscsList.length > 0" class="ng-binding ng-hide table table-hover" cellpadding="0" cellspacing="0" id="misc">
 					<thead>
 						<tr>
 							<th class="col-sm-3">Nome</th>
@@ -288,7 +288,7 @@
 			</div>
 		</v-pane-content>
 	</v-pane>
-  <v-pane class="mash-pane">
+  <v-pane expanded class="mash-pane">
     <v-pane-header class="pane-header">
       Step di ammostamento
     </v-pane-header>
@@ -299,12 +299,12 @@
 			</md-button>
 			<form>
 				<div class="row" ng-repeat="item in stepList" style="margin-left:0;margin-bottom:15px">
-					<div class="col-sm-2">
+					<div class="col-sm-3">
 						<select class="form-control" ng-model="item.step" ng-options="obj for obj in stepType">
 							<option value="">Step di ammostamento</option>
 						</select>	
 					</div>
-					<div class="col-sm-2">
+					<div class="col-sm-3">
 						<select class="form-control" ng-model="item.mashType" ng-options="obj for obj in mashType">
 							<option value="">Tipo di ammostamento</option>
 						</select>
@@ -318,12 +318,13 @@
 					<a href ng-click="removeStep($index)" class="fa fa-times"></a>			
 				</div>
 			</form>
-<fusioncharts
-    width="600" 
-    height="400"
-    type="mscombi2d"
-    datasource="{{mashStepChart}}"
-    ></fusioncharts>			
+<!-- 			<fusioncharts -->
+<!-- 			    width="450"  -->
+<!-- 			    height=250 -->
+<!-- 			    type="mscombi2d" -->
+<!-- 			    datasource="{{mashStepChart}}"> -->
+<!-- 			</fusioncharts>			 -->
+<!--      	<div id="chart_div" style="width: 900px; height: 500px;"></div> -->
 		</v-pane-content>
 	</v-pane>
   <v-pane class="fermetation-pane">
@@ -335,30 +336,12 @@
 			  <md-icon md-svg-src="images/icons/launch.svg"></md-icon>
 			  Aggiungi Step
 			</md-button>
-<!-- 			<form> -->
-<!-- 				<div class="row" ng-repeat="item in stepList" style="margin-left:0;margin-bottom:15px"> -->
-<!-- 					<div class="col-sm-2"> -->
-<!-- 						<select class="form-control" ng-model="item.step" ng-options="obj for obj in stepType"> -->
-<!-- 							<option value="">Step di ammostamento</option> -->
-<!-- 						</select>	 -->
-<!-- 					</div> -->
-<!-- 					<div class="col-sm-2"> -->
-<!-- 						<select class="form-control" ng-model="item.mashType" ng-options="obj for obj in mashType"> -->
-<!-- 							<option value="">Tipo di ammostamento</option> -->
-<!-- 						</select> -->
-<!-- 					</div> -->
-<!-- 					<div class="col-sm-2"> -->
-<!-- 						<input type="number" class="form-control" ng:model="item.degrees" id="itemdegrees" placeholder="Gradi"> -->
-<!-- 					</div> -->
-<!-- 					<div class="col-sm-2"> -->
-<!-- 						<input type="number" class="form-control" ng:model="item.minutes" id="itemmin" placeholder="Minuti"> -->
-<!-- 					</div> -->
-<!-- 					<a href ng-click="removeStep($index)" class="fa fa-times"></a>			 -->
-<!-- 				</div> -->
-<!-- 			</form> -->
 		</v-pane-content>
 	</v-pane>	
 </v-accordion>		
 <md-button ng-click="saveRecipe()" ng-disabled="recipe.name == undefined || recipe.type == undefined || style == undefined || recipe.name.length <= 1" class="md-raised md-primary">Salva ricetta</md-button>
 <!-- 	<div ng-include="'/app/views/test.html'"></div> -->
+<script type="text/javascript">
+
+</script>
 				

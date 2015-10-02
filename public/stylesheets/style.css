@@ -13,6 +13,8 @@ a:hover {
 	text-decoration: none;
 }	
 
+/** HOME **/
+
 .home-content {
 	max-width: 	864px;
 	margin: 16px;
@@ -23,13 +25,27 @@ a:hover {
 	margin-top: 20px;
 }
 
+.home-content .home-column .md-toolbar-tools h3 {
+	font-size: 18px;
+}
+
 .home-content .panel-heading .info-title {
-	font-size: 	24px;
+	font-size: 	22px;
 }
 
 .home-content .panel-heading .sub-title {
 	font-size: 	24px;
 }
+
+.home-column .panel-footer {
+	border: none;
+}
+
+.home-column [layout=row] {
+	flex-wrap: wrap;
+}
+
+/** INTERNAL PAGE **/
 
 .ingredients-list .table {
 	margin: 6px 8px;
@@ -180,7 +196,7 @@ md-checkbox.miscs-check.md-default-theme.md-checked .md-icon{
 .pane-header {
 	font-family: 'Muli', sans-serif;
 	color: rgb(0,150,136);
-	font-size: 20px;
+	font-size: 18px;
 	font-weight: 600;
 	line-height: 40px;
 	
@@ -214,11 +230,12 @@ md-checkbox.miscs-check.md-default-theme.md-checked .md-icon{
 	border-color: rgb(0,150,136);
 }
 
-.btn-primary {
+.home-content .btn-primary {
+	font-size: 16px;
 	background-color: #FB9902;
 	border: none;
-	/*border: none;
-	border-radius: 0;*/
+	/*border: none; */
+	border-radius: 0;
 }
 
 

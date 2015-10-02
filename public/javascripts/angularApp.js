@@ -181,11 +181,13 @@ beerboxApp.factory('recipes', ['$http','malts','hops','yeasts','miscs','styles',
 				var ydata = y.data;
 				var yeast = {
 						id: ydata._id,
+						prodId: ydata.prodId,
+						form: ydata.form,	
 						name: item.name,
 						weight: item.qty,
 						attenuation: ydata.attenuation 
 				};
-				miscsList.push(yeast);
+				yeastsList.push(yeast);
 			});
 		});
 
@@ -233,187 +235,72 @@ beerboxApp.controller('RecipeCtrl', [
 	'result',
 	'$stateParams',
 	function($scope,ModalService,recipes,styles,result,$stateParams){
-        $scope.mashStepChart = {
+        /*
+		$scope.mashStepChart = {
         	    "chart": {
-        	        "caption": "Actual Revenues, Targeted Revenues & Profits",
-        	        "subcaption": "Last year",
-        	        "xaxisname": "Month",
-        	        "yaxisname": "Amount (In USD)",
-        	        "numberprefix": "$",
-        	        "theme": "fint"
+        	        "caption": "Mash Profile Chart",
+        	        "subcaption": "Tot. 96 Minuti",
+        	        "xaxisname": "Minuti",
+        	        "yaxisname": "Gradi",
+        	        "theme": "fint",
+        	        "bgColor": "#DDDDDD",
+        	        "bgAlpha": "50",
+        	        "placevaluesInside": "1",
+        	        "valueFontColor": "#ffffff",
+        	        "bgColor": "#eeeeee,#cccccc",
+        	        "canvasbgColor": "#eeeeee,#b3b3b3",
+        	        "canvasbgAlpha": "100",
+        	        "canvasBgRatio": "40,60",
+        	        "canvasBgAngle": "0"
+         	        
         	    },
         	    "categories": [
         	        {
         	            "category": [
         	                {
-        	                    "label": "Jan"
+        	                    "label": "0 Min"
         	                },
         	                {
-        	                    "label": "Feb"
+        	                    "label": "16 Min"
         	                },
         	                {
-        	                    "label": "Mar"
+        	                    "label": "76 Min"
         	                },
         	                {
-        	                    "label": "Apr"
+        	                    "label": "86 Min"
         	                },
         	                {
-        	                    "label": "May"
-        	                },
-        	                {
-        	                    "label": "Jun"
-        	                },
-        	                {
-        	                    "label": "Jul"
-        	                },
-        	                {
-        	                    "label": "Aug"
-        	                },
-        	                {
-        	                    "label": "Sep"
-        	                },
-        	                {
-        	                    "label": "Oct"
-        	                },
-        	                {
-        	                    "label": "Nov"
-        	                },
-        	                {
-        	                    "label": "Dec"
+        	                    "label": "96 Min"
         	                }
         	            ]
         	        }
         	    ],
         	    "dataset": [
         	        {
-        	            "seriesname": "Actual Revenue",
-        	            "data": [
-        	                {
-        	                    "value": "16000"
-        	                },
-        	                {
-        	                    "value": "20000"
-        	                },
-        	                {
-        	                    "value": "18000"
-        	                },
-        	                {
-        	                    "value": "19000"
-        	                },
-        	                {
-        	                    "value": "15000"
-        	                },
-        	                {
-        	                    "value": "21000"
-        	                },
-        	                {
-        	                    "value": "16000"
-        	                },
-        	                {
-        	                    "value": "20000"
-        	                },
-        	                {
-        	                    "value": "17000"
-        	                },
-        	                {
-        	                    "value": "25000"
-        	                },
-        	                {
-        	                    "value": "19000"
-        	                },
-        	                {
-        	                    "value": "23000"
-        	                }
-        	            ]
-        	        },
-        	        {
-        	            "seriesname": "Projected Revenue",
-        	            "renderas": "line",
-        	            "showvalues": "0",
-        	            "data": [
-        	                {
-        	                    "value": "15000"
-        	                },
-        	                {
-        	                    "value": "16000"
-        	                },
-        	                {
-        	                    "value": "17000"
-        	                },
-        	                {
-        	                    "value": "18000"
-        	                },
-        	                {
-        	                    "value": "19000"
-        	                },
-        	                {
-        	                    "value": "19000"
-        	                },
-        	                {
-        	                    "value": "19000"
-        	                },
-        	                {
-        	                    "value": "19000"
-        	                },
-        	                {
-        	                    "value": "20000"
-        	                },
-        	                {
-        	                    "value": "21000"
-        	                },
-        	                {
-        	                    "value": "22000"
-        	                },
-        	                {
-        	                    "value": "23000"
-        	                }
-        	            ]
-        	        },
-        	        {
-        	            "seriesname": "Profit",
+        	            "seriesname": "Mash Profile",
         	            "renderas": "area",
         	            "showvalues": "0",
         	            "data": [
         	                {
-        	                    "value": "4000"
+        	                    "value": "52"
         	                },
         	                {
-        	                    "value": "5000"
+        	                    "value": "68"
         	                },
         	                {
-        	                    "value": "3000"
+        	                    "value": "68"
         	                },
         	                {
-        	                    "value": "4000"
+        	                    "value": "78"
         	                },
         	                {
-        	                    "value": "1000"
-        	                },
-        	                {
-        	                    "value": "7000"
-        	                },
-        	                {
-        	                    "value": "1000"
-        	                },
-        	                {
-        	                    "value": "4000"
-        	                },
-        	                {
-        	                    "value": "1000"
-        	                },
-        	                {
-        	                    "value": "8000"
-        	                },
-        	                {
-        	                    "value": "2000"
-        	                },
-        	                {
-        	                    "value": "7000"
-        	                }
-        	            ]
+        	                    "value": "78"
+        	                }           
+        	             ]
         	        }
         	    ]
         	}
+        	*/
 		$scope.recipeId = $stateParams.id;
 		$scope.recipe = result.recipeInfo;
 		$scope.fermentablesList = result.fermentablesList;
@@ -422,7 +309,7 @@ beerboxApp.controller('RecipeCtrl', [
 		$scope.miscsList = result.miscsList;
 		$scope.style = result.recipeInfo.style;
 		$scope.recipeStyle = styles.data;
-		$scope.stepList = [];
+		$scope.stepList = result.recipeInfo.steps;
 		$scope.user = "Silvia Jeu";
 		$scope.type;
 		$scope.name;
@@ -459,6 +346,7 @@ beerboxApp.controller('RecipeCtrl', [
 		];		
 
 		$scope.stepType = [
+		    "Mash-in",               	
 			"Acid Rest",
 			"Beta-Glucanase Rest",
 			"Protein Rest",
@@ -537,7 +425,8 @@ beerboxApp.controller('RecipeCtrl', [
 					malts: maltList,
 					hops: hopList,
 					yeasts: yeastList,
-					miscs: miscList
+					miscs: miscList,
+					steps: $scope.stepList
 				}).then(function(){
 					//$mdToast.show($mdToast.simple().content('La ricetta è stata salvata!'));
 					alert("La ricetta è stata salvata!");
@@ -1007,7 +896,7 @@ beerboxApp.config([
 					},
 					result: function() {
 						return {
-							recipeInfo : {efficiency: "75",size: 25},
+							recipeInfo : {efficiency: "75",size: 25,steps: []},
 							fermentablesList : [],
 							hopsList : [],
 							yeastsList : [],

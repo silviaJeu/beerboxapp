@@ -52,8 +52,16 @@ var RecipeSchema = new mongoose.Schema({
 				ibu: String,
 				srm: String,
 				abv: String
-   			}
-          	 
+   			},
+   steps:	[
+       	 		{
+	       	 		id: String,
+	       	 		step: String,
+	       	 		mashType: String,
+	       	 		degrees: {type: Number, default: 0},
+	       	 		minutes: {type: Number, default: 0}
+       	 		}
+       	 	]   			
   
 });
 	
