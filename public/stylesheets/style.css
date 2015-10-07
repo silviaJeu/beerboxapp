@@ -85,6 +85,8 @@ a:hover {
 
 .box-results {
 	clear: both;
+	width: 45%;
+	float: left;
 }
 
 .box-results  .row{
@@ -95,6 +97,15 @@ a:hover {
 	font-weight: bold;
 	color : #FB9902;
 }
+
+.box-srm {
+	width: 45%;
+	float: right;
+}
+
+.box-srm img {
+	width: 105px;
+} 
 
 .tip-title {
 	cursor: help;
@@ -269,5 +280,168 @@ md-toolbar.md-small {
 	min-height: 48px;
 	max-height: 48px;
 }
+
+/* SRM color */
+.srm0,
+.srm1 {
+  background-color: #fee799;
+}
+
+.srm2 {
+  background-color: #fdd978;
+}
+
+.srm3 {
+  background-color: #fdcb5a;
+}
+
+.srm4 {
+  background-color: #fcc143;
+}
+
+.srm5 {
+  background-color: #f7b324;
+}
+
+.srm6 {
+  background-color: #f5a800;
+}
+
+.srm7 {
+  background-color: #ee9e00;
+}
+
+.srm8 {
+  background-color: #e69100;
+}
+
+.srm9 {
+  background-color: #e38901;
+}
+
+.srm10 {
+  background-color: #da7e01;
+}
+
+.srm11 {
+  background-color: #d37400;
+}
+
+.srm12 {
+  background-color: #cb6c00;
+}
+
+.srm13 {
+  background-color: #c66401;
+}
+
+.srm14 {
+  background-color: #bf5c01;
+}
+
+.srm15 {
+  background-color: #b65300;
+}
+
+.srm16 {
+  background-color: #b04f00;
+}
+
+.srm17 {
+  background-color: #ac4701;
+}
+
+.srm18 {
+  background-color: #a24001;
+}
+
+.srm19 {
+  background-color: #9c3900;
+}
+
+.srm20 {
+  background-color: #963500;
+}
+
+.srm21 {
+  background-color: #912f00;
+}
+
+.srm22 {
+  background-color: #8c2d01;
+}
+
+.srm23 {
+  background-color: #832501;
+}
+
+.srm24 {
+  background-color: #7e1f01;
+}
+
+.srm25 {
+  background-color: #771c01;
+}
+
+.srm26 {
+  background-color: #721b00;
+}
+
+.srm27 {
+  background-color: #6c1501;
+}
+
+.srm28 {
+  background-color: #670f01;
+}
+
+.srm29 {
+  background-color: #620f01;
+}
+
+.srm30 {
+  background-color: #5b0d01;
+}
+
+.srm31 {
+  background-color: #560c03;
+}
+
+.srm32 {
+  background-color: #5d0a02;
+}
+
+.srm33 {
+  background-color: #500a08;
+}
+
+.srm34 {
+  background-color: #4a0605;
+}
+
+.srm35 {
+  background-color: #440706;
+}
+
+.srm36 {
+  background-color: #420807;
+}
+
+.srm37 {
+  background-color: #3c0908;
+}
+
+.srm38 {
+  background-color: #390708;
+}
+
+.srm39 {
+  background-color: #39080b;
+}
+
+.srm40 {
+  background-color: #050B0A;
+}
+ 
 
   

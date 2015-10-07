@@ -726,6 +726,10 @@ beerboxApp.controller('RecipeCtrl', [
 			};					
 			$scope.stepList.push(s);
 		}
+		
+		$scope.srmClass = function() {
+			return "srm"+Math.min(Math.round($scope.srm),40);
+		}
 					
 		$scope.extendDeep = function extendDeep(dst) {
 			var l = dst.length;
