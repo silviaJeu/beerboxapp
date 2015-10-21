@@ -19,92 +19,85 @@
 		<script src="/javascripts/angularApp.js"></script>
 		<script src="/javascripts/recipeListCtrl.js"></script>
 		<script src="/javascripts/ingredientsCtrl.js"></script>
+		<script src="/javascripts/ingredientsDetailCtrl.js"></script>
+		<script src="/javascripts/service.js"></script>
 		<script src="/javascripts/operation.js"></script>
 		<script src="/javascripts/angularGrid.min.js"></script>
+		<script src="/javascripts/ready.js"></script>
 		<script src="/bower_components/angular-modal-service/dst/angular-modal-service.min.js"></script>		
 		<script src="/bower_components/angular-xeditable/dist/js/xeditable.js"></script>		
-    <!--script src="/bower_components/angular/angular.min.js"></script-->
-    <script src="/bower_components/angular-aria/angular-aria.min.js"></script>
-    <script src="/bower_components/angular-animate/angular-animate.min.js"></script>
-    <script src="/bower_components/angular-material/angular-material.min.js"></script>
-    <script src="/javascripts/fusioncharts/fusioncharts.js"></script>
-    <script src="/javascripts/fusioncharts/angular-fusioncharts.min.js"></script>
-    <script src="/javascripts/fusioncharts/fusioncharts.theme.fint.js"></script>
+	    <script src="/bower_components/angular-aria/angular-aria.min.js"></script>
+	    <script src="/bower_components/angular-animate/angular-animate.min.js"></script>
+	    <script src="/bower_components/angular-material/angular-material.min.js"></script>
+<!--     <script src="/javascripts/fusioncharts/fusioncharts.js"></script> -->
+<!--     <script src="/javascripts/fusioncharts/angular-fusioncharts.min.js"></script> -->
+<!--     <script src="/javascripts/fusioncharts/fusioncharts.theme.fint.js"></script> -->
 		<meta name="viewport" content="width=device-width, initial-scale=1Rs, maximum-scale=1, user-scalable=no">
 	</head>
 	<body ng-app="beerboxApp">
-		<div>
+		<div class="container-fluid" id="app_container_id">
+		<div class="header" id="app_header_id">
+			<section class="headerMenu" id="menu">
+				<!-- Menu content -->
+				<nav class="menuContent">
+					<ul>
+						<li><a href="#"><i class="fa fa-beer"></i>  Ricette</a></li>
+						<li><a href="#/ingredients"><i class="fa fa-book"></i>  Ingredienti</a></li>
+						<li><a href="#"><i class="fa fa-calculator"></i>  Strumenti</a></li>
+						<li><a href="#"><i class="fa fa-bar-chart"></i>  Statistiche</a></li>
+						<li><a href="#"><i class="fa fa-file-image-o"></i>  Gallery</a></li>
+					</ul>
+				</nav>	
+			</section>			
+		</div>
 			<div class="col-md-1">
 			</div>
 			<div class="col-md-10 recipe-content">
 				<div class="page-header">
-					<a href="#/home"><h2>Beer Box App</h2></a>
+					<a href="#/home"><h1>Beer Box App</h1></a>
 				</div>
-					<ui-view></ui-view>				
-				</div>
+				<ui-view></ui-view>				
+			</div>
 			<div class="col-md-1">
 			</div>
-		</div>
-		<script type="text/ng-template" id="/home.html">
+			<script type="text/ng-template" id="/home.html">
 			<div class="home-content">
 				<a href="#/addrecipe" class="btn btn-primary">{{user}} Inserisci ricetta</a>
-			<div layout="column" class="home-column">
-			<md-toolbar md-scroll-shrink class="md-small">
-    		<div class="md-toolbar-tools">
-      		<h3>
-        		<span>Le tue ricette</span>
-      		</h3>
-    		</div>
-  		</md-toolbar>
-			<div layout="row" layout-margin>
-				<div class="col-lg-4 col-md-6" ng-repeat="recipe in recipes">
-        	<div class="panel panel-primary">
-          	<div class="panel-heading">
-            	<div class="row">
-              	<div class="col-xs-3">
-                	<i class="glyph-icon flaticon-beer33"></i>
-                 </div>
-                 <div class="col-xs-9 text-right">
-                 	<div class="info-title">{{recipe.name}}</div>
-                  <div class="info-subtitle">American Pale Ale</div>
-                 </div>
-                </div>
-              </div>
-            <a href="#/recipe/{{recipe._id}}">
-            	<div class="panel-footer">
-              	<span class="pull-left">Apri ricetta</span>
-                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                <div class="clearfix"></div>
-              </div>
-          	</a>
-        </div>
-  			<!--div flex flex-order="1">
-					<div class="panel panel-primary">
-				<ul ng-repeat="recipe in recipes">
-					<li class="flaticon-beer33">
-						<p>{{recipe._id}}</p>
-						<p>{{recipe.name}}</p>
-						<p>{{recipe.type}}</p>
-						<p>{{recipe.og}}</p>
-						<p>{{recipe.ibu}}</p>
-						<p>{{recipe.srm}}</p>
-					</li>
-				</ul-->					
-				</div>
-  			</div>
-  			<!--div flex flex-order="2">
-					<div class="panel panel-primary">
-    			[flex-order="2"]
+				<div layout="column" class="home-column">
+					<md-toolbar md-scroll-shrink class="md-small">
+    					<div class="md-toolbar-tools">
+	      					<h3>
+    	    					<span>Le tue ricette</span>
+      						</h3>
+    					</div>
+	  				</md-toolbar>
+					<div layout="row" layout-margin>
+					<div class="col-lg-4 col-md-6" ng-repeat="recipe in recipes">
+			        	<div class="panel panel-primary">
+          					<div class="panel-heading">
+            					<div class="row">
+              						<div class="col-xs-3">
+                						<i class="glyph-icon flaticon-beer33"></i>
+                 					</div>
+                 					<div class="col-xs-9 text-right">
+                 						<div class="info-title">{{recipe.name}}</div>
+                  						<div class="info-subtitle">American Pale Ale</div>
+                 					</div>
+                				</div>
+              				</div>
+            				<a href="#/recipe/{{recipe._id}}">
+            					<div class="panel-footer">
+              						<span class="pull-left">Apri ricetta</span>
+                					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                					<div class="clearfix"></div>
+              					</div>
+          					</a>
+        				</div>
 					</div>
-  			</div>
-  			<div flex flex-order="3">
-					<div class="panel panel-primary">
-    			[flex-order="3"]
-  			</div>
-			</div-->
-			<div>
-
+  					</div>
+				<div>
 			</div>
-		</script>
+			</script>
+		</div>
 	</body>
 </html>

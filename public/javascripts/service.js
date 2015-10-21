@@ -1,4 +1,4 @@
-// service
+//service
 beerboxApp.factory('malts', ['$http', function($http){
   var o = {
 		malts: []
@@ -65,7 +65,51 @@ beerboxApp.factory('yeasts', ['$http', function($http){
 	return o;	
 }]);
 
-beerboxApp.factory('recipes', ['$http','malts','hops','yeasts', function($http,malts,hops,yeasts){
+beerboxApp.factory('styles', ['$http', function($http){
+	  var o = {
+			  styles: []
+		};
+		o.getAll = function() {
+			return $http.get('/styles').success(function(data){
+				angular.copy(data, o.styles);
+			});
+		};
+		o.create = function(style) {
+			return $http.post('/styles', style).success(function(data){
+				o.styles.push(data);
+			});
+		};	
+		o.get = function(id) {
+			return	$http.get('/styles/' + id).then(function(res){
+				return res;
+			});
+		};	
+		return o;	
+}]);
+
+beerboxApp.factory('miscs', ['$http', function($http){
+	  var o = {
+			  miscs: []
+		};
+		o.getAll = function() {
+			return $http.get('/miscs').success(function(data){
+				angular.copy(data, o.miscs);
+			});
+		};
+		o.create = function(misc) {
+			return $http.post('/miscs', misc).success(function(data){
+				o.miscs.push(data);
+			});
+		};	
+		o.get = function(id) {
+			return	$http.get('/miscs/' + id).then(function(res){
+				return res;
+			});
+		};	
+		return o;	
+}]);
+
+beerboxApp.factory('recipes', ['$http','malts','hops','yeasts','miscs','styles', function($http,malts,hops,yeasts,miscs,styles){
   var o = {
 		  recipes: []
 	};
@@ -78,10 +122,11 @@ beerboxApp.factory('recipes', ['$http','malts','hops','yeasts', function($http,m
   
   o.get = function(id) {
 	return	$http.get('/recipes/' + id).then(function(res){
-		var maltList = malts.malts;
 		var fermentablesList = [];
 		var hopsList = [];
 		var yeastsList = [];
+		var styleList = [];
+		var miscsList = [];
 		
 		angular.forEach(res.data.malts, function(item) {
 			malts.get(item.id).then(function(m) {
@@ -121,6 +166,8 @@ beerboxApp.factory('recipes', ['$http','malts','hops','yeasts', function($http,m
 				var ydata = y.data;
 				var yeast = {
 						id: ydata._id,
+						prodId: ydata.prodId,
+						form: ydata.form,	
 						name: item.name,
 						weight: item.qty,
 						attenuation: ydata.attenuation 
@@ -128,12 +175,30 @@ beerboxApp.factory('recipes', ['$http','malts','hops','yeasts', function($http,m
 				yeastsList.push(yeast);
 			});
 		});
+
+		angular.forEach(res.data.miscs, function(item) {
+			miscs.get(item.id).then(function(m) {
+				var mdata = m.data;
+				var misc = {
+						id: mdata._id,
+						name: item.name,
+						quantity: item.qty,
+						type: mdata.type,
+						use: mdata.use
+				};
+				miscsList.push(misc);
+			});
+		});
+		
 		var result = {
 						recipeInfo : res.data,
+						//recipeStyle: styleList,
 						fermentablesList : fermentablesList,
 						hopsList : hopsList,
-						yeastsList : yeastsList
+						yeastsList : yeastsList,
+						miscsList : miscsList
 					}
+
 		return result;
 	});
   }
@@ -145,26 +210,4 @@ beerboxApp.factory('recipes', ['$http','malts','hops','yeasts', function($http,m
 	};	
 		
   return o;	
-}]);
-
-beerboxApp.factory('style', ['$http', function($http){
-	  var s = {
-			styles: []
-		};
-		s.getAll = function() {
-			return $http.get('/style').success(function(data){
-				angular.copy(data, s.style);
-			});
-		};
-		s.create = function(post) {
-			return $http.post('/style', post).success(function(data){
-				s.style.push(data);
-			});
-		};
-		s.get = function(id) {
-			return	$http.get('/style/' + id).then(function(res){
-				return res;
-			});
-		};	
-		return s;	
 }]);
