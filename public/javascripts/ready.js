@@ -10,16 +10,32 @@ $(document).ready(function(){
 function init() {
 	app_cfg["elements"]={
 		"header":	new app_obj(app_getObjID(".header")),
+		"menu":	new app_obj("menu"),
 		"container":	new app_obj(app_getObjID(".container-fluid"))
 	}
 	$(window).on("scroll.app",function(e){ 
 		app_toggleScroll(); 
 	});
+	
+	$("#menu .menuContent").children().on("click",function(e) {
+		app_toggleMenuItems();
+	});
+	
 }
 
 function app_toggleScroll() {
 	var docTop=Math.round($(document).scrollTop());
 	$(app_cfg["elements"]["container"].id).toggleClass("appScrAtTop",(docTop<=app_cfg["delta_px"])).toggleClass("appScrNoTop",(docTop>app_cfg["delta_px"]));
+}
+
+function app_toggleMenu() {
+	app_cfg["elements"]["menu"].show();
+}
+
+function app_toggleMenuItems() {
+	if($("#toggle").is(":checked")) {
+		$("#toggle").prop( "checked", false );
+	} 
 }
 
 function app_getObjID(objClass) {
@@ -32,6 +48,6 @@ function app_getObjID(objClass) {
 function app_obj(objId) {
 	this.id="#"+objId;
 	this.hidden=function()		{ return !$(this.id).is(":visible"); }
-	this.show=function()		{ $(this.id).show(this.toshow); }
-	this.hide=function()		{ $(this.id).hide(this.tohide); }	
+	this.show=function()		{ $(this.id).show(); }
+	this.hide=function()		{ $(this.id).hide(); }	
 }

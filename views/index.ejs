@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title>Fermentables</title>
+		<title>Beer Box App</title>
 		<link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 		<link href="/stylesheets/style.css" rel="stylesheet">
 		<link href="/stylesheets/font-awesome-4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -36,20 +36,32 @@
 	</head>
 	<body ng-app="beerboxApp">
 		<div class="container-fluid" id="app_container_id">
-		<div class="header" id="app_header_id">
-			<section class="headerMenu" id="menu">
-				<!-- Menu content -->
-				<nav class="menuContent">
-					<ul>
-						<li><a href="#"><i class="fa fa-beer"></i>  Ricette</a></li>
-						<li><a href="#/ingredients"><i class="fa fa-book"></i>  Ingredienti</a></li>
-						<li><a href="#"><i class="fa fa-calculator"></i>  Strumenti</a></li>
-						<li><a href="#"><i class="fa fa-bar-chart"></i>  Statistiche</a></li>
-						<li><a href="#"><i class="fa fa-file-image-o"></i>  Gallery</a></li>
-					</ul>
-				</nav>	
-			</section>			
-		</div>
+			<div class="header" id="app_header_id">
+<!-- 		        <md-button hide-gt-sm class="md-icon-button"> -->
+<!-- 		          <md-icon aria-label="Menu" md-svg-icon="images/icons/menu.svg"></md-icon> -->
+<!-- 		        </md-button>				 -->
+<!-- 				<div layout="row" layout-sm="column" layout-align-sm="start start" hide-sm class="headerMenu" id="menu"> -->
+<!-- 					<div flex ><a href="#/home"><i class="fa fa-beer"></i>  Ricette</a></div> -->
+<!-- 					<div flex ><a href="#/ingredients"><i class="fa fa-book"></i>  Ingredienti</a></div> -->
+<!-- 					<div flex ><a href="#"><i class="fa fa-calculator"></i>  Strumenti</a></div> -->
+<!-- 					<div flex ><a href="#"><i class="fa fa-bar-chart"></i>  Statistiche</a></div> -->
+<!-- 					<div flex ><a href="#"><i class="fa fa-file-image-o"></i>  Gallery</a></div> -->
+<!-- 					</md-sidenav> -->
+<!-- 				</div> -->
+				<input type="checkbox" name="menu" value="toggle" id="toggle">
+				<section class="headerMenu" id="menu">
+					<label class="toggle" for="toggle" id="app_label_menu"><i class="fa fa-2x fa-bars"></i></label>
+					<nav class="menuContent">
+						<ul>
+							<li><a href="#/home"><i class="fa fa-beer"></i>  Ricette</a></li>
+							<li><a href="#/ingredients"><i class="fa fa-book"></i>  Ingredienti</a></li>
+							<li><a href="#"><i class="fa fa-calculator"></i>  Strumenti</a></li>
+							<li><a href="#"><i class="fa fa-bar-chart"></i>  Statistiche</a></li>
+							<li><a href="#"><i class="fa fa-file-image-o"></i>  Gallery</a></li>
+						</ul>
+					</nav>	
+				</section>			
+			</div>
 			<div class="col-md-1">
 			</div>
 			<div class="col-md-10 recipe-content">
