@@ -1,4 +1,83 @@
-<div layout="row" layout-wrap ng-repeat="malt in malts">
-	<div flex>{{malt.name}} </div> 
-	<div flex>{{malt.srm}} </div> 
-</div>
+<md-content>
+	<md-tabs md-border-bottom>
+		<md-tab label="Malti">
+			<md-content class="md-padding">
+				<div layout="row" layout-wrap class="header-table">
+						<div flex>Nome </div> 
+						<div flex>Tipo </div> 
+						<div flex>Srm </div> 
+						<div flex>Pg </div> 
+						<div flex>Mash? </div>
+				</div> 
+				<div layout="row" layout-wrap ng-repeat="malt in malts | orderBy:'-type' :'-name'" class="content-table">
+					<div flex>{{malt.name}} </div> 
+					<div flex>{{malt.type}} </div> 
+					<div flex class="{{ srmClass(malt.srm) }}">
+					<div>
+					<span>
+					{{malt.srm}}
+<!-- 					<md-slider ng-disabled="true" aria-label="red" ng-model="malt.srm" min="0" max="500"></md-slider> -->
+					</span>
+					</div>
+					</div>
+					<div flex>{{malt.pg}} </div> 
+					<div flex>{{malt.mash}} </div> 
+				</div>
+			</md-content>
+		</md-tab>
+		<md-tab label="Luppoli">
+			<md-content class="md-padding">
+				<div layout="row" layout-wrap class="header-table">
+						<div flex>Nome </div> 
+						<div flex>Tipo </div> 
+						<div flex>Alpha Acidi </div> 
+						<div flex>Origine </div> 
+				</div> 
+				<div layout="row" layout-wrap ng-repeat="hop in hops" class="content-table">
+					<div flex>{{hop.name}} </div> 
+					<div flex>{{hop.type}} </div> 
+					<div flex>{{hop.alfa}} </div> 
+					<div flex>{{hop.origin}} </div> 
+				</div>
+			</md-content>
+		</md-tab>
+		<md-tab label="Extra">
+			<md-content class="md-padding">
+				<div layout="row" layout-wrap class="header-table">
+						<div flex>Nome </div> 
+						<div flex>Tipo </div> 
+						<div flex>Utilizzo </div> 
+				</div> 
+				<div layout="row" layout-wrap ng-repeat="extra in miscs" class="content-table">
+					<div flex>{{extra.name}} </div> 
+					<div flex>{{extra.type}} </div> 
+					<div flex>{{extra.use}} </div> 
+				</div>
+			</md-content>
+		</md-tab>
+		<md-tab label="Lieviti">
+			<md-content class="md-padding">
+				<div layout="row" layout-wrap class="header-table">
+						<div flex>Nome </div> 
+						<div flex>Tipo </div> 
+						<div flex>Laboratorio </div> 
+						<div flex>Id Prodotto </div> 
+						<div flex>Formato</div> 
+						<div flex>Range T&#176;</div> 
+						<div flex>Attenuazione</div> 
+						<div flex>Quantit&#224;</div> 
+				</div> 
+				<div layout="row" layout-wrap ng-repeat="yeast in yeasts" class="content-table">
+					<div flex>{{yeast.name}} </div> 
+					<div flex>{{yeast.type}} </div> 
+					<div flex>{{yeast.lab}} </div> 
+					<div flex>{{yeast.prodId}} </div> 
+					<div flex>{{yeast.form}} </div> 
+					<div flex>{{yeast.rangeT}} </div> 
+					<div flex>{{yeast.attenuation}} </div> 
+					<div flex>{{yeast.weight}} </div> 
+				</div>		
+			</md-content>
+		</md-tab>
+	</md-tabs>
+</md-content>

@@ -15,8 +15,12 @@ function init() {
 	}
 	$(window).on("scroll.app",function(e){ 
 		app_toggleScroll(); 
+
 	});
-	
+	$(window).on("resize.app",function(e){ 
+		console.log("toggle: "+$("#toggle").is(":checked")); 
+	});
+
 	$("#menu .menuContent").children().on("click",function(e) {
 		app_toggleMenuItems();
 	});

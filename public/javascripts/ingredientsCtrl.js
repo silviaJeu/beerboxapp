@@ -6,6 +6,7 @@ beerboxApp.controller('MaltCtrl', [
 	'$element',
 	'close',
 	function($scope, malts, $element, close){
+		$scope.title = "Aggiungi Fermentabili";
 		$scope.itemselected = [];
 		$scope.tempselected = [];
 		$scope.malts = malts.malts;
@@ -94,6 +95,7 @@ beerboxApp.controller('HopCtrl', [
 	'$element',
 	'close',
 	function($scope, hops, $element, close){
+		$scope.title = "Aggiungi Luppoli";
 		$scope.itemselected = [];
 		$scope.tempselected = [];
 		$scope.hops = hops.hops;
@@ -172,6 +174,7 @@ beerboxApp.controller('YeastCtrl', [
 	'$element',
 	'close',
 	function($scope, yeasts, $element, close){
+		$scope.title = "Aggiungi Lievito";
 		$scope.itemselected = [];
 		$scope.tempselected = [];
 		$scope.yeasts = yeasts.yeasts;
@@ -263,6 +266,7 @@ beerboxApp.controller('MiscCtrl', [
 '$element',
 'close',
 function($scope, miscs, $element, close){
+	$scope.title = "Aggiungi Extra";
 	$scope.itemselected = [];
 	$scope.tempselected = [];
 	$scope.miscs = miscs.miscs;

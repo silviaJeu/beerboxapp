@@ -34,7 +34,7 @@ router.post('/malts', function(req, res, next) {
 
 router.param('malt', function(req, res, next, id) {
   var query = Malt.findById(id);
-
+  
   query.exec(function (err, malt){
     if (err) { return next(err); }
     if (!malt) { return next(new Error('can\'t find malt')); }
@@ -48,14 +48,35 @@ router.get('/malts/:malt', function(req, res) {
   res.json(req.malt);
 });
 
+//router.put('/malts/:malt', function(req, res, next) {
+//	var malt = new Malt(req.body);
+//	Malt.findByIdAndUpdate(req.malt._id, malt, function(err, result) {
+//		if(err){
+//			console.log("Error: "+err);
+//			return next(err); 
+//		}
+//		res.json(result);
+//	});	
+//});
+//
+router.put('/malts', function(req, res, next) {
+	var malt = new Malt(req.body);
+	Malt.findByIdAndUpdate(req.body._id, malt, function(err, result) {
+		if(err){
+			console.log("Error: "+err);
+			return next(err); 
+		}
+		res.json(malt);
+	});	
+});
+
 router.delete('/malts', function(req, res, next) {
 	var malt = new Malt(req.body);
 	
-malt.remove(function(err, malt){
-	if(err){ return next(err); }
-
-    res.json(malt);
-  });
+	malt.remove(function(err, malt){
+		if(err){ return next(err); }
+	    res.json(malt);
+	});
 });
 
 // hops routing
@@ -173,6 +194,17 @@ router.get('/recipes/:recipe', function(req, res) {
   res.json(req.recipe);
 });
 
+router.put('/recipes', function(req, res, next) {
+	var recipe = new Recipe(req.body);
+	Recipe.findByIdAndUpdate(req.body._id, recipe, function(err, result) {
+		if(err){
+			console.log("Error: "+err);
+			return next(err); 
+		}
+		res.json(recipe);
+	});	
+});
+
 router.delete('/recipes', function(req, res, next) {
 	var recipe = new Recipe(req.body);
 	
@@ -223,3 +255,4 @@ router.get('/miscs', function(req, res, next) {
     res.json(miscs);
   });
 });
+

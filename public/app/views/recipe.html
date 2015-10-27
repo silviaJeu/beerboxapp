@@ -49,64 +49,64 @@
 			</div>
 		</form>	
 	</div>
-	<div class="box-results col-md-5">
+	<div class="box-results col-md-5 col-xs-6">
 		<div class="row">
-			<div class="col-md-2">
+			<div class="col-sm-2">
 				<span class="tip-title" tooltip="Gravità iniziale">OG</span>
 			</div>
-			<div class="col-md-2 data-results">{{ showtotalOg() }}</div>		
-				<div class="col-md-8">
-					<div class="bb-bar" title="Style range: {{style.og}}">
-						<div class="bb-bar-range" style="width: {{rangeW() }}%; left: {{rangeL() }}%; transition: width 1s ease, left 1s ease; -webkit-transition: width 1s ease, left 1s ease;"></div>
-							<i class="bb-bar-this fa fa-caret-down" style="left: {{ogpercent() }}%; transition: width 1s ease, left 1s ease; -webkit-transition: width 1s ease, left 1s ease;"></i>
-					</div>
+			<div class="col-sm-2 data-results">{{ showtotalOg() }}</div>
+			<div class="col-sm-8">
+				<div class="bb-bar" title="Style range: {{style.og}}">
+					<div class="bb-bar-range" style="width: {{rangeW() }}%; left: {{rangeL() }}%; transition: width 1s ease, left 1s ease; -webkit-transition: width 1s ease, left 1s ease;"></div>
+						<i class="bb-bar-this fa fa-caret-down" style="left: {{ogpercent() }}%; transition: width 1s ease, left 1s ease; -webkit-transition: width 1s ease, left 1s ease;"></i>
 				</div>
+			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-2">
+			<div class="col-sm-2">
 				<span class="tip-title" tooltip="International Bittering Units">IBU</span>
 			</div>
-			<div class="col-md-2 data-results">{{ totalIbu() }}</div>		
-				<div class="col-md-8">
-					<div class="bb-bar" title="Style range: {{style.ibu}}">
-						<div class="bb-bar-range" style="width: {{ibuRangeW() }}%; left: {{ibuRangeL() }}%; transition: width 1s ease, left 1s ease; -webkit-transition: width 1s ease, left 1s ease;"></div>
-							<i class="bb-bar-this fa fa-caret-down" style="left: {{ibupercent() }}%; transition: width 1s ease, left 1s ease; -webkit-transition: width 1s ease, left 1s ease;"></i>
-					</div>
+			<div class="col-sm-2 data-results">{{ totalIbu() }}</div>		
+			<div class="col-sm-8">
+				<div class="bb-bar" title="Style range: {{style.ibu}}">
+					<div class="bb-bar-range" style="width: {{ibuRangeW() }}%; left: {{ibuRangeL() }}%; transition: width 1s ease, left 1s ease; -webkit-transition: width 1s ease, left 1s ease;"></div>
+						<i class="bb-bar-this fa fa-caret-down" style="left: {{ibupercent() }}%; transition: width 1s ease, left 1s ease; -webkit-transition: width 1s ease, left 1s ease;"></i>
 				</div>
-			</div>			
+			</div>
+		</div>			
 		<div class="row">
-			<div class="col-md-2">
+			<div class="col-sm-2">
 				<span class="tip-title" tooltip="Standard Reference Method">SRM</span>
 			</div>
-			<div class="col-md-2 data-results">{{ totalSrm() }}</div>		
-				<div class="col-md-8">
-					<div class="bb-bar" title="Style range: {{style.srm}}">
-						<div class="bb-bar-range" style="width: {{srmRangeW() }}%; left: {{srmRangeL() }}%; transition: width 1s ease, left 1s ease; -webkit-transition: width 1s ease, left 1s ease;"></div>
-							<i class="bb-bar-this fa fa-caret-down" style="left: {{srmPercent() }}%; transition: width 1s ease, left 1s ease; -webkit-transition: width 1s ease, left 1s ease;"></i>
-					</div>
+			<div class="col-sm-2 data-results">{{ totalSrm() }}</div>		
+			<div class="col-sm-8">
+				<div class="bb-bar" title="Style range: {{style.srm}}">
+					<div class="bb-bar-range" style="width: {{srmRangeW() }}%; left: {{srmRangeL() }}%; transition: width 1s ease, left 1s ease; -webkit-transition: width 1s ease, left 1s ease;"></div>
+						<i class="bb-bar-this fa fa-caret-down" style="left: {{srmPercent() }}%; transition: width 1s ease, left 1s ease; -webkit-transition: width 1s ease, left 1s ease;"></i>
 				</div>
-			</div>			
+			</div>
+		</div>			
 		<div class="row">
-			<div class="col-md-2">
+			<div class="col-sm-2">
 				<span class="tip-title" tooltip="Standard Reference Method">ABV</span>
 			</div>
-			<div class="col-md-2 data-results">{{ totalAbv() }}%</div>		
-			<div class="col-md-8">
+			<div class="col-sm-2 data-results">{{ totalAbv() }}%</div>		
+			<div class="col-sm-8">
 				<div class="bb-bar" title="Style range: {{style.abv}}">
 					<div class="bb-bar-range" style="width: {{abvRangeW() }}%; left: {{abvRangeL() }}%; transition: width 1s ease, left 1s ease; -webkit-transition: width 1s ease, left 1s ease;"></div>
-						<i class="bb-bar-this fa fa-caret-down" style="left: {{abvPercent() }}%; transition: width 1s ease, left 1s ease; -webkit-transition: width 1s ease, left 1s ease;"></i>
+					<i class="bb-bar-this fa fa-caret-down" style="left: {{abvPercent() }}%; transition: width 1s ease, left 1s ease; -webkit-transition: width 1s ease, left 1s ease;"></i>
 				</div>
 			</div>
 		</div>						
 		<div class="row">
-			<div class="col-md-2">
+			<div class="col-sm-2">
 				<span class="tip-title" tooltip="Estimated Final Gravity">Est.FG</span>
 			</div>
-			<div class="col-md-2 data-results">{{ showEstFg() }}</div>		
-			<div class="col-md-8">
+			<div class="col-sm-2 data-results">{{ showEstFg() }}</div>		
+			<div class="col-sm-8">
 				<div class="bb-bar" title="Style range: {{style.fg}}">
 					<div class="bb-bar-range" style="width: {{fgRangeW() }}%; left: {{fgRangeL() }}%; transition: width 1s ease, left 1s ease; -webkit-transition: width 1s ease, left 1s ease;"></div>
-						<i class="bb-bar-this fa fa-caret-down" style="left: {{fgPercent() }}%; transition: width 1s ease, left 1s ease; -webkit-transition: width 1s ease, left 1s ease;"></i>
+					<i class="bb-bar-this fa fa-caret-down" style="left: {{fgPercent() }}%; transition: width 1s ease, left 1s ease; -webkit-transition: width 1s ease, left 1s ease;"></i>
 				</div>
 			</div>
 		</div>									
@@ -139,13 +139,13 @@
 					</thead>
 					<tbody>
 						<tr ng-repeat="item in fermentablesList | orderBy:'-quantity'">
-							<td  class="col-sm-3">{{item.name}}</td>				
-							<td  class="col-sm-2">
+							<td  class="col-sm-3 col-xs-4">{{item.name}}</td>				
+							<td  class="col-sm-2 col-xs-1">
 								<input type="number" ng:model="item.quantity" ng:required class="form-control input-mini">										
 							</td>
-							<td  class="col-sm-2">{{ percent(item.quantity) }}</td>
-							<td  class="col-sm-3" ng:model="item.og">{{ calculateOg(item) }}</td>
-							<td  class="col-sm-2" style="white-space: nowrap">
+							<td  class="col-sm-2 col-xs-3">{{ percent(item.quantity) }}</td>
+							<td  class="col-sm-3 col-xs-3" ng:model="item.og">{{ calculateOg(item) }}</td>
+							<td  class="col-sm-2 col-xs-1" style="white-space: nowrap">
 								<a href ng-click="removeMalt($index)" class="glyphicon glyphicon-remove-circle"></a>
 							</td>							
 						</tr>	

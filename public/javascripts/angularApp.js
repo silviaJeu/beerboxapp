@@ -5,8 +5,8 @@ var beerboxApp = angular.module('beerboxApp', ['ui.router','beerboxFilters','ang
 
 beerboxApp.config(function($mdThemingProvider) {
 	$mdThemingProvider.theme('default')
-		.primaryPalette('teal');
-		//.accentPalette('orange');
+		.primaryPalette('teal')
+		.accentPalette('orange');
 });
 
 beerboxApp.run(function(editableOptions) {
@@ -147,7 +147,7 @@ beerboxApp.controller('RecipeCtrl', [
 			"Infusione",
 			"Infusione Inglese",
 		];		
-		
+
 		$scope.saveRecipe = function () {
 			var maltList = [];
 			var hopList = [];
@@ -219,7 +219,29 @@ beerboxApp.controller('RecipeCtrl', [
 				});
 
 			} else {
-				alert("ricetta da modificare");
+				recipes.update({
+					_id: $scope.recipeId,
+					user: $scope.user,
+					name: $scope.recipe.name,
+					type: $scope.recipe.type,
+					style: $scope.style,
+					og: $scope.og,
+					fg: $scope.fg,
+					ibu: $scope.ibu,
+					srm: $scope.srm,
+					abv: $scope.abv,
+					efficiency: $scope.recipe.efficiency,
+					size: $scope.recipe.size,
+					sizePb: $scope.recipe.sizePb,
+					malts: maltList,
+					hops: hopList,
+					yeasts: yeastList,
+					miscs: miscList,
+					steps: $scope.stepList
+				}).then(function(){
+					//$mdToast.show($mdToast.simple().content('La ricetta è stata salvata!'));
+					alert("La ricetta è stata modificata!");
+				});
 			}
 			
 		}

@@ -74,6 +74,7 @@ a:hover {
 /** INTERNAL PAGE **/
 
 .ingredients-list .table {
+	width: 100%;
 	margin: 6px 8px;
 }
 
@@ -206,6 +207,15 @@ i.bb-bar-this {
 	text-align: left;
 }
 
+.modal-content {
+	max-height: 850px;
+	overflow-y: scroll;	
+}
+
+.modal-content .table>tbody>tr>td, .modal-content .table>tbody>tr>th, .modal-content .table>tfoot>tr>td, .modal-content .table>tfoot>tr>th, .modal-content .table>thead>tr>td, .modal-content .table>thead>tr>th {
+	vertical-align: middle;
+}
+
 .modal-content .filter {
 	padding-left: 0;
 }
@@ -275,6 +285,15 @@ md-checkbox.miscs-check.md-default-theme.md-checked .md-icon{
 	border-radius: 0;
 }
 
+.recipe-content .table>tbody>tr>td {
+	border-top: none;
+	padding: 8px;
+}
+
+.recipe-content .form-control {
+	border-radius:0;
+}
+
 
 .home-content .btn-primary:hover, .home-content .btn:hover {
 	background-color: #996515;
@@ -294,10 +313,6 @@ md-checkbox.miscs-check.md-default-theme.md-checked .md-icon{
 	border-top-left-radius: 0;
 	border-top-right-radius: 0;
 	background-color: #FFFFFF;
-}
-
-.modal-content .table>tbody>tr>td, .modal-content .table>tbody>tr>th, .modal-content .table>tfoot>tr>td, .modal-content .table>tfoot>tr>th, .modal-content .table>thead>tr>td, .modal-content .table>thead>tr>th {
-	vertical-align: middle;
 }
 
 /* angular material override*/
@@ -496,6 +511,17 @@ md-toolbar.md-small {
 	display: none;
 }
 
+div.header-table {
+	color: rgba(0,0,0,0.54);
+	font-weight: bold;
+	margin-bottom: 20px;
+}
+
+div.content-table span{
+	background-color: #FFFFFF;
+/* 	margin-left: 45%; */
+	padding: 0 10px;
+}	
 
 /* Pushing the Menu off the canves */
 #menu {
@@ -546,15 +572,7 @@ md-toolbar.md-small {
 	
 	#menu ul li, #menu > div {
 		font-size: 14px;
-	}
-	
-/* 	#menu ul li a, #menu > div > a { */
-/* 		padding: 10px 0; */
-/* 	} */
-	
-/* 	#menu ul li, #menu > div { */
-/* 		margin-right: 0; */
-/* 	} */
+	}	
 
 }
 
@@ -567,10 +585,11 @@ md-toolbar.md-small {
 	#menu {
 		width: 200px;
 		min-width: 200px;
-		background: rgb(0,150,136);
+/* 		background: rgb(0,150,136); */
+		background: rgb(256,256,256);
 		display: table;
 		left: -200px;
-		min-height: 100%;
+/* 		min-height: 100%; */
 	}
 	
 	#menu ul li, #menu > div {
@@ -580,11 +599,14 @@ md-toolbar.md-small {
 	
 	#menu ul li a {
 		margin-top: 20px;
+		color: rgb(0,150,136);
 	}	
 }
 
 @media screen and (max-width:480px) {	
-	
+	.home-column .recipe-box {
+		width: 100%;
+	}
 }
 
 @media screen and (max-width:320px) {

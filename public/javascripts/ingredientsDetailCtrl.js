@@ -2,11 +2,26 @@
 
 
 beerboxApp.controller('IngredientsCtrl', [
-	'$scope', 'malts', '$stateParams',
-	function($scope, malts, $stateParams) {
+	'$scope','malts','hops','miscs','yeasts','$stateParams','$q',
+	function($scope,malts,hops,miscs,yeasts,$stateParams,$q) {
 		$scope.title = 'Lista Ingredienti';
 		$scope.tempselected = [];
-		$scope.malts = malts.malts;
+		var m = malts.getAll(),
+	    h = hops.getAll(),
+	    e = miscs.getAll(),
+	    y = yeasts.getAll()
+
+		$q.all([m, h, e, y]).then(function(responses){
+			$scope.malts = responses[0].data;
+			$scope.hops = responses[1].data;
+			$scope.miscs = responses[2].data;
+			$scope.yeasts = responses[3].data;
+		});		
+		
+		$scope.srmClass = function(srm) {
+			return "srm"+Math.min(Math.round(srm),40);
+		}
+		
 }]);
 
 beerboxApp.config([
@@ -18,11 +33,7 @@ beerboxApp.config([
 			.state('ingredients', {
 				url: '/ingredients',
 				templateUrl: '/app/views/ingredients.html',
-				controller: 'IngredientsCtrl',
-				resolve: {
-					postPromise: ['malts', function(malts){
-					return malts.getAll();
-					}]
-			}
+				controller: 'IngredientsCtrl'
 			})
-}]);
+	}
+]);
