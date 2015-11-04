@@ -74,11 +74,6 @@ a:hover {
 /** INTERNAL PAGE **/
 
 .ingredients-list .table {
-	width: 100%;
-	margin: 6px 8px;
-}
-
-.table {
 	font-size: 14px;
 }
 
@@ -131,7 +126,7 @@ a:hover {
 }
 
 .box-srm img {
-	width: 105px;
+	max-width: 105px;
 } 
 
 .tip-title {
@@ -205,6 +200,10 @@ i.bb-bar-this {
 
 .box-form .form-horizontal .control-label {
 	text-align: left;
+}
+
+.recipeGrid {
+	height: 250px;
 }
 
 .modal-content {
@@ -294,6 +293,14 @@ md-checkbox.miscs-check.md-default-theme.md-checked .md-icon{
 	border-radius:0;
 }
 
+.ingredients-list select.form-control {
+	width: auto;
+}
+
+.ingredients-list input[type="number"].form-control {
+	max-width: 100px; 
+	min-width: 70px;
+}
 
 .home-content .btn-primary:hover, .home-content .btn:hover {
 	background-color: #996515;
@@ -320,6 +327,10 @@ md-toolbar.md-small {
 	height: 48px;
 	min-height: 48px;
 	max-height: 48px;
+}
+
+md-input-container label {
+	font-size: 16px;
 }
 
 /* SRM color */
@@ -494,8 +505,8 @@ md-toolbar.md-small {
 	position:fixed;
 	background: rgba(0,150,136,0.8);
 	color: #fff;
-	-webkit-transition: all 1s;
-	transition: all 1s;	
+	-webkit-transition: left 1s;
+	transition: left 1s;	
 }
 
 #menu .toggle {
@@ -531,8 +542,8 @@ div.content-table span{
 /* Showing the menu then the Checkbox is checked */
 #toggle:checked + #menu {
 	left: 0;
-	-webkit-transition: top 1s; /* Safari 3.1 to 6.0 */
-	transition: left 1s;
+	-webkit-transition: all 1s; /* Safari 3.1 to 6.0 */
+	transition: all 1s;
 }
  
 #menu ul {
@@ -558,25 +569,41 @@ div.content-table span{
 	background-color: #2c3e50;
 }
 
+.result-box {
+	font-size: 16px;
+	margin-top: 10px;
+}
+
+.result-box .result {
+	color: rgb(0,150,136);
+	font-weight: 700;
+}
+
 @media screen and (min-width: 992px) {
 	
 	.recipe-content {
 		margin-top: 40px;
-	}	
+	}
+	
 }
 
-@media screen and (max-width:768px), screen and (max-height:768px)  {
-}
+@media screen and (max-width:768px) {
+	
+	.box-results {
+		width: 65%;
+	}
+	
+	.box-srm {
+		width: 25%;
+	}	
+	
+	.box-srm img {
+		width: 100%
+	}
+}	
+
 
 @media screen and (max-width:640px) {
-	
-	#menu ul li, #menu > div {
-		font-size: 14px;
-	}	
-
-}
-
-@media screen and (max-width:599px) {
 	
 	#app_label_menu {
 		display: block;
@@ -601,6 +628,18 @@ div.content-table span{
 		margin-top: 20px;
 		color: rgb(0,150,136);
 	}	
+	
+	.form-control {
+		font-size: 12px;
+	}
+	
+	.ingredients-list input.form-control{
+		min-width: 70px;
+	}
+	
+	.ingredients-list .table {
+		font-size: 12px;
+	}
 }
 
 @media screen and (max-width:480px) {	
@@ -612,4 +651,3 @@ div.content-table span{
 @media screen and (max-width:320px) {
 } 
 
-  

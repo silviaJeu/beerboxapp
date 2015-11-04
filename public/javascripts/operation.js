@@ -16,46 +16,11 @@ function calculateIbu(gr, aa, format,lt,util) {
 	return ibu;
 }
 
-function getUtil(min) {
-	if(min > 0 && min <= 5)
-		return 5.0;
-	if(min >= 6 && min <= 10 )
-		return 6.0;
-	if(min >= 11 && min <= 15 )
-		return 8.0;
-	if(min >= 16 && min <= 20)
-		return 10.1;
-	if(min >= 21 && min <= 25)
-		return 12.1;
-	if(min >= 26 && min <= 30)
-		return 15.3;
-	if(min >= 31 && min <= 35)
-		return 18.8;
-	if(min >= 36 && min <= 40)
-		return 22.8;
-	if(min >= 41 && min <= 45)
-		return 26.0;
-	if(min >= 46 && min <= 50)
-		return 28.1;
-	if(min >= 51 && min <= 55)
-		return 29.6;
-	if(min >= 56)
-		return 30.5;
-}
-
 function calculateOg(e, kg, pg) {
 	//Kg x punti x efficienza 
 	var lb = kgToLbs(kg);
 	var og = lb * pg;
 	return og;
-}
-
-function kgToLbs(kg) {
-	return kg * 2.2;
-}
-
-function ltToGal(lt) {
-	return lt * 0.26;
 }
 
 function calculateSrm(grains, lt) {
@@ -83,11 +48,119 @@ function calculateFg(og, yeastsList) {
 	return fg;
 }
 
+/*
+ * ((OG - FG) * 105) * 1.25 = ABV
+ * (OG - FG) * 131.25
+ * 
+ */
 function calculateAbv(og, fg) {
 	var abv = 0;
 	if(og > 1000 && fg > 1000) {
-		abv = ((og - 1000) - (fg - 1000)) / 7.5;
+		abv = ( (og / 1000) - (fg / 1000) ) * 131.25;
 		abv = Number(Math.round(abv+'e1')+'e-1');
 	}
 	return abv;
 }
+
+/*
+ * Apparent attenuation
+ * (OG-FG)/ OG x 100%
+ * ((OG-1)-(FG-1)) / (OG-1) x 100%
+ */
+function calculateAAttenuation(og, fg) {
+	var att = 0;
+	if(og > 1000 && fg > 1000) {
+		var ogp = getGu(og)
+		var fgp = getGu(fg);
+		att = ( (ogp - fgp) / ogp ) * 100;
+	}
+	return Math.round(att);
+}
+
+/*
+ * Real attenuation
+ * = Apparent Attenuation % x 0.814 65.12
+ */
+function calculateRAttenuation(appAtt) {
+	var att = 0;
+	if(appAtt > 0)
+		att = appAtt * 0.814;
+	return Math.round(att);
+}
+
+function calculatePriming(lt, co2, currCo2) {
+	var g = 0;
+	if(lt != undefined && co2 != undefined && currCo2 > 0 ) {
+		g = (co2 - currCo2) * 4 * lt;
+		g = Number(Math.round(g+'e2')+'e-2');
+	}
+	return g;
+}
+
+/* CO2 In Beer = 3.0378 - (0.050062 * temp) + (0.00026555 * temp^2)*/
+function calculateCurrentCo2(temp) {
+	var r = 0;
+	var t = celsiusToFahr(temp);
+	if(temp != undefined) {
+		r = 3.0378 - (0.050062 * t) + (0.00026555 * Math.pow(t,2));
+		r = Number(Math.round(r+'e2')+'e-2');
+	}
+	return r;
+}
+
+function getUtil(min) {
+	if(min > 0 && min <= 5)
+		return 5.0;
+	if(min >= 6 && min <= 10 )
+		return 6.0;
+	if(min >= 11 && min <= 15 )
+		return 8.0;
+	if(min >= 16 && min <= 20)
+		return 10.1;
+	if(min >= 21 && min <= 25)
+		return 12.1;
+	if(min >= 26 && min <= 30)
+		return 15.3;
+	if(min >= 31 && min <= 35)
+		return 18.8;
+	if(min >= 36 && min <= 40)
+		return 22.8;
+	if(min >= 41 && min <= 45)
+		return 26.0;
+	if(min >= 46 && min <= 50)
+		return 28.1;
+	if(min >= 51 && min <= 55)
+		return 29.6;
+	if(min >= 56)
+		return 30.5;
+}
+
+function getGu(sg) {
+	var gu = 0;
+	if(sg > 1000)
+		gu = sg - 1000;
+	return gu;
+}
+
+function parseGravity(gr) {
+	// og with dot
+	var re = /^[0-9]\.[0-9]{3}$/; 
+	var m;
+	if ((m = re.exec(gr)) !== null){ 
+		gr = gr.replace("\.","");
+	}
+	return parseInt(gr);
+}
+
+function kgToLbs(kg) {
+	return kg * 2.2;
+}
+
+function ltToGal(lt) {
+	return lt * 0.26;
+}
+
+function celsiusToFahr(temp) {
+	return temp * 1.8 + 32;
+}
+

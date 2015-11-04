@@ -1,11 +1,11 @@
 <html>
 	<head>
 		<title>Beer Box App</title>
-		<link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-		<link href="/stylesheets/style.css" rel="stylesheet">
-		<link href="/stylesheets/font-awesome-4.3.0/css/font-awesome.min.css" rel="stylesheet">
-		<link href='https://fonts.googleapis.com/css?family=Muli' rel='stylesheet' type='text/css'>
-		<link href="/stylesheets/font-flaticon/flaticon.css" rel="stylesheet">
+		<link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+		<link href="/stylesheets/style.css" rel="stylesheet" type="text/css">
+		<link href="/stylesheets/font-awesome-4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+		<link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet" type="text/css">
+		<link href="/stylesheets/font-flaticon/flaticon.css" rel="stylesheet" type="text/css">
 		<link href="/bower_components/angular-xeditable/dist/css/xeditable.css" rel="stylesheet">
 		<link href="/bower_components/angular-material/angular-material.css" rel="stylesheet">
 		<link href="/bower_components/v-accordion/dist/v-accordion.min.css" rel="stylesheet">
@@ -20,9 +20,9 @@
 		<script src="/javascripts/recipeListCtrl.js"></script>
 		<script src="/javascripts/ingredientsCtrl.js"></script>
 		<script src="/javascripts/ingredientsDetailCtrl.js"></script>
+		<script src="/javascripts/calculatorsCtrl.js"></script>
 		<script src="/javascripts/service.js"></script>
 		<script src="/javascripts/operation.js"></script>
-		<script src="/javascripts/angularGrid.min.js"></script>
 		<script src="/javascripts/ready.js"></script>
 		<script src="/bower_components/angular-modal-service/dst/angular-modal-service.min.js"></script>		
 		<script src="/bower_components/angular-xeditable/dist/js/xeditable.js"></script>		
@@ -44,7 +44,7 @@
 						<ul>
 							<li><a href="#/home"><i class="fa fa-beer"></i>  Ricette</a></li>
 							<li><a href="#/ingredients"><i class="fa fa-book"></i>  Ingredienti</a></li>
-							<li><a href="#"><i class="fa fa-calculator"></i>  Strumenti</a></li>
+							<li><a href="#/calculators"><i class="fa fa-calculator"></i>  Strumenti</a></li>
 							<li><a href="#"><i class="fa fa-bar-chart"></i>  Statistiche</a></li>
 							<li><a href="#"><i class="fa fa-file-image-o"></i>  Gallery</a></li>
 						</ul>
@@ -56,7 +56,7 @@
 			<div class="col-md-10 recipe-content">
 				<div class="page-header">
 					<a href="#/home"><h1>Beer Box App</h1></a>
-				</div>
+				</div>			
 				<ui-view></ui-view>				
 			</div>
 			<div class="col-md-1">

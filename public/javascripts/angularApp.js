@@ -1,7 +1,7 @@
 'use strict';
 
 // Declare app level module which depends on views, and components
-var beerboxApp = angular.module('beerboxApp', ['ui.router','beerboxFilters','angularGrid','angularModalService','xeditable','ui.bootstrap','ngMaterial','vAccordion']);
+var beerboxApp = angular.module('beerboxApp', ['ui.router','beerboxFilters','angularModalService','xeditable','ui.bootstrap','ngMaterial','vAccordion']);
 
 beerboxApp.config(function($mdThemingProvider) {
 	$mdThemingProvider.theme('default')
