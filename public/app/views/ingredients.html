@@ -9,7 +9,7 @@
 						<div flex>Pg </div> 
 						<div flex>Mash? </div>
 				</div> 
-				<div layout="row" layout-wrap ng-repeat="malt in malts | orderBy:'-type' :'-name'" class="content-table">
+				<div layout="row" layout-wrap ng-repeat="malt in malts | orderBy:['type','name']" class="content-table">
 					<div flex>{{malt.name}} </div> 
 					<div flex>{{malt.type}} </div> 
 					<div flex class="{{ srmClass(malt.srm) }}">
@@ -33,7 +33,7 @@
 						<div flex>Alpha Acidi </div> 
 						<div flex>Origine </div> 
 				</div> 
-				<div layout="row" layout-wrap ng-repeat="hop in hops" class="content-table">
+				<div layout="row" layout-wrap ng-repeat="hop in hops | orderBy: 'name'" class="content-table">
 					<div flex>{{hop.name}} </div> 
 					<div flex>{{hop.type}} </div> 
 					<div flex>{{hop.alfa}} </div> 
@@ -48,7 +48,7 @@
 						<div flex>Tipo </div> 
 						<div flex>Utilizzo </div> 
 				</div> 
-				<div layout="row" layout-wrap ng-repeat="extra in miscs" class="content-table">
+				<div layout="row" layout-wrap ng-repeat="extra in miscs | orderBy: 'name'" class="content-table">
 					<div flex>{{extra.name}} </div> 
 					<div flex>{{extra.type}} </div> 
 					<div flex>{{extra.use}} </div> 
@@ -67,7 +67,7 @@
 						<div flex>Attenuazione</div> 
 						<div flex>Quantit&#224;</div> 
 				</div> 
-				<div layout="row" layout-wrap ng-repeat="yeast in yeasts" class="content-table">
+				<div layout="row" layout-wrap ng-repeat="yeast in yeasts | orderBy: 'name'" class="content-table">
 					<div flex>{{yeast.name}} </div> 
 					<div flex>{{yeast.type}} </div> 
 					<div flex>{{yeast.lab}} </div> 

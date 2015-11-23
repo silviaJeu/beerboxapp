@@ -612,11 +612,9 @@ div.content-table span{
 	#menu {
 		width: 200px;
 		min-width: 200px;
-/* 		background: rgb(0,150,136); */
 		background: rgb(256,256,256);
 		display: table;
 		left: -200px;
-/* 		min-height: 100%; */
 	}
 	
 	#menu ul li, #menu > div {
@@ -640,12 +638,22 @@ div.content-table span{
 	.ingredients-list .table {
 		font-size: 12px;
 	}
+	
+	.calculators-content .md-tab {
+		padding: 12px 5px;
+	}	
+	
 }
 
 @media screen and (max-width:480px) {	
 	.home-column .recipe-box {
 		width: 100%;
 	}
+	
+	.calculators-content .md-tab {
+		padding: 12px 3px;
+		font-size: 12px;
+	}	
 }
 
 @media screen and (max-width:320px) {
