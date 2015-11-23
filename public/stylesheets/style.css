@@ -211,6 +211,10 @@ i.bb-bar-this {
 	overflow-y: scroll;	
 }
 
+.modal-content table {
+	font-size: 14px;
+}
+
 .modal-content .table>tbody>tr>td, .modal-content .table>tbody>tr>th, .modal-content .table>tfoot>tr>td, .modal-content .table>tfoot>tr>th, .modal-content .table>thead>tr>td, .modal-content .table>thead>tr>th {
 	vertical-align: middle;
 }

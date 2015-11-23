@@ -49,7 +49,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="malt in malts | orderBy:'-type' :!reverse| filter:query">
+						<tr ng-repeat="malt in malts |orderBy:['type','name'] | filter:query">
 							<td><!--button type="button" ng-click="add(item)" class="btn btn-primary">Add</button-->
 							<!--span ng-click="add(malt)" ng-class="{'glyphicon glyphicon-check' : tempselected.indexOf(malt.name) >= 0, 'glyphicon glyphicon-unchecked' : tempselected.indexOf(malt.name) < 0}" aria-hidden="true"></span-->
 							<md-checkbox class="fermentables-check" ng-checked="tempselected.indexOf(malt.name) >= 0" ng-click="add(malt)" aria-label="Malt"></md-checkbox>
