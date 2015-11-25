@@ -29,9 +29,6 @@
 	    <script src="/bower_components/angular-aria/angular-aria.min.js"></script>
 	    <script src="/bower_components/angular-animate/angular-animate.min.js"></script>
 	    <script src="/bower_components/angular-material/angular-material.min.js"></script>
-<!--     <script src="/javascripts/fusioncharts/fusioncharts.js"></script> -->
-<!--     <script src="/javascripts/fusioncharts/angular-fusioncharts.min.js"></script> -->
-<!--     <script src="/javascripts/fusioncharts/fusioncharts.theme.fint.js"></script> -->
 		<meta name="viewport" content="width=device-width, initial-scale=1Rs, maximum-scale=1, user-scalable=no">
 	</head>
 	<body ng-app="beerboxApp">
@@ -67,13 +64,22 @@
 				<div layout="column" class="home-column">
 					<md-toolbar md-scroll-shrink class="md-small">
     					<div class="md-toolbar-tools">
-	      					<h3>
+	      					<h3 class="col-sm-5">
     	    					<span>Le tue ricette</span>
       						</h3>
+							<div class="form-group-sm col-sm-7 filter">
+								<select class="form-control" ng:model="selectedType" ng-options="obj for obj in typeGroup">
+									<option value>Tipo</option>
+								</select>
+								<select class="form-control" ng:model="selectedStyle" ng-options="obj for obj in styleGroup">
+									 <option value>Stile</option>
+								</select>
+								<input class="form-control" placeholder="Filtra..." type="text" ng-model="query.name"/>
+							</div>
     					</div>
 	  				</md-toolbar>
 					<div layout="row" layout-margin>
-					<div class="col-md-4 col-sm-6 col-xs-6 recipe-box" ng-repeat="recipe in recipes">
+					<div class="col-md-4 col-sm-6 col-xs-6 recipe-box" ng-repeat="recipe in recipes | filter:query | filter:matchStyle(selectedStyle)| filter:matchType(selectedType)">
 			        	<div class="panel panel-primary">
           					<div class="panel-heading">
             					<div class="row">
@@ -86,13 +92,18 @@
                  					</div>
                 				</div>
               				</div>
-            				<a href="#/recipe/{{recipe._id}}">
             					<div class="panel-footer">
-              						<span class="pull-left">Apri ricetta</span>
-                					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+		            				<a href="#/recipe/{{recipe._id}}">
+              							<span class="pull-left">Apri ricetta</span>
+                						<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+		          					</a>
                 					<div class="clearfix"></div>
+		            				<a href style="font-size: 10px;">
+              							<span ng-click="deleterecipe(recipe)" class="pull-left">Elimina ricetta
+										<i class="fa fa-trash"></i>
+										</span>
+		          					</a>
               					</div>
-          					</a>
         				</div>
 					</div>
   					</div>

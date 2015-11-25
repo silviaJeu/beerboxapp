@@ -7,3 +7,4 @@ angular.module('beerboxFilters', []).filter('checkmark', function() {
 		return input ? '\u2713' : '\u2718';
 	}
 });	
+

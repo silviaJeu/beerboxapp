@@ -13,6 +13,7 @@ beerboxApp.run(function(editableOptions) {
   editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
 });
 
+
 beerboxApp.controller('RecipeCtrl', [
 	'$scope',
 	'ModalService',
@@ -20,73 +21,8 @@ beerboxApp.controller('RecipeCtrl', [
 	'styles',
 	'result',
 	'$stateParams',
-	function($scope,ModalService,recipes,styles,result,$stateParams){
-        /*
-		$scope.mashStepChart = {
-        	    "chart": {
-        	        "caption": "Mash Profile Chart",
-        	        "subcaption": "Tot. 96 Minuti",
-        	        "xaxisname": "Minuti",
-        	        "yaxisname": "Gradi",
-        	        "theme": "fint",
-        	        "bgColor": "#DDDDDD",
-        	        "bgAlpha": "50",
-        	        "placevaluesInside": "1",
-        	        "valueFontColor": "#ffffff",
-        	        "bgColor": "#eeeeee,#cccccc",
-        	        "canvasbgColor": "#eeeeee,#b3b3b3",
-        	        "canvasbgAlpha": "100",
-        	        "canvasBgRatio": "40,60",
-        	        "canvasBgAngle": "0"
-         	        
-        	    },
-        	    "categories": [
-        	        {
-        	            "category": [
-        	                {
-        	                    "label": "0 Min"
-        	                },
-        	                {
-        	                    "label": "16 Min"
-        	                },
-        	                {
-        	                    "label": "76 Min"
-        	                },
-        	                {
-        	                    "label": "86 Min"
-        	                },
-        	                {
-        	                    "label": "96 Min"
-        	                }
-        	            ]
-        	        }
-        	    ],
-        	    "dataset": [
-        	        {
-        	            "seriesname": "Mash Profile",
-        	            "renderas": "area",
-        	            "showvalues": "0",
-        	            "data": [
-        	                {
-        	                    "value": "52"
-        	                },
-        	                {
-        	                    "value": "68"
-        	                },
-        	                {
-        	                    "value": "68"
-        	                },
-        	                {
-        	                    "value": "78"
-        	                },
-        	                {
-        	                    "value": "78"
-        	                }           
-        	             ]
-        	        }
-        	    ]
-        	}
-        	*/
+	'$mdDialog',
+	function($scope,ModalService,recipes,styles,result,$stateParams,$mdDialog){
 		$scope.recipeId = $stateParams.id;
 		$scope.recipe = result.recipeInfo;
 		$scope.fermentablesList = result.fermentablesList;
@@ -178,7 +114,8 @@ beerboxApp.controller('RecipeCtrl', [
 			angular.forEach($scope.yeastsList, function(item) {
 				var y = {
 							id: item.id,
-							name: item.name+" "+item.prodId,
+							name: item.name,
+							prodId: item.prodId,
 							qty: item.weight
 						};					
 				yeastList.push(y);
@@ -244,6 +181,10 @@ beerboxApp.controller('RecipeCtrl', [
 				});
 			}
 			
+		}
+		
+		$scope.printRecipe = function () {
+			window.open('http://192.168.1.164:8085/SpringMvcHibernateJava/downloadPDF');
 		}
 		
 	    $scope.total = function() {

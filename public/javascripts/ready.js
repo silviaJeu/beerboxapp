@@ -17,9 +17,9 @@ function init() {
 		app_toggleScroll(); 
 
 	});
-	$(window).on("resize.app",function(e){ 
-		console.log("toggle: "+$("#toggle").is(":checked")); 
-	});
+//	$(window).on("resize.app",function(e){ 
+//		console.log("toggle: "+$("#toggle").is(":checked")); 
+//	});
 
 	$("#menu .menuContent").children().on("click",function(e) {
 		app_toggleMenuItems();

@@ -216,6 +216,12 @@ beerboxApp.factory('recipes', [ '$http', 'malts', 'hops', 'yeasts', 'miscs',
 					o.recipes.push(data);
 				});
 			};
+			
+			o.remove = function(id) {
+				return $http.delete('/recipes/' + id).then(function(res) {
+					console.log("remove recipe: "+res);
+				});
+			};
 
 			return o;
 }]);

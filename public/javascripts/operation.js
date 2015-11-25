@@ -164,3 +164,51 @@ function celsiusToFahr(temp) {
 	return temp * 1.8 + 32;
 }
 
+
+var uniqueItems = function (data, key) {
+    var result = [];
+    for (var i = 0; i < data.length; i++) {
+        var value = data[i][key];
+        if (result.indexOf(value) === -1) {
+            result.push(value);
+        }
+    }
+    return result;
+};
+
+function arrayObjectIndexOf(a, searchTerm) {
+    for(var i = 0, len = a.length; i < len; i++) {
+        if (a[i] === searchTerm) return i;
+    }
+    return -1;
+}
+
+function styleList (data) {
+	var result = [];
+	for (var i = 0; i < data.length; i++) {
+		var style = data[i].style.name;
+		if (arrayObjectIndexOf(result,style) === -1) {
+			result.push(style);
+		}
+	}
+	return result;
+}
+
+function typeList (data) {
+	var result = [];
+	for (var i = 0; i < data.length; i++) {
+		var type = data[i].type;
+		if (arrayObjectIndexOf(result,type) === -1) {
+			result.push(type);
+		}
+	}
+	return result;
+}
+
+/**
+ * Replace all whitespace and special characters
+ * @param string
+ */
+function formatString(string) {
+	return string.replace(/ /g, "").replace(/[^a-zA-Z0-9]/g,"");
+}

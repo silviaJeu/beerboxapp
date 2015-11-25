@@ -205,9 +205,8 @@ router.put('/recipes', function(req, res, next) {
 	});	
 });
 
-router.delete('/recipes', function(req, res, next) {
-	var recipe = new Recipe(req.body);
-	
+router.delete('/recipes/:recipe', function(req, res, next) {
+	var recipe = new Recipe(req.recipe);
 	recipe.remove(function(err, recipe){
     if(err){ return next(err); }
 
