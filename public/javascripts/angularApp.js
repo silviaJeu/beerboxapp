@@ -39,6 +39,9 @@ beerboxApp.controller('RecipeCtrl', [
 		$scope.og;
 		$scope.srm;
 		$scope.fg;
+		$scope.plato;
+		$scope.bugu;
+		$scope.att;
 		$scope.abv;
 		$scope.Math = window.Math;
 		$scope.Number = window.Number;
@@ -357,6 +360,25 @@ beerboxApp.controller('RecipeCtrl', [
 			$scope.estFg();
 			return $scope.fg.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 		};
+
+		$scope.showPlato = function() {
+			$scope.plato = calculatePlato($scope.og);
+			return $scope.plato; 
+		};
+		
+		$scope.calculateBugu = function() {
+			$scope.bugu = calculateBugu($scope.og, $scope.ibu);
+			return $scope.bugu;
+		}
+
+		$scope.calculateAAttenuation = function() {
+			$scope.att = calculateAAttenuation($scope.og, $scope.fg);
+			return $scope.att;
+		}
+
+		$scope.calculateRAttenuation = function() {
+			return calculateRAttenuation($scope.att);
+		}
 		
 		$scope.fgPercent = function()	{
 			return Math.min(($scope.fg - 1000) * 0.8,100);
@@ -564,7 +586,8 @@ beerboxApp.controller('RecipeCtrl', [
 beerboxApp.config([
 	'$stateProvider',
 	'$urlRouterProvider',
-	function($stateProvider, $urlRouterProvider) {
+	'$locationProvider',
+	function($stateProvider, $urlRouterProvider,$locationProvider) {
 		
 		$stateProvider
 			.state('fermentables', {
@@ -687,5 +710,7 @@ beerboxApp.config([
 		});		
 			
 		$urlRouterProvider.otherwise('home');
+		// use the HTML5 History API
+//        $locationProvider.html5Mode(true);		
 	}
 ]);

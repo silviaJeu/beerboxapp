@@ -103,7 +103,8 @@ function calculateCurrentCo2(temp) {
 	var t = celsiusToFahr(temp);
 	if(temp != undefined) {
 		r = 3.0378 - (0.050062 * t) + (0.00026555 * Math.pow(t,2));
-		r = Number(Math.round(r+'e2')+'e-2');
+		console.log("res:"+r);
+		r = r.toFixed(2);
 	}
 	return r;
 }
@@ -203,6 +204,24 @@ function typeList (data) {
 		}
 	}
 	return result;
+}
+
+function calculatePlato(og) {
+	var a = og - 1000;
+	var r = (a / og) * 261;
+	r = r.toFixed(1);	
+	return r;   
+}
+
+function calculateBugu(og,ibu) {
+	var buGu = 0;
+	if( og > 1000) {
+		var gu =og - 1000;  
+		buGu = ibu / gu;
+		console.log("buGu:"+buGu);
+		buGu = Math.floor(buGu * 1000) / 1000;
+	}
+	return buGu;
 }
 
 /**

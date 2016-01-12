@@ -13,10 +13,10 @@ function init() {
 		"menu":	new app_obj("menu"),
 		"container":	new app_obj(app_getObjID(".container-fluid"))
 	}
-	$(window).on("scroll.app",function(e){ 
-		app_toggleScroll(); 
-
-	});
+//	$(window).on("scroll.app",function(e){ 
+//		app_toggleScroll(); 
+//
+//	});
 //	$(window).on("resize.app",function(e){ 
 //		console.log("toggle: "+$("#toggle").is(":checked")); 
 //	});

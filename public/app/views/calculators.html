@@ -81,6 +81,40 @@
 		</md-tab>
 		<md-tab label="Colore">
 			<md-content class="md-padding">
+				<div layout layout-sm="row">
+					<div flex-gt-md="20" hide-sm hide-md>
+					</div>
+					<div flex-gt-md="60" flex-sm="100" flex-md="100">
+						<div class="result-container">
+							<div layout layout-sm="row" class="result-box">
+								<md-input-container flex="50" flex-sm="50">
+									<label>SRM</label>
+									<input name="srm" ng:model="srm" id="strumenti_srm" required>				
+								</md-input-container>
+								<div flex="25" flex-sm="25"><p>EBC</p><span class="result"> {{calulateEbc(srm)}} </span></div>
+								<div flex="25" flex-sm="25"><p>&deg;L</p><span class="result"> {{calulateLov(srm)}} </span></div>
+							</div>
+							<div layout layout-sm="row" class="result-box">
+								<md-input-container flex="50" flex-sm="70">
+									<label>EBC</label>
+									<input name="ebc" ng:model="ebc" id="strumenti_ebc" required>				
+								</md-input-container>
+								<div flex="25" flex-sm="25"><p>&deg;L</p><span class="result"> {{calulateLov(ebc)}} </span></div>
+								<div flex="25" flex-sm="25"><p>SRM</p><span class="result"> {{calulateSrm(ebc)}} </span></div>
+							</div>
+							<div layout layout-sm="row" class="result-box">
+								<md-input-container flex="50" flex-sm="70">
+									<label>&deg;L</label>
+									<input name="lovibond" ng:model="lovibond" id="strumenti_ebc" required>				
+								</md-input-container>
+								<div flex="25" flex-sm="25"><p>SRM</p><span class="result"> {{calulateSrm(0,lovibond)}} </span></div>
+								<div flex="25" flex-sm="25"><p>EBC</p><span class="result">  {{calulateEbc(0,lovibond)}} </span></div>
+							</div>
+						</div>	
+					</div>
+					<div flex-gt-md="20" hide-sm hide-md>
+					</div>
+				</div>			
 			</md-content>
 		</md-tab>
 		<md-tab label="Calcolo Plato">

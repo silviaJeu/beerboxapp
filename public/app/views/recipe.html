@@ -52,7 +52,7 @@
 	<div class="box-results">
 		<div class="row">
 			<div class="col-sm-2">
-				<span class="tip-title" tooltip="GravitÃ  iniziale">OG</span>
+				<span class="tip-title" tooltip="Original gravity">OG</span>
 			</div>
 			<div class="col-sm-2 data-results">{{ showtotalOg() }}</div>
 			<div class="col-sm-8">
@@ -88,7 +88,7 @@
 		</div>			
 		<div class="row">
 			<div class="col-sm-2">
-				<span class="tip-title" tooltip="Standard Reference Method">ABV</span>
+				<span class="tip-title" tooltip="Alcohol By Volume">ABV</span>
 			</div>
 			<div class="col-sm-2 data-results">{{ totalAbv() }}%</div>		
 			<div class="col-sm-8">
@@ -109,7 +109,44 @@
 					<i class="bb-bar-this fa fa-caret-down" style="left: {{fgPercent() }}%; transition: width 1s ease, left 1s ease; -webkit-transition: width 1s ease, left 1s ease;"></i>
 				</div>
 			</div>
-		</div>									
+		</div>
+		<v-accordion class="vAccordion--default result-accordion">
+			<v-pane class="result-pane">
+    			<v-pane-header class="pane-header">
+      				Risultati
+    			</v-pane-header>
+    			<v-pane-content>
+					<div class="row">
+						<div class="col-sm-5">
+							<span class="tip-title" tooltip="Final Gravity">FG</span>
+						</div>
+						<div class="col-sm-3 data-results"><input ng:model="recipe.fg" ng:required class="form-control input-mini"></div>		
+						<div class="col-sm-1">
+							<span class="tip-title" tooltip="Grapo Plato">&deg;P</span>
+						</div>
+						<div class="col-sm-1 data-results">{{ showPlato() }}</div>		
+					</div>
+					<div class="row">
+						<div class="col-sm-5">
+							<span class="tip-title" tooltip="Bu/Gu">BU / GU</span>
+						</div>
+						<div class="col-sm-3 data-results">{{ calculateBugu() }}</div>		
+					</div>
+					<div class="row">
+						<div class="col-sm-5">
+							<span class="tip-title">Attenuazione apparente</span>
+						</div>
+						<div class="col-sm-3 data-results">{{ calculateAAttenuation() }} %</div>		
+					</div>
+					<div class="row">
+						<div class="col-sm-5">
+							<span class="tip-title">Attenuazione reale</span>
+						</div>
+						<div class="col-sm-3 data-results">{{ calculateRAttenuation() }} %</div>		
+					</div>
+    			</v-pane-content>				
+			</v-pane>
+		</v-accordion>
 	</div>
 	<div class="box-srm">
 		<img class="{{ srmClass() }}" alt="" src="images/pintW.png">
