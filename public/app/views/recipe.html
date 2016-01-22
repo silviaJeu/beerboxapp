@@ -344,11 +344,6 @@
 							<option value="">Step di ammostamento</option>
 						</select>	
 					</div>
-					<div class="col-sm-3">
-						<select class="form-control" ng-model="item.mashType" ng-options="obj for obj in mashType">
-							<option value="">Tipo di ammostamento</option>
-						</select>
-					</div>
 					<div class="col-sm-2">
 						<input type="number" class="form-control" ng:model="item.degrees" id="itemdegrees" placeholder="Gradi">
 					</div>
@@ -369,8 +364,54 @@
 				<md-icon md-svg-src="images/icons/launch.svg"></md-icon>
 				Aggiungi Step
 			</md-button>
+			<md-button class="md-primary" ng-click="addStepFer('custom')">
+				<md-icon md-svg-src="images/icons/launch.svg"></md-icon>
+				Aggiungi Step Personalizzato
+			</md-button>
+			<form>
+				<div class="row" ng-repeat="item in fermentation" style="margin-left:0;margin-bottom:15px">
+					<div class="col-sm-3" ng-show="!item.custom">
+						<select class="form-control" ng-model="item.step" ng-options="obj for obj in stepFermType">
+							<option value="">Step di fermentazione</option>
+						</select>	
+					</div>
+					<div class="col-sm-3" ng-show="item.custom == 'true'">
+						<input type="text" class="form-control" ng:model="item.step" id="itemstep" placeholder="Step di fermentazione">					
+					</div>
+					<div class="col-sm-2">
+						<input type="number" class="form-control" ng:model="item.gravity" id="itemgravity" placeholder="Gravit&agrave;">
+					</div>
+					<div class="col-sm-2">
+						<input type="number" class="form-control" ng:model="item.days" id="itemdays" placeholder="Giorni">
+					</div>
+					<div class="col-sm-2">
+						<input type="number" class="form-control" ng:model="item.temp" id="itemtemp" placeholder="Temperatura">
+					</div>
+					<a href ng-click="removeStep($index)" class="fa fa-times"></a>			
+				</div>
+			</form>
 		</v-pane-content>
 	</v-pane>	
-</v-accordion>		
+	<v-pane class="fermetation-pane">
+		<v-pane-header class="pane-header">
+		Carbonazione
+		</v-pane-header>
+		<v-pane-content>
+			<form>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" ng:model="carbonation.type" id="carbonationtype" placeholder="Tipo">					
+				</div>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" ng:model="carbonation.amount" id="carbonationamount" placeholder="Quantit&agrave;">
+				</div>
+			</form>
+		</v-pane-content>
+	</v-pane>
+</v-accordion>
+
+<h4 class="pane-header">Note</h4>
+<form>
+	<textarea ng:model="recipe.notes" id="note" placeholder="Note" class="form-control" rows="6"></textarea>
+</form>		
 <md-button ng-click="saveRecipe()" ng-disabled="recipe.name == undefined || recipe.type == undefined || style == undefined || recipe.name.length <= 1" class="md-raised md-primary">Salva ricetta</md-button>
 <!-- 	<div ng-include="'/app/views/test.html'"></div> -->				

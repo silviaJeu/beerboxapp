@@ -15,37 +15,49 @@ beerboxApp.controller('CalculatorsCtrl', [
 		$scope.lovibond;
 		$scope.srm;
 		$scope.ebc;
+//		$scope.plato;
+//		$scope.calcOg=0;
+//	    $scope.$watch('calcOg', function (newValue, oldValue) {
+//	        console.log('oldValue=' + oldValue);
+//	        console.log('newValue=' + newValue);
+//	        //do something
+//	    });		
+	    $scope.$watch('one * two', function (value) {
+	        $scope.total = value;
+	    });		
+		$scope.convertOgPlato = function(plato,og) {
+			if(og > 0) {
+				var p = calculatePlato(og);
+				$scope.plato = p;
+				console.log(p);
+			} else if(plato > 0) {
+				var o = calculateOg(plato);
+				$scope.calcOg = o;
+				console.log(o);
+			}
+		}
 		
-		$scope.calulateColor = function(lov,ebc,srm){
+        $scope.calulateColor = function(lov,ebc,srm){
 			if(lov != 0) {
-				console.log("lov != 0");
 				var s = (1.3546 * lov) - 0.76;
 				var e = s * 1.97;
-				$scope.srm = Number(Math.round(s+'e1')+'e-1');
-				//$scope.ebc = Number(Math.round(e+'e1')+'e-1');
-				console.log("srm: "+$scope.srm + " ebc: "+$scope.ebc);
 				return $scope.srm;
 			} else if(ebc != 0) {
-				console.log("ebc != 0");
 				var s = ebc * 0.508;
 				$scope.srm = Number(Math.round(s+'e1')+'e-1');
 				var l = (srm + 0.76) / 1.3546;
 				$scope.lovibond = Number(Math.round(l+'e1')+'e-1');
-				console.log("srm: "+$scope.srm + " lovibond: "+$scope.lovibond);
 				return;
 			} else if(srm != 0) {
-				console.log("srm != 0");
 				var e = srm * 1.97;
 				$scope.ebc = Number(Math.round(e+'e1')+'e-1');
 				var l = (srm + 0.76) / 1.3546;
 				$scope.lovibond = Number(Math.round(l+'e1')+'e-1');
-				console.log("ebc: "+$scope.ebc + " lovibond: "+$scope.lovibond);
 				return;
 			}
 		}
 		
 		$scope.calulateEbc = function(srm,lov){
-			console.log("srm: "+srm + " lov: "+lov);
 			if(srm != 0 && srm != undefined) {
 				var e = srm * 1.97;
 				return Number(Math.round(e+'e1')+'e-1');
@@ -72,7 +84,6 @@ beerboxApp.controller('CalculatorsCtrl', [
 		$scope.calulateLov = function(srm,ebc){
 			if(srm != 0 && srm != undefined) {
 				var l = Number(srm + 0.76);
-				console.log("srm: "+srm+" lov:"+l);
 				return l;
 			} else if(ebc != 0 && ebc != undefined){
 				var s = ebc * 0.508;

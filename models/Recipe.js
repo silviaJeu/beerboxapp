@@ -61,9 +61,27 @@ var RecipeSchema = new mongoose.Schema({
 	       	 		degrees: {type: Number, default: 0},
 	       	 		minutes: {type: Number, default: 0}
        	 		}
-       	 	]   			
+       	 	],
+    fermentation:	[
+						{
+							id: String,
+							step: String,
+							gravity: {type: Number, default: 1000},
+							days: {type: Number, default: 0},
+							temp: {type: Number, default: 0},
+							custom: String
+						}
+					],
+	carbonation: 	{
+						id: String,
+						type: String,
+						amount: String
+					},
+       	 	
+    notes: String       	 	
   
 });
 	
 mongoose.model('Recipe', RecipeSchema);
+
 

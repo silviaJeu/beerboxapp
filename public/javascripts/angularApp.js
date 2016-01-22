@@ -32,6 +32,7 @@ beerboxApp.controller('RecipeCtrl', [
 		$scope.style = result.recipeInfo.style;
 		$scope.recipeStyle = styles.data;
 		$scope.stepList = result.recipeInfo.steps;
+		$scope.fermentation = result.recipeInfo.fermentation;
 		$scope.user = "Silvia Jeu";
 		$scope.type;
 		$scope.name;
@@ -43,6 +44,7 @@ beerboxApp.controller('RecipeCtrl', [
 		$scope.bugu;
 		$scope.att;
 		$scope.abv;
+		$scope.notes;
 		$scope.Math = window.Math;
 		$scope.Number = window.Number;
 		$scope.status = true;
@@ -86,6 +88,13 @@ beerboxApp.controller('RecipeCtrl', [
 			"Infusione",
 			"Infusione Inglese",
 		];		
+
+		$scope.stepFermType = [
+		       		    "Primario",               	
+		       			"Secondario",
+		       			"Bottiglia",
+		       			"Custom"
+		       		];		
 
 		$scope.saveRecipe = function () {
 			var maltList = [];
@@ -139,6 +148,7 @@ beerboxApp.controller('RecipeCtrl', [
 					user: $scope.user,
 					name: $scope.recipe.name,
 					type: $scope.recipe.type,
+					notes: $scope.recipe.notes,
 					style: $scope.style,
 					og: $scope.og,
 					fg: $scope.fg,
@@ -152,13 +162,15 @@ beerboxApp.controller('RecipeCtrl', [
 					hops: hopList,
 					yeasts: yeastList,
 					miscs: miscList,
-					steps: $scope.stepList
+					steps: $scope.stepList,
+					fermentation: $scope.fermentation
 				}).then(function(){
 					//$mdToast.show($mdToast.simple().content('La ricetta è stata salvata!'));
-					alert("La ricetta è stata salvata!");
+					alert("La ricetta &egrave; stata salvata!");
 				});
-
+				
 			} else {
+				console.log("notes: "+$scope.recipe.notes);
 				recipes.update({
 					_id: $scope.recipeId,
 					user: $scope.user,
@@ -177,10 +189,12 @@ beerboxApp.controller('RecipeCtrl', [
 					hops: hopList,
 					yeasts: yeastList,
 					miscs: miscList,
-					steps: $scope.stepList
+					steps: $scope.stepList,
+					fermentation: $scope.fermentation,
+					notes: $scope.recipe.notes,
 				}).then(function(){
 					//$mdToast.show($mdToast.simple().content('La ricetta è stata salvata!'));
-					alert("La ricetta è stata modificata!");
+					alert("La ricetta &egrave; stata modificata!");
 				});
 			}
 			
@@ -490,12 +504,22 @@ beerboxApp.controller('RecipeCtrl', [
 		$scope.addStep = function(index) {
 			var s = {
 				id: index
-//				stepType: "";
-//				mashType: "",
-//				minutes: "",
-//				deg:""
 			};					
 			$scope.stepList.push(s);
+		}
+
+		$scope.addStepFer = function(custom) {
+			console.log("custom:"+custom);
+			if(custom) {
+				var s = {
+						custom: "true"
+				};
+			}
+			else {
+				var s = {
+						};
+			}
+			$scope.fermentation.push(s);
 		}
 		
 		$scope.srmClass = function() {
@@ -672,7 +696,7 @@ beerboxApp.config([
 					},
 					result: function() {
 						return {
-							recipeInfo : {efficiency: "75",size: 25,steps: []},
+							recipeInfo : {efficiency: "75",size: 25,steps: [],fermentation: []},
 							fermentablesList : [],
 							hopsList : [],
 							yeastsList : [],

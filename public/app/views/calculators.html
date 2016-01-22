@@ -119,6 +119,36 @@
 		</md-tab>
 		<md-tab label="Calcolo Plato">
 			<md-content class="md-padding">
+				<div layout layout-sm="row">
+					<div flex-gt-md="20" hide-md hide-sm>
+					</div>
+					<div flex-gt-md="60" flex-sm="100" flex-md="100">
+						<form name="abvform">
+							<div layout layout-sm="row" class="result-box">
+								<div flex="50" flex-sm="80"><span class="title">Plato</span></div>
+								<div flex="50" flex-sm="20">								
+									<md-input-container>
+										<input name="plato" ng:model="plato" ng-change="convertOgPlato(plato,0)" id="strumenti_plato"required>				
+									</md-input-container>
+								</div>
+							</div>							
+							<div layout layout-sm="row" class="result-box">
+								<div flex="50" flex-sm="80"><span class="title">OG</span></div>
+								<div flex="50" flex-sm="20">								
+									<md-input-container>
+										<input name="calcOg" ng:model="calcOg" id="strumenti_calcOg"required>				
+									</md-input-container>
+							        <li>Number 1: <input type="text" ng-model="one">  
+							        <li>Number 2: <input type="text" ng-model="two">
+							        <li>Total <input type="text" ng-model="total">       
+							        {{total}}
+								</div>
+							</div>							
+						</form>
+					</div>
+					<div flex-gt-md="20" hide-md hide-sm>
+					</div>
+				</div>			
 			</md-content>
 		</md-tab>
 	</md-tabs>

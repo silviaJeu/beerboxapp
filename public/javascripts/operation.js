@@ -213,6 +213,11 @@ function calculatePlato(og) {
 	return r;   
 }
 
+function calculateOg(plato) {
+	var og= 261/(261-plato)*1000;
+	return Math.round(og);
+}
+
 function calculateBugu(og,ibu) {
 	var buGu = 0;
 	if( og > 1000) {
