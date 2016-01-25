@@ -170,7 +170,6 @@ beerboxApp.controller('RecipeCtrl', [
 				});
 				
 			} else {
-				console.log("notes: "+$scope.recipe.notes);
 				recipes.update({
 					_id: $scope.recipeId,
 					user: $scope.user,
@@ -509,7 +508,6 @@ beerboxApp.controller('RecipeCtrl', [
 		}
 
 		$scope.addStepFer = function(custom) {
-			console.log("custom:"+custom);
 			if(custom) {
 				var s = {
 						custom: "true"

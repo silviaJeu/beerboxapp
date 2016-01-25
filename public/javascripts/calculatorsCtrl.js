@@ -15,13 +15,6 @@ beerboxApp.controller('CalculatorsCtrl', [
 		$scope.lovibond;
 		$scope.srm;
 		$scope.ebc;
-//		$scope.plato;
-//		$scope.calcOg=0;
-//	    $scope.$watch('calcOg', function (newValue, oldValue) {
-//	        console.log('oldValue=' + oldValue);
-//	        console.log('newValue=' + newValue);
-//	        //do something
-//	    });		
 	    $scope.$watch('one * two', function (value) {
 	        $scope.total = value;
 	    });		
@@ -29,11 +22,9 @@ beerboxApp.controller('CalculatorsCtrl', [
 			if(og > 0) {
 				var p = calculatePlato(og);
 				$scope.plato = p;
-				console.log(p);
 			} else if(plato > 0) {
-				var o = calculateOg(plato);
+				var o = calcOgFromPlato(plato);
 				$scope.calcOg = o;
-				console.log(o);
 			}
 		}
 		

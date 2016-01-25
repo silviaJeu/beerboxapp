@@ -103,7 +103,6 @@ function calculateCurrentCo2(temp) {
 	var t = celsiusToFahr(temp);
 	if(temp != undefined) {
 		r = 3.0378 - (0.050062 * t) + (0.00026555 * Math.pow(t,2));
-		console.log("res:"+r);
 		r = r.toFixed(2);
 	}
 	return r;
@@ -213,7 +212,8 @@ function calculatePlato(og) {
 	return r;   
 }
 
-function calculateOg(plato) {
+
+function calcOgFromPlato(plato) {
 	var og= 261/(261-plato)*1000;
 	return Math.round(og);
 }
@@ -223,7 +223,6 @@ function calculateBugu(og,ibu) {
 	if( og > 1000) {
 		var gu =og - 1000;  
 		buGu = ibu / gu;
-		console.log("buGu:"+buGu);
 		buGu = Math.floor(buGu * 1000) / 1000;
 	}
 	return buGu;

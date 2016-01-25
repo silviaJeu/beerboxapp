@@ -219,26 +219,8 @@ beerboxApp.factory('recipes', [ '$http', 'malts', 'hops', 'yeasts', 'miscs',
 			
 			o.remove = function(id) {
 				return $http.delete('/recipes/' + id).then(function(res) {
-					console.log("remove recipe: "+res);
 				});
 			};
 
 			return o;
 }]);
-
-//beerboxApp.factory('allIngredient', [ '$http', 'malts', 'hops', 'yeasts', 'miscs',
-//    'styles', function($http, malts, hops, yeasts, miscs, styles) {
-//	var o = {
-//		list : []
-//	};
-//	o.getAll = function() {
-//		return $http.get('/recipes/' + id).then(function(res) {
-//			var fermentablesList = [];
-//			var hopsList = [];
-//			var yeastsList = [];
-//			var styleList = [];
-//			var miscsList = [];
-//		}
-//	}
-//	
-//}]);
