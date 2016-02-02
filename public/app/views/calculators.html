@@ -128,7 +128,8 @@
 								<div flex="50" flex-sm="80"><span class="title">Plato</span></div>
 								<div flex="50" flex-sm="20">								
 									<md-input-container>
-										<input name="plato" ng:model="plato" ng-change="convertOgPlato(plato,0)" id="strumenti_plato"required>				
+<!-- 										<input name="plato" aria-label="input" ng:model="plato" ng-change="convertOgPlato(plato,0)" id="strumenti_plato"required>				 -->
+										<input name="plato" aria-label="input" ng:model="plato" id="strumenti_plato"required>				
 									</md-input-container>
 								</div>
 							</div>							
@@ -136,12 +137,9 @@
 								<div flex="50" flex-sm="80"><span class="title">OG</span></div>
 								<div flex="50" flex-sm="20">								
 									<md-input-container>
-										<input name="calcOg" ng:model="calcOg" id="strumenti_calcOg"required>				
+<!-- 										<input name="calcOg" aria-label="input" ng:model="calcOg" ng-change="convertOgPlato(0,calcOg)" id="strumenti_calcOg"required>				 -->
+										<input name="calcOg" aria-label="input" ng:model="calcOg" id="strumenti_calcOg"required>				
 									</md-input-container>
-							        <li>Number 1: <input type="text" ng-model="one">  
-							        <li>Number 2: <input type="text" ng-model="two">
-							        <li>Total <input type="text" ng-model="total">       
-							        {{total}}
 								</div>
 							</div>							
 						</form>

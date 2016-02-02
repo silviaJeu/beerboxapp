@@ -4,6 +4,7 @@ var RecipeSchema = new mongoose.Schema({
 	user: String,
 	name: String,
 	type: String,
+	creationDate: {type: Date},
 	og: {type: Number, default: 1000},
 	fg: {type: Number, default: 1000},
 	ibu: {type: Number, default: 0},
@@ -78,7 +79,7 @@ var RecipeSchema = new mongoose.Schema({
 						amount: String
 					},
        	 	
-    notes: String       	 	
+    notes: String
   
 });
 	

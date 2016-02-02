@@ -15,15 +15,29 @@ beerboxApp.controller('CalculatorsCtrl', [
 		$scope.lovibond;
 		$scope.srm;
 		$scope.ebc;
-	    $scope.$watch('one * two', function (value) {
-	        $scope.total = value;
-	    });		
+		
+		angular.element(document).ready(function() {
+			console.log("ready:"+angular.element("#strumenti_plato").attr("class"));
+			angular.element("body").on("change", "#strumenti_plato", function(e) {
+				var og = calcOgFromPlato($(this).val());
+				angular.element("#strumenti_calcOg").val(og);
+			});
+			
+			angular.element("body").on("change", "#strumenti_calcOg", function(e) {
+				var plato = calculatePlato($(this).val());
+				angular.element("#strumenti_plato").val(plato);
+			});
+		});
+		
 		$scope.convertOgPlato = function(plato,og) {
 			if(og > 0) {
+				console.log("actual plato:"+$scope.plato);
 				var p = calculatePlato(og);
+				console.log("convert to og: "+p);
 				$scope.plato = p;
 			} else if(plato > 0) {
 				var o = calcOgFromPlato(plato);
+				console.log("convert to plato: "+o);
 				$scope.calcOg = o;
 			}
 		}

@@ -142,30 +142,31 @@ router.post('/yeasts', function(req, res, next) {
 
 router.param('yeast', function(req, res, next, id) {
 	  var query = Yeast.findById(id);
-
 	  query.exec(function (err, yeast){
 	    if (err) { return next(err); }
 	    if (!yeast) { return next(new Error('can\'t find yeast')); }
-
-	    req.yeast = yeast;
-	    return next();
+		req.yeast = yeast;
+		return next();
 	  });
-	});
+});
 
-	router.get('/yeasts/:yeast', function(req, res) {
-	  res.json(req.yeast);
-	});
+router.get('/yeasts/:yeast', function(req, res) {
+	res.json(req.yeast);
+});
 
 //recipes routing	
 var Recipe = require('./../models/Recipe.js');
 Recipe = mongoose.model('Recipe');
 
 router.get('/recipes', function(req, res, next) {
-  Recipe.find(function(err, recipes){
-    if(err){ return next(err); }
-
-    res.json(recipes);
-  });
+//  Recipe.find(function(err, recipes){
+//    if(err){ return next(err); }
+//    res.json(recipes);
+//  }).sort('-creationDate');
+	Recipe.find({}).sort('-date').exec(function(err, recipes) {
+		if(err){ return next(err); }
+		res.json(recipes);
+	});	
 });
 
 router.post('/recipes', function(req, res, next) {

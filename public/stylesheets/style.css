@@ -204,7 +204,9 @@ i.bb-bar-this {
 
 .modal-content {
 	max-height: 850px;
-	overflow-y: scroll;	
+/* 	overflow-y: scroll; */
+	overflow: hidden;
+	top: 35px;	
 }
 
 .modal-content table {
@@ -217,6 +219,18 @@ i.bb-bar-this {
 
 .modal-content .filter {
 	padding-left: 0;
+}
+
+.modal-content .table-container {
+	overflow-y: scroll;
+	max-height: 600px;
+}
+
+.modal-content .modal-footer {
+	border-top: none;
+	position: fixed;
+	top: 80px;
+	right: 10px;
 }
 
 md-checkbox.fermentables-check.md-default-theme.md-checked .md-icon{
@@ -284,6 +298,15 @@ md-checkbox.miscs-check.md-default-theme.md-checked .md-icon{
 .recipe-content .vAccordion--default v-pane-header {
 /*	border-bottom: 2px solid #FB9902;*/
 	border-bottom: 2px solid #D8D8D8;
+}
+
+.recipe-content .table-responsive #hops .title {
+	font-weight: bold;
+}
+
+.recipe-content .table-responsive .step-separator { 
+	border-bottom: 2px solid lightsteelblue;
+	
 }
 
 /* bootstrap ovveride */
@@ -555,7 +578,7 @@ div.content-table span{
 	background-color: #FFFFFF;
 /* 	margin-left: 45%; */
 	padding: 0 10px;
-}	
+}
 
 /* Pushing the Menu off the canves */
 #menu {
@@ -677,6 +700,11 @@ div.content-table span{
 		padding: 12px 3px;
 		font-size: 12px;
 	}	
+	
+	.home-content md-toolbar, .home-content .md-toolbar-tools {
+		height: 100px;
+		min-height: 100px;
+	}  
 }
 
 @media screen and (max-width:320px) {

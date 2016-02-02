@@ -1,7 +1,7 @@
 'use strict';
 
 // Declare app level module which depends on views, and components
-var beerboxApp = angular.module('beerboxApp', ['ui.router','beerboxFilters','angularModalService','xeditable','ui.bootstrap','ngMaterial','vAccordion']);
+var beerboxApp = angular.module('beerboxApp', ['ui.router','beerboxFilters','ui.sortable','angularModalService','xeditable','ui.bootstrap','ngMaterial','vAccordion']);
 
 beerboxApp.config(function($mdThemingProvider) {
 	$mdThemingProvider.theme('default')
@@ -144,10 +144,16 @@ beerboxApp.controller('RecipeCtrl', [
 			
 			if($scope.recipeId == undefined) {
 				//TODO MODIFICARE NOME CAMPI SCOPE	
+				var dt = new Date();
+				var day = dt.getDate();
+				var month = dt.getMonth()+1;
+				var year = dt.getFullYear();			
+				var cDate = new Date(month+"/"+day+"/"+year);
 				recipes.create({
 					user: $scope.user,
 					name: $scope.recipe.name,
 					type: $scope.recipe.type,
+					creationDate: cDate,
 					notes: $scope.recipe.notes,
 					style: $scope.style,
 					og: $scope.og,
