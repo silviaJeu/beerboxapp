@@ -52,7 +52,7 @@
 	<div class="box-results">
 		<div class="row">
 			<div class="col-sm-2">
-				<span class="tip-title" tooltip="Original�gravity">OG</span>
+				<span class="tip-title" tooltip="Original gravity">OG</span>
 			</div>
 			<div class="col-sm-2 data-results">{{ showtotalOg() }}</div>
 			<div class="col-sm-8">
@@ -117,20 +117,20 @@
     			</v-pane-header>
     			<v-pane-content>
 					<div class="row">
-						<div class="col-sm-5">
+						<div class="col-sm-5 col-xs-2">
 							<span class="tip-title" tooltip="Final Gravity">FG</span>
 						</div>
-						<div class="col-sm-3 data-results"><input ng:model="recipe.fg" ng:required class="form-control input-mini"></div>		
-						<div class="col-sm-1">
+						<div class="col-sm-3 col-xs-5 data-results"><input ng:model="recipe.fg" ng:required class="form-control input-mini"></div>		
+						<div class="col-xs-1">
 							<span class="tip-title" tooltip="Grapo Plato">&deg;P</span>
 						</div>
-						<div class="col-sm-1 data-results">{{ showPlato() }}</div>		
+						<div class="col-sm-1 col-xs-2 data-results">{{ showPlato() }}</div>		
 					</div>
 					<div class="row">
-						<div class="col-sm-5">
+						<div class="col-xs-5">
 							<span class="tip-title" tooltip="Bu/Gu">BU / GU</span>
 						</div>
-						<div class="col-sm-3 data-results">{{ calculateBugu() }}</div>		
+						<div class="col-xs-3 data-results">{{ calculateBugu() }}</div>		
 					</div>
 					<div class="row">
 						<div class="col-sm-5">
@@ -168,7 +168,7 @@
 						<thead>
 							<tr>
 								<th class="col-sm-3">Name</th>
-								<th class="col-sm-2">Quantità(kg)</th>
+								<th class="col-sm-2">QuantitÃ (kg)</th>
 								<th class="col-sm-2">%</th>
 								<th class="col-sm-3">Og</th>
 								<th class="col-sm-2">Edit</th>
@@ -208,7 +208,7 @@
 								<th class="col-sm-2">Formato</th>
 								<th class="col-sm-2">Min</th>
 								<th class="col-sm-2">Step</th>
-								<th class="col-sm-1">Quantità(gr)</th>
+								<th class="col-sm-1">QuantitÃ (gr)</th>
 								<th class="col-sm-2">AA%</th>
 								<th class="col-sm-1">Ibu</th>
 								<th class="col-sm-1">Edit</th>
@@ -266,7 +266,7 @@
 						<thead>
 							<tr>
 								<th>Name</th>
-								<th>Quantità(gr/ml)</th>
+								<th>QuantitÃ (gr/ml)</th>
 								<th>Edit</th>
 							</tr>
 						</thead>
@@ -299,7 +299,7 @@
 						<thead>
 							<tr>
 								<th class="col-sm-3">Nome</th>
-								<th class="col-sm-3">Quantità(gr)</th>							
+								<th class="col-sm-3">QuantitÃ (gr)</th>							
 								<th class="col-sm-2">Tipo</th>
 								<th class="col-sm-2">Utilizzo</th>
 								<th class="col-sm-1">Edit</th>
@@ -404,9 +404,8 @@
 		</v-pane-content>
 	</v-pane>
 </v-accordion>
-
 <h4 class="pane-header">Note</h4>
-<form>
+<form id="saverecipe">
 	<textarea ng:model="recipe.notes" id="note" placeholder="Note" class="form-control" rows="6"></textarea>
 </form>		
 <md-button ng-click="saveRecipe()" ng-disabled="recipe.name == undefined || recipe.type == undefined || style == undefined || recipe.name.length <= 1" class="md-raised md-primary">Salva ricetta</md-button>

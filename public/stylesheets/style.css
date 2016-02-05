@@ -630,6 +630,10 @@ div.content-table span{
 	font-weight: 700;
 }
 
+.md-toast-recipe {
+	background-color: #FB9902;
+}
+
 @media screen and (min-width: 992px) {
 	
 	.recipe-content {

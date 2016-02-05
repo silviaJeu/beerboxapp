@@ -22,7 +22,9 @@ beerboxApp.controller('RecipeCtrl', [
 	'result',
 	'$stateParams',
 	'$mdDialog',
-	function($scope,ModalService,recipes,styles,result,$stateParams,$mdDialog){
+	'$mdToast',
+	'$document',
+	function($scope,ModalService,recipes,styles,result,$stateParams,$mdDialog,$mdToast,$document){
 		$scope.recipeId = $stateParams.id;
 		$scope.recipe = result.recipeInfo;
 		$scope.fermentablesList = result.fermentablesList;
@@ -171,8 +173,12 @@ beerboxApp.controller('RecipeCtrl', [
 					steps: $scope.stepList,
 					fermentation: $scope.fermentation
 				}).then(function(){
-					//$mdToast.show($mdToast.simple().content('La ricetta è stata salvata!'));
-					alert("La ricetta &egrave; stata salvata!");
+				    $mdToast.show({
+						template: "<md-toast class=\"md-toast-recipe \">La ricetta Ã¨ stata salvata!</md-toast>",
+						position: "bottom right",
+						hideDelay: 3000,
+						parent: $document[0].querySelector('#saverecipe')
+				    });					
 				});
 				
 			} else {
@@ -198,8 +204,12 @@ beerboxApp.controller('RecipeCtrl', [
 					fermentation: $scope.fermentation,
 					notes: $scope.recipe.notes,
 				}).then(function(){
-					//$mdToast.show($mdToast.simple().content('La ricetta è stata salvata!'));
-					alert("La ricetta &egrave; stata modificata!");
+				    $mdToast.show({
+						template: "<md-toast class=\"md-toast-recipe \">La ricetta Ã¨ stata modificata!\</md-toast>",
+						position: "bottom right",
+						hideDelay: 3000,
+						parent: $document[0].querySelector('#saverecipe')
+				    });					
 				});
 			}
 			
