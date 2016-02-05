@@ -620,6 +620,11 @@ div.content-table span{
 	margin-top: 10px;
 }
 
+.title-container {
+	margin-top: 12px;
+	text-align: center;
+}
+
 .result-box .result {
 	color: rgb(0,150,136);
 	font-weight: 700;

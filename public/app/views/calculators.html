@@ -2,82 +2,115 @@
 <md-content>
 	<md-tabs md-border-bottom>
 		<md-tab label="Calcolo ABV">
-			<md-content class="md-padding">
-				<div layout layout-sm="row">
-					<div flex-gt-md="20" hide-md hide-sm>
-					</div>
-					<div flex-gt-md="60" flex-sm="100" flex-md="100">
-						<form name="abvform">
-							<div layout layout-sm="row">
-								<md-input-container flex>
-									<label>Gravit&#224; iniziale</label>
-									<input name="og" ng:model="og" id="strumenti_og"
-				                 		required md-input-minlength="4" md-maxlength="5">				
-								</md-input-container>
-								<md-input-container flex>
-									<label>Gravit&#224; finale</label>
-									<input name="fg" ng:model="fg" id="strumenti_fg"
-				                 		required md-input-minlength="4" md-maxlength="5">				
-								</md-input-container>
-							</div>
-						</form>
-						<div class="result-container">
-							<div layout layout-sm="row" class="result-box">
-								<div flex="50" flex-sm="80"><span class="title">ABV</span></div>
-								<div flex="50" flex-sm="20"><span class="result">{{ calculateAlchool(og, fg) }} %</span></div>
-							</div>
-							<div layout layout-md="row" class="result-box">
-								<div flex="50" flex-sm="80"><span class="title">Attenuazione apparente</span></div>
-								<div flex="50" flex-sm="20"><span class="result">{{ calculateAAttenuation(og, fg) }} %</span></div>
-							</div>
-							<div layout layout-md="row" class="result-box">
-								<div flex="50" flex-sm="80"><span class="title">Attenuazione reale</span></div>
-								<div flex="50" flex-sm="20"><span class="result">{{ calculateRAttenuation() }} %</span></div>
-							</div>
-						</div>	
-					</div>
-					<div flex-gt-md="20" hide-md hide-sm>
-					</div>
-				</div>	
+			<md-content layout-padding="">
+				<div>
+					<form name="abvform">
+						<div layout-gt-sm="row">
+							<div flex-gt-md="20" hide-md hide-sm></div>
+							<md-input-container class="md-block" flex-gt-sm="">
+								<label>Gravit&#224; iniziale</label>
+								<input name="og" ng:model="og" id="strumenti_og" required md-input-minlength="4" md-maxlength="5">
+							</md-input-container>						
+							<md-input-container class="md-block" flex-gt-sm="">
+								<label>Gravit&#224; finale</label>
+								<input name="fg" ng:model="fg" id="strumenti_fg" required md-input-minlength="4" md-maxlength="5">
+							</md-input-container>						
+							<div flex-gt-md="20" hide-md hide-sm></div>
+						</div>
+					</form>
+					<div class="result-container">
+						<div layout layout-sm="row" class="result-box">
+							<div flex-gt-md="20" hide-md hide-sm></div>
+							<div flex flex-sm="80"><span class="title">ABV</span></div>
+							<div flex flex-sm="20"><span class="result">{{ calculateAlchool(og, fg) }} %</span></div>
+						</div>
+						<div layout layout-md="row" class="result-box">
+							<div flex-gt-md="20" hide-md hide-sm></div>
+							<div flex flex-sm="80"><span class="title">Attenuazione apparente</span></div>
+							<div flex flex-sm="20"><span class="result">{{ calculateAAttenuation(og, fg) }} %</span></div>
+						</div>
+						<div layout layout-md="row" class="result-box">
+							<div flex-gt-md="20" hide-md hide-sm></div>
+							<div flex flex-sm="80"><span class="title">Attenuazione reale</span></div>
+							<div flex flex-sm="20"><span class="result">{{ calculateRAttenuation() }} %</span></div>
+						</div>
+						<div flex-gt-md="20" hide-md hide-sm></div>
+					</div>	
+				</div>
 			</md-content>
 		</md-tab>
 		<md-tab label="Priming">
-			<md-content class="md-padding">
-				<div layout layout-sm="row">
-					<div flex-gt-md="20" hide-sm hide-md>
+			<md-content layout-padding="">
+				<div>
+					<form name="abvform">
+						<div layout-gt-sm="row">
+							<div flex-gt-md="15" hide-md hide-sm></div>
+							<md-input-container class="md-block" flex-gt-sm="">
+								<label>Litri da imbottigliare</label>
+								<input name="lit" ng:model="ltPr" id="strumenti_litPr" required>
+							</md-input-container>						
+							<md-input-container class="md-block" flex-gt-sm="">
+								<label>Volumi di CO2</label>
+								<input name="co2" ng:model="co2" id="strumenti_co2" required ng-pattern="/^[0-9]\.[0-9]+$/">
+							</md-input-container>						
+							<md-input-container class="md-block" flex-gt-sm="">
+								<label>Temperatura della birra</label>
+								<input name="temp" ng:model="temp" id="strumenti_temp" required>
+							</md-input-container>						
+							<div flex-gt-md="15" hide-md hide-sm></div>
+						</div>
+					</form>
+					<div class="result-container">
+						<div layout layout-sm="row" class="result-box">
+							<div flex-gt-md="20" hide-md hide-sm></div>
+							<div flex flex-sm="80"><span class="title">CO2 presente</span></div>
+							<div flex flex-sm="20"><span class="result">{{calculateCurrentCo2(temp)}} volumi</span></div>
+						</div>
+						<div layout layout-md="row" class="result-box">
+							<div flex-gt-md="20" hide-md hide-sm></div>
+							<div flex flex-sm="80"><span class="title">Zucchero necessario</span></div>
+							<div flex flex-sm="20"><span class="result">{{calculatePriming(ltPr, co2)}} gr</span></div>
+						</div>
 					</div>
-					<div flex-gt-md="60" flex-sm="100" flex-md="100">
-						<form name="abvform">
-							<div layout layout-sm="row">
-								<md-input-container flex>
-									<label>Litri da imbottigliare</label>
-									<input name="lit" ng:model="ltPr" id="strumenti_litPr" required>				
-								</md-input-container>
-								<md-input-container flex>
-									<label>Volumi di CO2</label>
-									<input name="co2" ng:model="co2" id="strumenti_co2" required ng-pattern="/^[0-9]\.[0-9]+$/">
-								</md-input-container>
-								<md-input-container flex>
-									<label>Temperatura della birra</label>
-									<input name="temp" ng:model="temp" id="strumenti_temp" required>				
-								</md-input-container>
-							</div>
-						</form>
-						<div class="result-container">
-							<div layout layout-sm="row" class="result-box">
-								<div flex="50" flex-sm="70"><span class="title">CO2 presente</span></div>
-								<div flex="50" flex-sm="30"><span class="result"> {{calculateCurrentCo2(temp)}} volumi</span></div>
-							</div>
-							<div layout layout-sm="row" class="result-box">
-								<div flex="50" flex-sm="70"><span class="title">Zucchero necessario</span></div>
-								<div flex="50" flex-sm="30"><span class="result"> {{calculatePriming(ltPr, co2)}} gr</span></div>
-							</div>
-						</div>	
-					</div>
-					<div flex-gt-md="20" hide-sm hide-md>
-					</div>
-				</div>	
-			</md-content>
+				
+				</div>
+			</md-content>				
+<!-- 			<md-content class="md-padding"> -->
+<!-- 				<div layout layout-sm="row"> -->
+<!-- 					<div flex-gt-md="20" hide-sm hide-md> -->
+<!-- 					</div> -->
+<!-- 					<div flex-gt-md="60" flex-sm="100" flex-md="100"> -->
+<!-- 						<form name="abvform"> -->
+<!-- 							<div layout layout-sm="row"> -->
+<!-- 								<md-input-container flex> -->
+<!-- 									<label>Litri da imbottigliare</label> -->
+<!-- 									<input name="lit" ng:model="ltPr" id="strumenti_litPr" required>				 -->
+<!-- 								</md-input-container> -->
+<!-- 								<md-input-container flex> -->
+<!-- 									<label>Volumi di CO2</label> -->
+<!-- 									<input name="co2" ng:model="co2" id="strumenti_co2" required ng-pattern="/^[0-9]\.[0-9]+$/"> -->
+<!-- 								</md-input-container> -->
+<!-- 								<md-input-container flex> -->
+<!-- 									<label>Temperatura della birra</label> -->
+<!-- 									<input name="temp" ng:model="temp" id="strumenti_temp" required>				 -->
+<!-- 								</md-input-container> -->
+<!-- 							</div> -->
+<!-- 						</form> -->
+<!-- 						<div class="result-container"> -->
+<!-- 							<div layout layout-sm="row" class="result-box"> -->
+<!-- 								<div flex="50" flex-sm="70"><span class="title">CO2 presente</span></div> -->
+<!-- 								<div flex="50" flex-sm="30"><span class="result"> {{calculateCurrentCo2(temp)}} volumi</span></div> -->
+<!-- 							</div> -->
+<!-- 							<div layout layout-sm="row" class="result-box"> -->
+<!-- 								<div flex="50" flex-sm="70"><span class="title">Zucchero necessario</span></div> -->
+<!-- 								<div flex="50" flex-sm="30"><span class="result"> {{calculatePriming(ltPr, co2)}} gr</span></div> -->
+<!-- 							</div> -->
+<!-- 						</div>	 -->
+<!-- 					</div> -->
+<!-- 					<div flex-gt-md="20" hide-sm hide-md> -->
+<!-- 					</div> -->
+<!-- 				</div>	 -->
+<!-- 			</md-content> -->
 		</md-tab>
 		<md-tab label="Colore">
 			<md-content class="md-padding">
@@ -86,30 +119,32 @@
 					</div>
 					<div flex-gt-md="60" flex-sm="100" flex-md="100">
 						<div class="result-container">
-							<div layout layout-sm="row" class="result-box">
-								<md-input-container flex="50" flex-sm="50">
-									<label>SRM</label>
-									<input name="srm" ng:model="srm" id="strumenti_srm" required>				
-								</md-input-container>
-								<div flex="25" flex-sm="25"><p>EBC</p><span class="result"> {{calulateEbc(srm)}} </span></div>
-								<div flex="25" flex-sm="25"><p>&deg;L</p><span class="result"> {{calulateLov(srm)}} </span></div>
-							</div>
-							<div layout layout-sm="row" class="result-box">
-								<md-input-container flex="50" flex-sm="70">
-									<label>EBC</label>
-									<input name="ebc" ng:model="ebc" id="strumenti_ebc" required>				
-								</md-input-container>
-								<div flex="25" flex-sm="25"><p>&deg;L</p><span class="result"> {{calulateLov(ebc)}} </span></div>
-								<div flex="25" flex-sm="25"><p>SRM</p><span class="result"> {{calulateSrm(ebc)}} </span></div>
-							</div>
-							<div layout layout-sm="row" class="result-box">
-								<md-input-container flex="50" flex-sm="70">
-									<label>&deg;L</label>
-									<input name="lovibond" ng:model="lovibond" id="strumenti_ebc" required>				
-								</md-input-container>
-								<div flex="25" flex-sm="25"><p>SRM</p><span class="result"> {{calulateSrm(0,lovibond)}} </span></div>
-								<div flex="25" flex-sm="25"><p>EBC</p><span class="result">  {{calulateEbc(0,lovibond)}} </span></div>
-							</div>
+							<form id="colourform" name="colourform">
+								<div layout layout-sm="row" class="result-box">
+									<div class="title-container" flex="40" flex-sm="30"><span class="title">SRM</span></div>
+									<div flex="30">								
+										<md-input-container>
+											<input class="result" name="srm" aria-label="input" ng:model="srm" id="strumenti_srm"required>				
+										</md-input-container>
+									</div>
+								</div>
+								<div layout layout-sm="row" class="result-box">
+									<div class="title-container" flex="40" flex-sm="30"><span class="title">EBC</span></div>
+									<div flex="30">								
+										<md-input-container>
+											<input class="result" name="ebc" aria-label="input" ng:model="ebc" id="strumenti_ebc"required>				
+										</md-input-container>
+									</div>
+								</div>
+								<div layout layout-sm="row" class="result-box">
+									<div class="title-container" flex="40" flex-sm="30"><span class="title">&deg;L</span></div>
+									<div flex="30">								
+										<md-input-container>
+											<input class="result" name="lovibond" aria-label="input" ng:model="lovibond" id="strumenti_lov"required>				
+										</md-input-container>
+									</div>
+								</div>
+							</form>
 						</div>	
 					</div>
 					<div flex-gt-md="20" hide-sm hide-md>
@@ -123,22 +158,20 @@
 					<div flex-gt-md="20" hide-md hide-sm>
 					</div>
 					<div flex-gt-md="60" flex-sm="100" flex-md="100">
-						<form name="abvform">
+						<form id="platoform" name="platoform">
 							<div layout layout-sm="row" class="result-box">
-								<div flex="50" flex-sm="80"><span class="title">Plato</span></div>
-								<div flex="50" flex-sm="20">								
+								<div class="title-container" flex="40" flex-sm="30"><span class="title">Plato</span></div>
+								<div flex="30">								
 									<md-input-container>
-<!-- 										<input name="plato" aria-label="input" ng:model="plato" ng-change="convertOgPlato(plato,0)" id="strumenti_plato"required>				 -->
-										<input name="plato" aria-label="input" ng:model="plato" id="strumenti_plato"required>				
+										<input class="result" name="plato" aria-label="input" ng:model="plato" id="strumenti_plato"required>				
 									</md-input-container>
 								</div>
 							</div>							
 							<div layout layout-sm="row" class="result-box">
-								<div flex="50" flex-sm="80"><span class="title">OG</span></div>
-								<div flex="50" flex-sm="20">								
+								<div class="title-container" flex="40" flex-sm="30"><span class="title">OG</span></div>
+								<div flex="30">								
 									<md-input-container>
-<!-- 										<input name="calcOg" aria-label="input" ng:model="calcOg" ng-change="convertOgPlato(0,calcOg)" id="strumenti_calcOg"required>				 -->
-										<input name="calcOg" aria-label="input" ng:model="calcOg" id="strumenti_calcOg"required>				
+										<input class="result" name="calcOg" aria-label="input" ng:model="calcOg" id="strumenti_calcOg"required>				
 									</md-input-container>
 								</div>
 							</div>							

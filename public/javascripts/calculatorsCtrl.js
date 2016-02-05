@@ -12,55 +12,46 @@ beerboxApp.controller('CalculatorsCtrl', [
 		$scope.co2;
 		$scope.temp;
 		$scope.currCo2;
-		$scope.lovibond;
-		$scope.srm;
-		$scope.ebc;
+		$scope.lovibond=0;
+		$scope.srm=0;
+		$scope.ebc=0;
+		$scope.plato=0;
+		$scope.calcOg=1000;
 		
 		angular.element(document).ready(function() {
-			console.log("ready:"+angular.element("#strumenti_plato").attr("class"));
-			angular.element("body").on("change", "#strumenti_plato", function(e) {
+			//platoform
+			angular.element("body").on("input", "#strumenti_plato", function(e) {
 				var og = calcOgFromPlato($(this).val());
 				angular.element("#strumenti_calcOg").val(og);
+				console.log(angular.element("#strumenti_calcOg").val());
 			});
 			
-			angular.element("body").on("change", "#strumenti_calcOg", function(e) {
+			angular.element("body").on("input", "#strumenti_calcOg", function(e) {
 				var plato = calculatePlato($(this).val());
 				angular.element("#strumenti_plato").val(plato);
 			});
+			
+			//colourform
+			angular.element("body").on("input", "#strumenti_srm", function(e) {
+				var ebc = $scope.calulateEbc($(this).val(),0);
+				var lov = $scope.calulateLov($(this).val(),0);
+				angular.element("#strumenti_ebc").val(ebc);
+				angular.element("#strumenti_lov").val(lov);
+			});
+			angular.element("body").on("input", "#strumenti_ebc", function(e) {
+				var srm = $scope.calulateSrm($(this).val(),0);
+				var lov = $scope.calulateLov(0,$(this).val());
+				angular.element("#strumenti_srm").val(srm);
+				angular.element("#strumenti_lov").val(lov);
+			});
+			
+			angular.element("body").on("input", "#strumenti_lov", function(e) {
+				var srm = $scope.calulateSrm(0,$(this).val());
+				var ebc = $scope.calulateEbc(0,$(this).val());
+				angular.element("#strumenti_srm").val(srm);
+				angular.element("#strumenti_ebc").val(ebc);
+			});
 		});
-		
-		$scope.convertOgPlato = function(plato,og) {
-			if(og > 0) {
-				console.log("actual plato:"+$scope.plato);
-				var p = calculatePlato(og);
-				console.log("convert to og: "+p);
-				$scope.plato = p;
-			} else if(plato > 0) {
-				var o = calcOgFromPlato(plato);
-				console.log("convert to plato: "+o);
-				$scope.calcOg = o;
-			}
-		}
-		
-        $scope.calulateColor = function(lov,ebc,srm){
-			if(lov != 0) {
-				var s = (1.3546 * lov) - 0.76;
-				var e = s * 1.97;
-				return $scope.srm;
-			} else if(ebc != 0) {
-				var s = ebc * 0.508;
-				$scope.srm = Number(Math.round(s+'e1')+'e-1');
-				var l = (srm + 0.76) / 1.3546;
-				$scope.lovibond = Number(Math.round(l+'e1')+'e-1');
-				return;
-			} else if(srm != 0) {
-				var e = srm * 1.97;
-				$scope.ebc = Number(Math.round(e+'e1')+'e-1');
-				var l = (srm + 0.76) / 1.3546;
-				$scope.lovibond = Number(Math.round(l+'e1')+'e-1');
-				return;
-			}
-		}
 		
 		$scope.calulateEbc = function(srm,lov){
 			if(srm != 0 && srm != undefined) {
@@ -88,8 +79,8 @@ beerboxApp.controller('CalculatorsCtrl', [
 
 		$scope.calulateLov = function(srm,ebc){
 			if(srm != 0 && srm != undefined) {
-				var l = Number(srm + 0.76);
-				return l;
+				var l = ((srm*1) + 0.76) / 1.3546 ;
+				return Number(Math.round(l+'e1')+'e-1');
 			} else if(ebc != 0 && ebc != undefined){
 				var s = ebc * 0.508;
 				var l = (s + 0.76) / 1.3546;

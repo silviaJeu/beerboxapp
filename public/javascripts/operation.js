@@ -206,6 +206,7 @@ function typeList (data) {
 }
 
 function calculatePlato(og) {
+	if(og === "") return 0;
 	var a = og - 1000;
 	var r = (a / og) * 261;
 	r = r.toFixed(1);	
@@ -214,6 +215,7 @@ function calculatePlato(og) {
 
 
 function calcOgFromPlato(plato) {
+	if(plato === "") return 1000;
 	var og= 261/(261-plato)*1000;
 	return Math.round(og);
 }
