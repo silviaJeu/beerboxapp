@@ -74,8 +74,7 @@ var RecipeSchema = new mongoose.Schema({
 						}
 					],
 	carbonation: 	{
-						id: String,
-						type: String,
+						carbtype: String,
 						amount: String
 					},
        	 	

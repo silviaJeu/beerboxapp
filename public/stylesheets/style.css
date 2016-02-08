@@ -277,7 +277,7 @@ md-checkbox.miscs-check.md-default-theme.md-checked .md-icon{
 	margin-top: 20px;
 } 
 
-.mash-pane .fa-times {
+.mash-pane .fa-times, .fermetation-pane .fa-times{
 	font-size: 1.5em;
 	margin-top: 7px;
 }
@@ -694,8 +694,8 @@ div.content-table span{
 		font-size: 12px;
 	}
 	
-	.calculators-content .md-tab {
-		padding: 12px 5px;
+	.calculators-content .md-tab h4 {
+		font-size: 16px;
 	}	
 	
 }

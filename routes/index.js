@@ -163,7 +163,7 @@ router.get('/recipes', function(req, res, next) {
 //    if(err){ return next(err); }
 //    res.json(recipes);
 //  }).sort('-creationDate');
-	Recipe.find({}).sort('-date').exec(function(err, recipes) {
+	Recipe.find({}).sort('-creationDate').exec(function(err, recipes) {
 		if(err){ return next(err); }
 		res.json(recipes);
 	});	

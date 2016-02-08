@@ -168,7 +168,7 @@
 						<thead>
 							<tr>
 								<th class="col-sm-3">Name</th>
-								<th class="col-sm-2">QuantitÃ (kg)</th>
+								<th class="col-sm-2">Quantit&agrave; (kg)</th>
 								<th class="col-sm-2">%</th>
 								<th class="col-sm-3">Og</th>
 								<th class="col-sm-2">Edit</th>
@@ -208,7 +208,7 @@
 								<th class="col-sm-2">Formato</th>
 								<th class="col-sm-2">Min</th>
 								<th class="col-sm-2">Step</th>
-								<th class="col-sm-1">QuantitÃ (gr)</th>
+								<th class="col-sm-1">Quantit&agrave; (gr)</th>
 								<th class="col-sm-2">AA%</th>
 								<th class="col-sm-1">Ibu</th>
 								<th class="col-sm-1">Edit</th>
@@ -266,7 +266,7 @@
 						<thead>
 							<tr>
 								<th>Name</th>
-								<th>QuantitÃ (gr/ml)</th>
+								<th>Quantit&agrave; (gr/ml)</th>
 								<th>Edit</th>
 							</tr>
 						</thead>
@@ -299,7 +299,7 @@
 						<thead>
 							<tr>
 								<th class="col-sm-3">Nome</th>
-								<th class="col-sm-3">QuantitÃ (gr)</th>							
+								<th class="col-sm-3">Quantit&agrave; (gr)</th>							
 								<th class="col-sm-2">Tipo</th>
 								<th class="col-sm-2">Utilizzo</th>
 								<th class="col-sm-1">Edit</th>
@@ -383,19 +383,19 @@
 					<div class="col-sm-2">
 						<input type="number" class="form-control" ng:model="item.temp" id="itemtemp" placeholder="Temperatura">
 					</div>
-					<a href ng-click="removeStep($index)" class="fa fa-times"></a>			
+					<a href ng-click="removeStepFer($index)" class="fa fa-times"></a>			
 				</div>
 			</form>
 		</v-pane-content>
 	</v-pane>	
-	<v-pane class="fermetation-pane">
+	<v-pane class="carbonation-pane">
 		<v-pane-header class="pane-header">
 		Carbonazione
 		</v-pane-header>
 		<v-pane-content>
 			<form>
 				<div class="col-sm-3">
-					<input type="text" class="form-control" ng:model="carbonation.type" id="carbonationtype" placeholder="Tipo">					
+					<input type="text" class="form-control" ng:model="carbonation.carbtype" id="carbonationtype" placeholder="Tipo">					
 				</div>
 				<div class="col-sm-2">
 					<input type="text" class="form-control" ng:model="carbonation.amount" id="carbonationamount" placeholder="Quantit&agrave;">

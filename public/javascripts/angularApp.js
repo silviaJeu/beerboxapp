@@ -35,6 +35,11 @@ beerboxApp.controller('RecipeCtrl', [
 		$scope.recipeStyle = styles.data;
 		$scope.stepList = result.recipeInfo.steps;
 		$scope.fermentation = result.recipeInfo.fermentation;
+		$scope.carbonation = result.recipeInfo.carbonation;
+//		$scope.carbonation = {
+//				type : "", 
+//				amount : ""
+//		};
 		$scope.user = "Silvia Jeu";
 		$scope.type;
 		$scope.name;
@@ -171,7 +176,8 @@ beerboxApp.controller('RecipeCtrl', [
 					yeasts: yeastList,
 					miscs: miscList,
 					steps: $scope.stepList,
-					fermentation: $scope.fermentation
+					fermentation: $scope.fermentation,
+					carbonation: $scope.carbonation
 				}).then(function(){
 				    $mdToast.show({
 						template: "<md-toast class=\"md-toast-recipe \">La ricetta è stata salvata!</md-toast>",
@@ -182,6 +188,7 @@ beerboxApp.controller('RecipeCtrl', [
 				});
 				
 			} else {
+//				alert($scope.carbonation.type+ " - "+$scope.carbonation.amount);
 				recipes.update({
 					_id: $scope.recipeId,
 					user: $scope.user,
@@ -203,6 +210,7 @@ beerboxApp.controller('RecipeCtrl', [
 					steps: $scope.stepList,
 					fermentation: $scope.fermentation,
 					notes: $scope.recipe.notes,
+					carbonation: $scope.carbonation
 				}).then(function(){
 				    $mdToast.show({
 						template: "<md-toast class=\"md-toast-recipe \">La ricetta è stata modificata!\</md-toast>",
@@ -535,6 +543,10 @@ beerboxApp.controller('RecipeCtrl', [
 			}
 			$scope.fermentation.push(s);
 		}
+
+		$scope.removeStepFer = function(index) {
+	    	$scope.fermentation.splice(index, 1);
+	    };
 		
 		$scope.srmClass = function() {
 			return "srm"+Math.min(Math.round($scope.srm),40);
