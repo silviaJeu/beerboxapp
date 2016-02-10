@@ -23,7 +23,6 @@ beerboxApp.controller('CalculatorsCtrl', [
 			angular.element("body").on("input", "#strumenti_plato", function(e) {
 				var og = calcOgFromPlato($(this).val());
 				angular.element("#strumenti_calcOg").val(og);
-				console.log(angular.element("#strumenti_calcOg").val());
 			});
 			
 			angular.element("body").on("input", "#strumenti_calcOg", function(e) {

@@ -152,7 +152,6 @@ beerboxApp.controller('RecipeCtrl', [
 			})
 			
 			if($scope.recipeId == undefined) {
-				alert($scope.carbonation.carbtype+ " - "+$scope.carbonation.amount);
 				//TODO MODIFICARE NOME CAMPI SCOPE	
 				var dt = new Date();
 				var day = dt.getDate();
@@ -196,7 +195,6 @@ beerboxApp.controller('RecipeCtrl', [
 				});
 				
 			} else {
-				alert($scope.carbonation.carbtype+ " - "+$scope.carbonation.amount);
 				recipes.update({
 					_id: $scope.recipeId,
 					user: $scope.user,
