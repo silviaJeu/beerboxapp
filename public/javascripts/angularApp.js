@@ -52,6 +52,8 @@ beerboxApp.controller('RecipeCtrl', [
 		$scope.att;
 		$scope.abv;
 		$scope.notes;
+		$scope.carbtype;
+		$scope.carbamount;
 		$scope.Math = window.Math;
 		$scope.Number = window.Number;
 		$scope.status = true;
@@ -150,12 +152,18 @@ beerboxApp.controller('RecipeCtrl', [
 			})
 			
 			if($scope.recipeId == undefined) {
+				alert($scope.carbonation.carbtype+ " - "+$scope.carbonation.amount);
 				//TODO MODIFICARE NOME CAMPI SCOPE	
 				var dt = new Date();
 				var day = dt.getDate();
 				var month = dt.getMonth()+1;
 				var year = dt.getFullYear();			
 				var cDate = new Date(month+"/"+day+"/"+year);
+//				var recipe_carbonation = {$scope.carbtype,$scope.carbamount};
+				var recipe_carbonation = {
+					carbtype : $scope.carbtype, 
+					amount : $scope.carbamount
+				};				
 				recipes.create({
 					user: $scope.user,
 					name: $scope.recipe.name,
@@ -188,7 +196,7 @@ beerboxApp.controller('RecipeCtrl', [
 				});
 				
 			} else {
-//				alert($scope.carbonation.type+ " - "+$scope.carbonation.amount);
+				alert($scope.carbonation.carbtype+ " - "+$scope.carbonation.amount);
 				recipes.update({
 					_id: $scope.recipeId,
 					user: $scope.user,
@@ -722,7 +730,9 @@ beerboxApp.config([
 					},
 					result: function() {
 						return {
-							recipeInfo : {efficiency: "75",size: 25,steps: [],fermentation: []},
+							recipeInfo : {efficiency: "75",size: 25,steps: [],fermentation: [],
+											carbonation : { carbtype : "", amount : "" }
+										},
 							fermentablesList : [],
 							hopsList : [],
 							yeastsList : [],
