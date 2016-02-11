@@ -18,6 +18,16 @@ a:hover {
 	padding-right: 0;	
 }
 
+.header {
+	display: table;
+	width: 100%;
+}
+
+.page-header.home-link {
+	margin-top: 70px;
+	border-bottom: none;
+} 
+
 .page-header > a {
 	text-decoration: none;
 }
@@ -32,13 +42,8 @@ a:hover {
 
 /** HOME **/
 
-.recipe-content {
-	margin-top: 60px;
-}
-
 .home-content {
 	max-width: 	864px;
-/* 	margin: 16px; */
 	box-sizing: border-box;
 }
 
@@ -86,7 +91,6 @@ a:hover {
 	display: table;
 	width: 100%;
 	margin-bottom: 30px;
-	margin-top: 30px;
 }
 .box-form  {
 	background-color: #fff;
@@ -682,6 +686,10 @@ div.content-table span{
 		color: rgb(0,150,136);
 	}	
 	
+	.page-header.home-link {
+		margin: -10 0 0 10%;
+	}
+	
 	.form-control {
 		font-size: 12px;
 	}
@@ -701,6 +709,12 @@ div.content-table span{
 }
 
 @media screen and (max-width:480px) {	
+
+	.page-header.home-link h1 {
+		font-size: 26px;
+	}
+	
+
 	.home-column .recipe-box {
 		width: 100%;
 	}
@@ -714,6 +728,7 @@ div.content-table span{
 		height: 100px;
 		min-height: 100px;
 	}  
+	
 }
 
 @media screen and (max-width:320px) {
