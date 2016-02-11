@@ -171,7 +171,7 @@ beerboxApp.controller('RecipeCtrl', [
 					notes: $scope.recipe.notes,
 					style: $scope.style,
 					og: $scope.og,
-					fg: $scope.fg,
+					fg: $scope.recipe.fg,
 					ibu: $scope.ibu,
 					srm: $scope.srm,
 					abv: $scope.abv,
@@ -202,7 +202,7 @@ beerboxApp.controller('RecipeCtrl', [
 					type: $scope.recipe.type,
 					style: $scope.style,
 					og: $scope.og,
-					fg: $scope.fg,
+					fg: $scope.recipe.fg,
 					ibu: $scope.ibu,
 					srm: $scope.srm,
 					abv: $scope.abv,
@@ -392,16 +392,16 @@ beerboxApp.controller('RecipeCtrl', [
 		};
 		
 		$scope.estFg = function() {
-			var fg = 1000;
+			var estfg = 1000;
 			if($scope.yeastsList.length > 0) 
-				fg = calculateFg($scope.totalOg(), $scope.yeastsList);
-			$scope.fg = fg;
-			return fg;
+				estfg = calculateFg($scope.totalOg(), $scope.yeastsList);
+			//$scope.fg = fg;
+			return estfg;
 		};
 		
 		$scope.showEstFg = function() {
-			$scope.estFg();
-			return $scope.fg.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+			var est = $scope.estFg();
+			return est.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 		};
 
 		$scope.showPlato = function() {
@@ -415,7 +415,9 @@ beerboxApp.controller('RecipeCtrl', [
 		}
 
 		$scope.calculateAAttenuation = function() {
-			$scope.att = calculateAAttenuation($scope.og, $scope.fg);
+			var gravity = $scope.recipe.fg; 
+			if($scope.recipe.fg == undefined) gravity = $scope.estFg();
+			$scope.att = calculateAAttenuation($scope.og, gravity);
 			return $scope.att;
 		}
 
