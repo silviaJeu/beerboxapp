@@ -710,6 +710,10 @@ div.content-table span{
 
 @media screen and (max-width:480px) {	
 
+	.surplus {
+		display: none;
+	}
+	
 	.page-header.home-link h1 {
 		font-size: 26px;
 	}
@@ -728,6 +732,22 @@ div.content-table span{
 		height: 100px;
 		min-height: 100px;
 	}  
+	
+	.modal.fade .modal-dialog {
+		margin: 0;
+	}
+	
+	.modal.fade .modal-dialog .modal-content {
+		top: 0;
+	}
+	
+	.modal-content .modal-title {
+		margin-left: 10%;
+	}
+	
+	.modal-content .modal-footer {
+		top: 46px;
+	}
 	
 }
 

@@ -38,7 +38,7 @@
 							</div>							
 							<md-button class="md-raised md-primary">Aggiungi</md-button>
 						</form>
-						<div class="form-group-sm col-sm-2 filter">
+						<div class="form-group-sm col-xs-4 col-sm-2 filter">
 							<input class="form-control" placeholder="Filtra..." type="text" ng-model="query"/>
 						</div>
 						<br></br>
@@ -48,12 +48,12 @@
 									<tr>
 										<th></th>
 										<th>Nome</th>
-										<th>Laboratorio</th>
+										<th class="surplus">Laboratorio</th>
 										<th>Id Prodotto</th>
-										<th>Tipo</th>
-										<th>Formato</th>
-										<th>Range T°</th>
-										<th>Atten.</th>
+										<th class="surplus">Tipo</th>
+										<th class="surplus">Formato</th>
+										<th class="surplus">Range T°</th>
+										<th class="surplus">Atten.</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -63,12 +63,12 @@
 											<md-checkbox class="yeasts-check" ng-checked="tempselected.indexOf(yeast.name) >= 0" ng-click="add(yeast)" aria-label="Yeast"></md-checkbox>
 										</td>	
 										<td>{{yeast.name}}</td>
-										<td>{{yeast.lab}}</th>
+										<td class="surplus">{{yeast.lab}}</th>
 										<td>{{yeast.prodId}}</td>
-										<td>{{yeast.type}}</td>			
-										<td>{{yeast.form}}</td>			
-										<td>{{yeast.rangeT}} °C</td>			
-										<td>{{yeast.attenuation}} %</td>			
+										<td class="surplus">{{yeast.type}}</td>			
+										<td class="surplus">{{yeast.form}}</td>			
+										<td class="surplus">{{yeast.rangeT}} °C</td>			
+										<td class="surplus">{{yeast.attenuation}} %</td>			
 									</tr>	
 								</tbody>
 							</table>			

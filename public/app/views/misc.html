@@ -21,7 +21,7 @@
 				</div>
 				<md-button class="md-raised md-primary">Aggiungi</md-button>
 			</form>
-			<div class="form-group-sm col-sm-2 filter">
+			<div class="form-group-sm col-xs-4 col-sm-2 filter">
 				<input class="form-control" placeholder="Filtra..." type="text" ng-model="query"/>
 			</div>
 			<br></br>
@@ -32,7 +32,7 @@
 							<th></th>
 							<th>Nome</th>
 							<th>Tipo</th>
-							<th>Utilizzo</th>
+							<th class="surplus">Utilizzo</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -42,7 +42,7 @@
 							</td>	
 							<td>{{misc.name}}</td>
 							<td>{{misc.type}}</td>			
-							<td>{{misc.use}}</td>			
+							<td class="surplus">{{misc.use}}</td>			
 						</tr>	
 					</tbody>
 				</table>			

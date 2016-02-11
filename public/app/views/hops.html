@@ -24,7 +24,7 @@
 							</div>
 							<md-button class="md-raised md-primary">Aggiungi</md-button>								
 						</form>
-						<div class="form-group-sm col-sm-2 filter">
+						<div class="form-group-sm col-xs-4 col-sm-2 filter">
 							<input class="form-control" placeholder="Filtra..." type="text" ng-model="query"/>
 						</div>
 						<br></br>
@@ -34,9 +34,9 @@
 									<tr>
 										<th></th>
 										<th>Nome</th>
-										<th>Origine</th>
+										<th class="surplus">Origine</th>
 										<th>Tipo</th>
-										<th>Alfa Acidi</th>
+										<th class="surplus">Alfa Acidi</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -46,9 +46,9 @@
 											<md-checkbox class="hops-check" ng-checked="tempselected.indexOf(hop.name) >= 0" ng-click="add(hop)" aria-label="Hop"></md-checkbox>
 										</td>	
 										<td>{{hop.name}}</td>
-										<td>{{hop.origin}}</th>
+										<td class="surplus">{{hop.origin}}</th>
 										<td>{{hop.type}}</td>
-										<td>{{hop.alfa}}</td>			
+										<td class="surplus">{{hop.alfa}}</td>			
 									</tr>	
 								</tbody>
 							</table>			

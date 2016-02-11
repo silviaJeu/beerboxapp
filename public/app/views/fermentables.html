@@ -30,7 +30,7 @@
 						<!--button type="submit" class="btn btn-primary">Aggiungi</button-->
 						<md-button class="md-raised md-primary">Aggiungi</md-button>								
 					</form>
-					<div class="form-group-sm col-sm-2 filter">
+					<div class="form-group-sm col-xs-4 col-sm-2 filter">
 						<input class="form-control" placeholder="Filtra..." type="text" ng-model="query"/>
 					</div>
 					<br></br>
@@ -41,9 +41,9 @@
 									<th></th>
 									<th>Name</th>
 									<th>Type Malt</th>
-									<th>Color (SRM)</th>
-									<th>Potential SG</th>
-									<th>Must Mash</th>
+									<th class="surplus">Color (SRM)</th>
+									<th class="surplus">Potential SG</th>
+									<th class="surplus">Must Mash</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -53,9 +53,9 @@
 									</td>	
 									<td>{{malt.name}}</td>
 									<td>{{malt.type}}</th>
-									<td>{{malt.srm}}</td>
-									<td>{{malt.pg}}</td>			
-									<td>{{malt.mash | checkmark}}</td>
+									<td class="surplus">{{malt.srm}}</td>
+									<td class="surplus">{{malt.pg}}</td>			
+									<td class="surplus">{{malt.mash | checkmark}}</td>
 								</tr>	
 							</tbody>
 						</table>			
