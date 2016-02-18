@@ -70,6 +70,7 @@ var RecipeSchema = new mongoose.Schema({
 							gravity: {type: Number, default: 1000},
 							days: {type: Number, default: 0},
 							temp: {type: Number, default: 0},
+							liters: {type: Number, default: 0},
 							custom: String
 						}
 					],

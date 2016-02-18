@@ -363,7 +363,8 @@ beerboxApp.controller('RecipeCtrl', [
 		};
 		
 		$scope.totalAbv = function() {
-			$scope.abv = calculateAbv($scope.og, $scope.fg);
+			var fg = $scope.recipe.fg == undefined ? $scope.estFg() : $scope.recipe.fg;
+			$scope.abv = calculateAbv($scope.og, fg);
 			return $scope.abv;
 		};
 		
