@@ -67,4 +67,5 @@ require('./models/Yeast');
 require('./models/Recipe');
 require('./models/Style');
 require('./models/Misc');
-mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/homebrew');
+//mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/homebrew');
+mongoose.connect('mongodb://app_user:Ghisla2016!@ds053469.mlab.com:53469/heroku_6zjcx9ws');

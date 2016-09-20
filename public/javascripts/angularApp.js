@@ -470,6 +470,7 @@ beerboxApp.controller('RecipeCtrl', [
 	    };	
 			
 	    $scope.removeHop = function(index) {
+			console.log("removeHop: "+index+ " el:"+$scope.hopsList[index].name + " "+$scope.hopsList[index].minutes);
 	        $scope.hopsList.splice(index, 1);
 	    };
 		

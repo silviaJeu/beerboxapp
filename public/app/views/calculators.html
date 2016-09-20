@@ -164,6 +164,42 @@
 			</md-tab-body>			
 <!-- 			</md-content> -->
 		</md-tab>
+		<md-tab>
+			<md-tab-label>
+				<h4>Diluizione Acqua</h4>
+			</md-tab-label>
+<!-- 			<md-content class="md-padding"> -->
+			<md-tab-body>
+				<div>
+					<form name="abvform">
+						<div layout-gt-sm="row">
+							<div flex-gt-md="15" hide-md hide-sm></div>
+							<md-input-container class="md-block" flex-gt-sm="">
+								<label>Volume del mosto</label>
+								<input name="wort" ng:model="wort" id="strumenti_wortVol" required>
+							</md-input-container>						
+							<md-input-container class="md-block" flex-gt-sm="">
+								<label>Gravità corrente</label>
+								<input name="currOg" ng:model="currOg" id="strumenti_currOg" required md-input-minlength="4" md-maxlength="5">
+							</md-input-container>						
+							<md-input-container class="md-block" flex-gt-sm="">
+								<label>Gravità desiderata</label>
+								<input name="desOg" ng:model="desOg" id="strumenti_desOg" required md-input-minlength="4" md-maxlength="5">
+							</md-input-container>						
+							<div flex-gt-md="15" hide-md hide-sm></div>
+						</div>
+					</form>
+					<div class="result-container">
+						<div layout layout-sm="row" class="result-box">
+							<div flex-gt-md="20" hide-md hide-sm></div>
+							<div flex flex-sm="70"><span class="title">Acqua da aggiungere</span></div>
+							<div flex flex-sm="30"><span class="result">{{calculateWaterToAdd(wort,currOg, desOg)}} litri</span></div>
+						</div>
+					</div>
+				
+				</div>			
+			</md-tab-body>
+		</md-tab>
 	</md-tabs>
 </md-content>
 </div>

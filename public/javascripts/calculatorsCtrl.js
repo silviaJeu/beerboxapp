@@ -12,6 +12,7 @@ beerboxApp.controller('CalculatorsCtrl', [
 		$scope.co2;
 		$scope.temp;
 		$scope.currCo2;
+		$scope.waterToAdd;
 		$scope.lovibond=0;
 		$scope.srm=0;
 		$scope.ebc=0;
@@ -114,6 +115,13 @@ beerboxApp.controller('CalculatorsCtrl', [
 			var gr = calculatePriming(lt, co2, $scope.currCo2);
 			return gr;
 		}
+		
+		$scope.calculateWaterToAdd = function(wort, currOg, desOg)  {
+			var o = parseGravity(currOg) - 1000;
+			var f = parseGravity(desOg) - 1000;
+			$scope.waterToAdd = waterToAdd(wort, o, f); 
+			return $scope.waterToAdd;
+		};		
 		
 }]);
 

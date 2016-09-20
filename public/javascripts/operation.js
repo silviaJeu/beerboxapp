@@ -108,6 +108,14 @@ function calculateCurrentCo2(temp) {
 	return r;
 }
 
+/* (Current Volume in Litres * Current Gravity ) / Desired Gravity = Target Volume */
+function waterToAdd(wort, currOg, desOg) {
+	var r = 0;
+	var target = (wort * currOg) / desOg;
+	r = target - wort;
+	return r.toFixed(2);
+}
+
 function getUtil(min) {
 	if(min > 0 && min <= 5)
 		return 5.0;
