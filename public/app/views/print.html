@@ -1,0 +1,288 @@
+<div class="recipe-header">
+	<div class="box-form info">
+		<form class="form-horizontal" id="recipe-header">
+			<div class="form-group">
+				<label for="recipeName" class="col-xs-6 control-label">Nome</label>
+				<div class="col-xs-6">
+					{{recipe.name}}
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="recipeType" class="col-xs-6 control-label">Tipo</label>
+				<div class="col-xs-6">
+					{{recipe.type}}
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="recipeStyle" class="col-xs-6 control-label">Stile</label>
+				<div class="col-xs-6">
+					{{style.name}}
+				</div>
+			</div>		
+		</form>	
+	</div>
+	<div class="box-form batch">
+		<form class="form-horizontal">
+			<div class="form-group">
+				<label for="recipeName" class="col-xs-6 control-label">Litri finali</label>
+				<div class="col-xs-6">
+					{{recipe.size}}
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="recipeName" class="col-xs-6 control-label">Litri pre-boil</label>
+				<div class="col-xs-6">
+					{{recipe.sizePb}}
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="recipeName" class="col-xs-6 control-label">Efficienza</label>
+				<div class="input-group col-xs-6">
+					{{recipe.efficiency}} %
+				</div>
+			</div>
+		</form>	
+	</div>
+	<div class="box-results" style="width: 100%">
+		<div class="col-xs-6">
+		<div class="row">
+			<div class="col-xs-6">
+				<span class="tip-title" tooltip="Original gravity">OG</span>
+			</div>
+			<div class="col-xs-6 data-results">{{ showtotalOg() }}</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-6">
+				<span class="tip-title" tooltip="International Bittering Units">IBU</span>
+			</div>
+			<div class="col-xs-6 data-results">{{ totalIbu() }}</div>		
+		</div>			
+		<div class="row">
+			<div class="col-xs-6">
+				<span class="tip-title" tooltip="Standard Reference Method">SRM</span>
+			</div>
+			<div class="col-xs-6 data-results">{{ totalSrm() }}</div>		
+		</div>			
+		<div class="row">
+			<div class="col-xs-6">
+				<span class="tip-title" tooltip="Alcohol By Volume">ABV</span>
+			</div>
+			<div class="col-xs-6 data-results">{{ totalAbv() }}%</div>		
+		</div>	
+		</div>		
+		<div class="col-xs-6">			
+			<div class="row">
+				<div class="col-xs-4">
+					<span class="tip-title" tooltip="Final Gravity">FG</span>
+				</div>
+				<div class="col-xs-2 data-results">{{ recipe.fg }}</div>
+				<div class="col-xs-1">
+					<span class="tip-title" tooltip="Grapo Plato">&deg;P</span>
+				</div>
+				<div class="col-xs-1 data-results">{{ showPlato() }}</div>		
+			</div>
+			<div class="row">
+				<div class="col-xs-4">
+					<span class="tip-title" tooltip="Bu/Gu">BU / GU</span>
+				</div>
+				<div class="col-xs-6 data-results">{{ calculateBugu() }}</div>		
+			</div>
+		</div>
+	</div>
+</div>
+<div id="recipe-ingredientlist" >
+	<v-accordion class="vAccordion--default recipe-accordion" multiple>
+		<v-pane expanded class="ingredients-pane">
+		    <v-pane-header class="pane-header">
+		      Ingredienti
+		    </v-pane-header>
+	    	<v-pane-content>
+				<div class="ingredients-list">
+					<h5 style="text-transform: uppercase;color:rgb(0,150,136);">
+					  Fermentabili
+					</h5>
+					<div class="table-responsive">
+						<table ng-show="fermentablesList.length > 0" class="ng-binding ng-hide table table-hover app-table" cellpadding="0" cellspacing="0" id="fermentables">
+							<thead>
+								<tr>
+									<th class="col-sm-3">Name</th>
+									<th class="col-sm-2">Quantit&agrave; (kg)</th>
+									<th class="col-sm-2">%</th>
+									<th class="col-sm-3">Og</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="item in fermentablesList | orderBy:'-quantity'">
+									<td>{{item.name}}</td>				
+									<td  class="col-sm-2 col-xs-1">{{ item.quantity }}</td>
+									<td>{{ percent(item.quantity) }}</td>
+									<td ng:model="item.og">{{ calculateOg(item) }}</td>
+								</tr>	
+								<tr class="totalrow">
+									<td>Total</td>
+									<td>{{ total() }}</td>
+									<td></td> 
+									<td>{{ showtotalOg() }}</td> 
+									<td></td> 
+								</tr>	
+							</tbody>
+						</table>
+					</div>	
+					<h5 style="text-transform: uppercase;color:rgb(0,150,136);">
+					  Luppoli
+					</h5>
+					<div class="table-responsive">
+						<table ng-show="hopsList.length > 0" class="ng-binding ng-hide table table-hover table-striped" cellpadding="0" cellspacing="0" id="hops">
+							<thead>
+								<tr>
+									<th class="col-sm-1">Name</th>
+									<th class="col-sm-2">Formato</th>
+									<th class="col-sm-2">Min</th>
+									<th class="col-sm-2">Step</th>
+									<th class="col-sm-1">Quantit&agrave; (gr)</th>
+									<th class="col-sm-2">AA%</th>
+									<th class="col-sm-1">Ibu</th>
+								</tr>
+							</thead>
+							<tbody ui:sortable ng:model="hopsList">
+								<!--tr ng-repeat="item in hopsList | orderBy:'-minutes'" style="cursor: move;"-->
+								<tr ng-repeat="item in hopsList" style="cursor: move;">
+									<td class="title col-sm-2">{{item.name}}</td>
+									<td class="col-sm-2">{{item.formatType}}</td>
+									<td class="col-sm-1">{{item.minutes}}</td>
+									<td class="col-sm-2">{{item.step}}</td>
+									<td class="col-sm-2">{{item.quantity}}</td>
+									<td class="col-sm-1">{{item.alfa}}</td>
+									<td class="col-sm-1" ng:model="item.ibu">{{calculateIbu(item)}}</td>
+								</tr>	
+								<tr class="totalrow">
+									<td>Total</td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td>{{totalHop()}}</td>
+									<td></td> 
+									<td>{{totalIbu()}}</td> 
+									<td></td> 
+								</tr>	
+							</tbody>
+						</table>
+					</div>	
+					<h5 ng-show="yeastsList.length > 0" style="text-transform: uppercase;color:rgb(0,150,136);">
+					  Lievito
+					</h5>
+					<div class="table-responsive">
+						<table ng-show="yeastsList.length > 0" class="ng-binding ng-hide table table-hover" cellpadding="0" cellspacing="0" id="yeast">
+							<thead>
+								<tr>
+									<th>Name</th>
+									<th>Quantit&agrave; (gr/ml)</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="item in yeastsList">
+									<td>{{item.name}} {{item.prodId}} - {{item.form}}</td>
+									<td>{{item.weight}}										
+									</td>
+								</tr>	
+								<tr class="totalrow">
+									<td>Total</td>
+									<td>{{totalYeast()}}</td>
+									<td></td> 
+								</tr>	
+							</tbody>
+						</table>
+					</div>
+					<h5 ng-show="miscsList.length > 0" style="text-transform: uppercase;color:rgb(0,150,136);">
+					  Extra
+					</h5>
+					<div class="table-responsive">
+						<table ng-show="miscsList.length > 0" class="ng-binding ng-hide table table-hover" cellpadding="0" cellspacing="0" id="misc">
+							<thead>
+								<tr>
+									<th class="col-sm-3">Nome</th>
+									<th class="col-sm-3">Quantit&agrave; (gr)</th>							
+									<th class="col-sm-2">Tipo</th>
+									<th class="col-sm-2">Utilizzo</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="item in miscsList">
+									<td class="col-sm-3">{{item.name}}</td>
+									<td class="col-sm-3">{{item.quantity}}</td>
+									<td class="col-sm-2">{{item.type}}</td>
+									<td class="col-sm-2">{{item.use}}</td>
+								</tr>	
+							</tbody>
+						</table>
+					</div>			
+				</div>
+			</v-pane-content>
+		</v-pane>
+		<v-pane expanded class="mash-pane">
+		    <v-pane-header class="pane-header">
+		      Step di ammostamento
+		    </v-pane-header>
+	    	<v-pane-content>
+				<div class="table-responsive ingredients-list">
+					<table ng-show="stepList.length > 0" class="ng-binding ng-hide table table-hover" cellpadding="0" cellspacing="0" id="misc">
+						<tbody>
+							<tr ng-repeat="item in stepList">
+								<td class="col-sm-2">{{item.step}}</td>
+								<td class="col-sm-2">{{item.degrees}}&deg;</td>
+								<td class="col-sm-2">{{item.minutes}} min.</td>
+							</tr>	
+						</tbody>
+					</table>
+				</div>		    	
+			</v-pane-content>
+		</v-pane>
+		<v-pane expanded class="fermetation-pane">
+			<v-pane-header class="pane-header">
+			Fermentazione
+			</v-pane-header>
+			<v-pane-content>
+				<div class="table-responsive ingredients-list">
+					<table ng-show="fermentation.length > 0" class="ng-binding ng-hide table table-hover" cellpadding="0" cellspacing="0" id="misc">
+						<tbody>
+							<tr ng-repeat="item in fermentation">
+								<td class="col-sm-2">{{item.gravity}}</td>
+								<td class="col-sm-2">{{item.liters}} lt.</td>
+								<td class="col-sm-2">{{item.days}} gg.</td>
+								<td class="col-sm-2">{{item.temp}}&deg;</td>
+							</tr>	
+						</tbody>
+					</table>
+				</div>				
+			</v-pane-content>
+		</v-pane>	
+		<v-pane expanded class="carbonation-pane">
+			<v-pane-header class="pane-header">
+			Carbonazione
+			</v-pane-header>
+			<v-pane-content>
+				<div class="table-responsive ingredients-list">
+					<table ng-show="fermentation.length > 0" class="ng-binding ng-hide table table-hover" cellpadding="0" cellspacing="0">
+						<tbody>
+							<tr>
+								<td class="col-sm-2">{{carbonation.carbtype}}</td>
+								<td class="col-sm-2">{{carbonation.amount}} gr.</td>
+							</tr>	
+						</tbody>
+<!-- 					<div class="col-sm-3">{{carbonation.carbtype}}</div> -->
+<!-- 					<div class="col-sm-2">{{carbonation.amount}}</div> -->
+					</table>
+				</div>
+			</v-pane-content>
+		</v-pane>
+	</v-accordion>
+</div>
+<h4 class="pane-header">Note</h4>
+<form id="saverecipe">
+	<textarea ng:model="recipe.notes" id="note" placeholder="Note" class="form-control" rows="6"></textarea>
+</form>		
+<script>
+$(document).ready(function(){
+	$("#app_container_id").hide();
+});
+</script>

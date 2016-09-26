@@ -1,7 +1,7 @@
 <!-- <h3>Nuova ricetta </h3> -->
 <div class="recipe-header">
 	<div class="box-form info">
-		<form class="form-horizontal">
+		<form class="form-horizontal" id="recipe-header">
 			<div class="form-group">
 				<label for="recipeName" class="col-sm-2 control-label">Nome</label>
 				<div class="col-sm-10">
@@ -152,6 +152,7 @@
 		<img class="{{ srmClass() }}" alt="" src="images/pintW.png">
 	</div>
 </div>
+<div id="recipe-ingredientlist" >
 <v-accordion class="vAccordion--default recipe-accordion" multiple>
 	<v-pane expanded class="ingredients-pane">
 	    <v-pane-header class="pane-header">
@@ -217,7 +218,7 @@
 						<tbody ui:sortable ng:model="hopsList">
 							<!--tr ng-repeat="item in hopsList | orderBy:'-minutes'" style="cursor: move;"-->
 							<tr ng-repeat="item in hopsList" style="cursor: move;">
-								<td class="title col-sm-2">{{item.name}} - {{$index}}</td>
+								<td class="title col-sm-2">{{item.name}}</td>
 								<td class="col-sm-2">
 									<select class="form-control" ng-model="item.formatType" ng-options="obj for obj in hopFormatType">
 										<option value="">Formato</option>
@@ -408,9 +409,11 @@
 		</v-pane-content>
 	</v-pane>
 </v-accordion>
-<h4 class="pane-header">Note{{carbtype}}</h4>
+</div>
+<h4 class="pane-header">Note</h4>
 <form id="saverecipe">
 	<textarea ng:model="recipe.notes" id="note" placeholder="Note" class="form-control" rows="6"></textarea>
 </form>		
 <md-button ng-click="saveRecipe()" ng-disabled="recipe.name == undefined || recipe.type == undefined || style == undefined || recipe.name.length <= 1" class="md-raised md-primary">Salva ricetta</md-button>
-<!-- 	<div ng-include="'/app/views/test.html'"></div> -->				
+<!-- <div ng-include="'/app/views/test.html'"></div> -->
+<a href="#/print/{{recipe._id}}">Versione Stampabile </a>				

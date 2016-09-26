@@ -9,6 +9,19 @@ beerboxApp.config(function($mdThemingProvider) {
 		.accentPalette('orange');
 });
 
+beerboxApp.directive('afterRender', [ function() {
+	var def = {
+		restrict : 'A', 
+		terminal : true,
+		transclude : false,
+		link : function(scope, element, attrs) {
+			if (attrs) { scope.$eval(attrs.afterRender) }
+			scope.$emit('onAfterRender')
+		}
+	};
+	return def;
+}]);
+
 beerboxApp.run(function(editableOptions) {
   editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
 });
@@ -638,7 +651,18 @@ beerboxApp.controller('RecipeCtrl', [
 					$scope.miscsList = $scope.extendDeep($scope.miscsList, result.itemselected);
 				});			
 			});
-		};			
+		};
+		
+		$scope.initialize = function () {
+		    // Makes this controller to have some default initial state and 
+		    // wires the reactions that belong to its concern.
+		    $scope.$on('onAfterRender', function (){ $scope.printPdf()});
+		};
+		
+		$scope.printPdf = function() {
+		}
+		
+		$scope.initialize();
 	
 	}		
 ]);
@@ -769,7 +793,34 @@ beerboxApp.config([
 					return recipes.get($stateParams.id);
 				}
 			}			
-		});		
+		});	
+		
+		$stateProvider
+		.state('print', {
+			url: '/print/{id}',
+			templateUrl: '/app/views/print.html',
+			controller: 'RecipeCtrl',
+			resolve: {			
+				malts:  function(malts) {
+					malts = malts.getAll();
+				},
+				hops: function(hops) {
+					hops = hops.getAll();
+				},
+				yeasts: function(yeasts) {
+					yeasts = yeasts.getAll();
+				},
+				miscs: function(miscs) {
+					return miscs = miscs.getAll();
+				},
+				styles: function(styles) {
+					return styles = styles.getAll();
+				},				
+				result: function($stateParams, recipes) {
+					return recipes.get($stateParams.id);
+				}
+			}			
+		});			
 			
 		$urlRouterProvider.otherwise('home');
 		// use the HTML5 History API
