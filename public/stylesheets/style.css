@@ -750,33 +750,3 @@ div.content-table span{
 	}
 	
 }
-
-@media print {
-	body {
-		font-size: 12px;	
-	}
-	
-	.ingredients-list .table, .form-control {
-		font-size: 10px;
-	}
-	
-	.recipe-header {
-		margin-bottom: 0px;
-	}
-	
-	@media print and (-webkit-min-device-pixel-ratio:0) {
-		.tip-title {
-			color: green;
-			-webkit-print-color-adjust: exact;
-		} 
-	}
-	.table .totalrow {
-		font-size: 11px;
-	}
-	
-	.recipe-content .table-responsive #hops .title {
-		font-weight: normal;
-	}
-	
-}
-
