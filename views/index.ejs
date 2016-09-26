@@ -90,6 +90,7 @@
 					<div layout="row" layout-margin>
 					<div class="col-md-4 col-sm-6 col-xs-6 recipe-box" ng-repeat="recipe in recipes | filter:query | filter:matchStyle(selectedStyle)| filter:matchType(selectedType)">
 			        	<div class="panel panel-primary">
+			        		<a href="#/recipe/{{recipe._id}}">
           					<div class="panel-heading">
             					<div class="row">
               						<div class="col-xs-2">
@@ -101,12 +102,8 @@
                  					</div>
                 				</div>
               				</div>
+              				</a>
             					<div class="panel-footer">
-		            				<a href="#/recipe/{{recipe._id}}">
-              							<span class="pull-left">Apri ricetta</span>
-                						<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-		          					</a>
-                					<div class="clearfix"></div>
 		            				<a href style="font-size: 10px;">
               							<span ng-click="deleterecipe(recipe)" class="pull-left">Elimina ricetta
 										<i class="fa fa-trash"></i>

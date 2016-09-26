@@ -65,7 +65,7 @@ a:hover {
 
 .home-column .panel-footer {
 	border: none;
-	padding: 15px;
+	padding-bottom: 25px;
 }
 
 .home-column [layout=row] {
@@ -356,7 +356,8 @@ md-checkbox.miscs-check.md-default-theme.md-checked .md-icon{
 }
 
 .home-content .panel-primary {
-	border: none;
+	border: 1px solid rgb(0,150,136);
+	border-radius: 0px;
 }
 
 .home-content .panel-primary>.panel-heading {
