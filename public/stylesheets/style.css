@@ -207,8 +207,8 @@ i.bb-bar-this {
 }
 
 .modal-content {
-	max-height: 90%;
-/* 	overflow-y: scroll; */
+/*	max-height: 90%;
+ 	overflow-y: scroll; */
 	overflow: hidden;
 	top: 35px;	
 }
@@ -227,7 +227,7 @@ i.bb-bar-this {
 
 .modal-content .table-container {
 	overflow-y: scroll;
-	max-height: 600px;
+	max-height: 90%;
 }
 
 .modal-content .modal-footer {
