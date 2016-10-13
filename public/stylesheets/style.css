@@ -207,7 +207,7 @@ i.bb-bar-this {
 }
 
 .modal-content {
-	max-height: 850px;
+	max-height: 90%;
 /* 	overflow-y: scroll; */
 	overflow: hidden;
 	top: 35px;	
