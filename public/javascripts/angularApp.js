@@ -478,11 +478,13 @@ beerboxApp.controller('RecipeCtrl', [
 	        return percent;
 		};
 		
-	    $scope.removeMalt = function(index) {
+	    $scope.removeMalt = function(item) {
+	    	var index = $scope.fermentablesList.indexOf(item);
 	        $scope.fermentablesList.splice(index, 1);
 	    };	
 			
-	    $scope.removeHop = function(index) {
+	    $scope.removeHop = function(item) {
+	    	var index = $scope.hopsList.indexOf(item);
 			console.log("removeHop: "+index+ " el:"+$scope.hopsList[index].name + " "+$scope.hopsList[index].minutes);
 	        $scope.hopsList.splice(index, 1);
 	    };
@@ -516,7 +518,8 @@ beerboxApp.controller('RecipeCtrl', [
 					
 		};
 			
-	    $scope.removeYeast = function(index) {
+	    $scope.removeYeast = function(item) {
+	    	var index = $scope.yeastsList.indexOf(item);
 	        $scope.yeastsList.splice(index, 1);
 	    };			
 		
@@ -539,11 +542,13 @@ beerboxApp.controller('RecipeCtrl', [
 			return Number(Math.round(og+'e2')+'e-2');
 		}
 		
-	    $scope.removeMisc = function(index) {
+	    $scope.removeMisc = function(item) {
+	    	var index = $scope.miscsList.indexOf(item);
 	        $scope.miscsList.splice(index, 1);
 	    };
 
-	    $scope.removeStep = function(index) {
+	    $scope.removeStep = function(item) {
+	    	var index = $scope.stepList.indexOf(item);
 	    	$scope.stepList.splice(index, 1);
 	    };
 		
@@ -567,7 +572,8 @@ beerboxApp.controller('RecipeCtrl', [
 			$scope.fermentation.push(s);
 		}
 
-		$scope.removeStepFer = function(index) {
+		$scope.removeStepFer = function(item) {
+			var index = $scope.fermentation.indexOf(item);
 	    	$scope.fermentation.splice(index, 1);
 	    };
 		

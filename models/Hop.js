@@ -4,6 +4,9 @@ var HopSchema = new mongoose.Schema({
   name: String,
   type: String,
   alfa: {type: Number},
+  oil: {type: Number},
+  aroma: String,
+  noble: Boolean,
   origin: String
 });
 

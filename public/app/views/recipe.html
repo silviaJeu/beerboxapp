@@ -184,7 +184,7 @@
 								<td>{{ percent(item.quantity) }}</td>
 								<td ng:model="item.og">{{ calculateOg(item) }}</td>
 								<td style="white-space: nowrap">
-									<a href ng-click="removeMalt($index)" class="glyphicon glyphicon-remove-circle"></a>
+									<a href ng-click="removeMalt(item)" class="glyphicon glyphicon-remove-circle"></a>
 								</td>							
 							</tr>	
 							<tr class="totalrow">
@@ -242,7 +242,7 @@
 									{{calculateIbu(item)}}
 								</td>
 								<td class="col-sm-1" style="white-space: nowrap">
-									<a href ng-click="removeHop($index)" class="glyphicon glyphicon-remove-circle"></a>
+									<a href ng-click="removeHop(item)" class="glyphicon glyphicon-remove-circle"></a>
 									<a href ng-click="copy($index,'hop')" class="glyphicon glyphicon-plus-sign"></a>
 								</td>							
 							</tr>	
