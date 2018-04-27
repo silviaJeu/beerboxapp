@@ -256,3 +256,26 @@ router.get('/miscs', function(req, res, next) {
   });
 });
 
+// tilts routing
+var Tilt = require('./../models/Tilt.js');
+Tilt = mongoose.model('Tilt');
+
+router.post('/tilt/', function(req, res, next) {
+
+  var time = req.param('Timepoint');
+  var sg = req.param('SG');
+  var temp = req.param('Temp');
+
+  var item = {
+    Timepoint: time,
+    Temp: sg,
+    SG: temp
+  };
+  var tiltItem = new Tilt(item);
+  tiltItem.save(function(err, tilt){
+    if(err){ return next(err); }
+
+    res.json(tilt);
+  });
+});
+
