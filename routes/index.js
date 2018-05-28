@@ -159,10 +159,6 @@ var Recipe = require('./../models/Recipe.js');
 Recipe = mongoose.model('Recipe');
 
 router.get('/recipes', function(req, res, next) {
-//  Recipe.find(function(err, recipes){
-//    if(err){ return next(err); }
-//    res.json(recipes);
-//  }).sort('-creationDate');
 	Recipe.find({}).sort('-creationDate').exec(function(err, recipes) {
 		if(err){ return next(err); }
 		res.json(recipes);
