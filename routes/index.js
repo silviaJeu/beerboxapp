@@ -260,7 +260,15 @@ router.get('/miscs', function(req, res, next) {
 var Tilt = require('./../models/Tilt.js');
 Tilt = mongoose.model('Tilt');
 
-router.post('/tilt/', function(req, res, next) {
+router.get('/tilts', function(req, res, next) {
+  Tilt.find(function(err, tilts){
+    if(err){ return next(err); }
+
+    res.json(tilts);
+  });
+});
+
+router.post('/tilts', function(req, res, next) {
 
   var time = req.param('Timepoint');
   var sg = req.param('SG');
@@ -271,6 +279,7 @@ router.post('/tilt/', function(req, res, next) {
     Temp: sg,
     SG: temp
   };
+  console.log("Post tilt pi data");
   var tiltItem = new Tilt(item);
   tiltItem.save(function(err, tilt){
     if(err){ return next(err); }
