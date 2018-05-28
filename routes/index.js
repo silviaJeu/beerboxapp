@@ -265,7 +265,7 @@ router.get('/tilts', function(req, res, next) {
 });
 
 router.post('/tilts', function(req, res, next) {
-
+  /*
   var time = req.param('Timepoint');
   var sg = req.param('SG');
   var temp = req.param('Temp');
@@ -275,8 +275,15 @@ router.post('/tilts', function(req, res, next) {
     Temp: sg,
     SG: temp
   };
-  console.log("Post tilt pi data");
-  var tiltItem = new Tilt(item);
+  */
+
+  var testItem = {
+    Timepoint: "43208.57058925926",
+    Temp: "11.0",
+    SG: "1.11"
+  };
+
+  var tiltItem = new Tilt(testItem);
   tiltItem.save(function(err, tilt){
     if(err){ return next(err); }
 
