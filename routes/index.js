@@ -245,11 +245,14 @@ var Misc = require('./../models/Misc.js');
 Misc = mongoose.model('Misc');
 
 router.get('/miscs', function(req, res, next) {
+
 	Misc.find(function(err, miscs){
     if(err){ return next(err); }
 
     res.json(miscs);
   });
+
+
 });
 
 // tilts routing
@@ -257,15 +260,13 @@ var Tilt = require('./../models/Tilt.js');
 Tilt = mongoose.model('Tilt');
 
 router.get('/tilts', function(req, res, next) {
+  /*
   Tilt.find(function(err, tilts){
     if(err){ return next(err); }
 
     res.json(tilts);
   });
-});
-
-router.post('/tilts', function(req, res, next) {
-  /*
+  */
   var time = req.param('Timepoint');
   var sg = req.param('SG');
   var temp = req.param('Temp');
@@ -275,15 +276,28 @@ router.post('/tilts', function(req, res, next) {
     Temp: sg,
     SG: temp
   };
-  */
+  var tiltItem = new Tilt(item);
+  tiltItem.save(function(err, tilt){
+    if(err){ return next(err); }
 
-  var testItem = {
-    Timepoint: "43208.57058925926",
-    Temp: "11.0",
-    SG: "1.11"
+    res.json(tilt);
+  });
+
+});
+
+router.post('/tilts', function(req, res, next) {
+  var time = req.param('Timepoint');
+  var sg = req.param('SG');
+  var temp = req.param('Temp');
+
+  var item = {
+    Timepoint: time,
+    Temp: sg,
+    SG: temp
   };
 
-  var tiltItem = new Tilt(testItem);
+
+  var tiltItem = new Tilt(item);
   tiltItem.save(function(err, tilt){
     if(err){ return next(err); }
 
