@@ -270,11 +270,17 @@ router.get('/tilts', function(req, res, next) {
   var time = req.param('Timepoint');
   var sg = req.param('SG');
   var temp = req.param('Temp');
+  var beer = req.param('Beer');
+  var color = req.param('Color');
+  var comment = req.param('Comment');
 
   var item = {
     Timepoint: time,
-    Temp: sg,
-    SG: temp
+    Temp: temp,
+    SG: sg,
+    Beer: beer,
+    Color: color,
+    Comment: comment
   };
   var tiltItem = new Tilt(item);
   tiltItem.save(function(err, tilt){
@@ -295,7 +301,6 @@ router.post('/tilts', function(req, res, next) {
     Temp: sg,
     SG: temp
   };
-
 
   var tiltItem = new Tilt(item);
   tiltItem.save(function(err, tilt){
